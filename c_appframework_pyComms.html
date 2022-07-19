@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can communicate with IBM QRadar Hosts from Python by using the REST endpoints that QRadar exposes.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Communicating with QRadar hosts from Python</title>
+</head>
+<body id="c_appframework_pyComms"><main role="main"><article role="article" aria-labelledby="d5270e10">
+<h1 class="topictitle1" id="d5270e10">Communicating with <span class="ph">QRadar</span> hosts from Python</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You can communicate with <span class="ph">IBM®
+QRadar®</span> Hosts from Python by
+using the REST endpoints that <span class="ph">QRadar</span> exposes.</p>
+
+<div class="section">
+<p>As part of any communication from <span class="ph">QRadar</span> to an app, <span class="ph">QRadar</span> provides the following
+headers:</p>
+
+<dl>
+
+<dt class="dlterm">QRADAR-USER</dt>
+
+<dd class="dlentry">This header contains the<span class="ph">QRadar</span> user name.</dd>
+
+
+
+<dt class="dlterm">QRADAR-USER-ROLE</dt>
+
+<dd class="dlentry">This header contains the user role assigned to the user.</dd>
+
+
+
+<dt class="dlterm">QRADAR-SECURITY-PROFILE</dt>
+
+<dd class="dlentry">This header contains the security profile that defines which networks, log sources, and domains
+that the user can access</dd>
+
+
+</dl>
+
+</div>
+
+<section class="section" role="region" aria-labelledby="d5270e83"><h2 class="sectiontitle" id="d5270e83"><span class="keyword apiname">qpylib</span> library</h2>
+
+<p>The <span class="keyword apiname">qpylib</span> library provides functions that encapsulate much of the logic that
+is required to initiate this communication.</p>
+
+<p>For REST API calls, use the <span class="keyword apiname">qpylib.REST(RESTtype, request_url, headers, data, json,
+params, version)</span> function. This function prepends the IP address of the host console to
+the request URL. </p>
+
+<p>This REST function acts as a wrapper for the Python requests library. It returns a
+<span class="keyword parmname">requests.Response</span> object. </p>
+
+<p>The following table describes the fields that you can access from this object:</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_pyComms__table_wn1_3c2_2y" class="defaultstyle"><caption><span class="tablecap">Table 1. Response fields</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d5270e125">Field Name</th>
+
+<th id="d5270e128">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d5270e125 "><span class="keyword parmname">status_code</span></td>
+
+<td headers="d5270e128 ">Status code for the response. Useful for determining the success of a request. For example,
+if you are checking for a <samp class="ph systemoutput">200</samp> response.</td>
+
+</tr>
+
+<tr>
+<td headers="d5270e125 "><span class="keyword parmname">url</span></td>
+
+<td headers="d5270e128 ">URL of the request. </td>
+
+</tr>
+
+<tr>
+<td headers="d5270e125 "><span class="keyword parmname">headers</span></td>
+
+<td headers="d5270e128 ">Dictionary object that contains the response headers.</td>
+
+</tr>
+
+<tr>
+<td headers="d5270e125 "><span class="keyword parmname">text</span></td>
+
+<td headers="d5270e128 ">Raw text output of the response. Useful for debugging purposes.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The function parameters are explained in the following table:</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_pyComms__table_fl1_3c2_2y" class="defaultstyle"><caption><span class="tablecap">Table 2. Function parameters</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d5270e199">Parameter Name</th>
+
+<th id="d5270e202">Explanation</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d5270e199 "><span class="keyword parmname">RESTtype</span></td>
+
+<td headers="d5270e202 ">String REST request type. Accepts 'GET', 'PUT', 'POST' and 'DELETE'.</td>
+
+</tr>
+
+<tr>
+<td headers="d5270e199 "><span class="keyword parmname">request_url</span></td>
+
+<td headers="d5270e202 ">URL of the REST endpoint. The <span class="keyword apiname">qpylib</span> library prepends the appropriate
+console IP address to the URL so that only the URL from <span class="ph filepath">/api/</span> is needed. For
+example: <span class="ph filepath">/api/gui_app_framework/applications</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d5270e199 "><span class="keyword parmname">headers</span> (optional)</td>
+
+<td headers="d5270e202 ">Optional headers to be added to the request. Headers must be contained within a Python
+dictionary object, for example, <code class="ph codeph">{'Accept': 'application/json'}</code>.</td>
+
+</tr>
+
+<tr>
+<td headers="d5270e199 "><span class="keyword parmname">data </span>(optional)</td>
+
+<td headers="d5270e202 ">Optional data that can be contained within a request's body. Data must be in the format that
+is appropriate to the REST endpoint. For example, data must be converted to a JSON string by using
+the JSON Python library (<span class="keyword apiname">json.dumps()</span>) when a REST endpoint accepts
+<span class="keyword parmname">application/json</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d5270e199 "><span class="keyword parmname">json</span> (optional)</td>
+
+<td headers="d5270e202 ">Optional parameter that accepts Python dictionary objects that are converted to a JSON String
+that is included in the request's body. </td>
+
+</tr>
+
+<tr>
+<td headers="d5270e199 "><span class="keyword parmname">params</span> (optional)</td>
+
+<td headers="d5270e202 ">Optional parameter that accepts Python dictionary objects that are converted to URL query
+parameters.</td>
+
+</tr>
+
+<tr>
+<td headers="d5270e199 "><span class="keyword parmname">version</span> (optional)</td>
+
+<td headers="d5270e202 ">Optional parameter that specifies which version of the <span class="ph">QRadar</span> RESTful API to use. The
+value must be a string that matches a supported version of the <span class="ph">QRadar</span> RESTful API (for example,
+<var class="keyword varname">5.0</var>). If no version is specified, no <span class="keyword parmname">version</span> header is sent
+and the most recent version is used by default.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The Response object also contains functions that simplify access to the data contained in the
+response body. You can use the <span class="keyword apiname">json()</span> function to retrieve a dictionary object
+that contains the response body, or a list of dictionary objects if the endpoint returns a
+collection.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d5270e329"><h2 class="sectiontitle" id="d5270e329">Example: Get QRadar Offenses</h2>
+
+<pre class="codeblock"><code>import qpylib
+offenses_endpoint = '/api/siem/offenses'
+headers = {'content-type' :  'application/json'}
+response = qpylib.REST('GET', offenses_endpoint, headers=headers)
+offenses_json_list = response.json()
+# List containing dictionary objects for each <span class="ph">QRadar</span> offense
+
+# Iterate over each offense JSON in the list and print its id.
+format_string =  'Found offense id [{0}].'
+for offense_json  in offenses_json_list:
+             offense_id = str(offense_json['id'])  # Access fields
+             print(format_string.format(offense_id))</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d5270e342"><h2 class="sectiontitle" id="d5270e342">Example: Get <span class="ph">QRadar</span>
+Offenses With Queries</h2>
+
+<pre class="codeblock"><code>import qpylib
+offenses_endpoint = '/api/siem/offenses'
+headers = {'content-type' : 'application/json'}
+params= { 'filter' : 'inactive=false' }
+response = qpylib.REST('GET', offenses_endpoint, headers=headers, params=params)
+offenses_json_list = response.json()</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d5270e355"><h2 class="sectiontitle" id="d5270e355">Example: Post <span class="ph">QRadar</span>
+Offense Closing Reason</h2>
+
+<pre class="codeblock"><code>import qpylib
+offense_closing_reasons_endpoint = '/api/siem/offense_closing_reasons'
+headers = {'content-type' : 'application/json'}
+json_dict = { 'reason' : 'Demonstrating posting data to QRadar'}
+response = qpylib.REST('POST', offense_closing_reasons_endpoint, 
+                        headers=headers, json=json_dict)</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d5270e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

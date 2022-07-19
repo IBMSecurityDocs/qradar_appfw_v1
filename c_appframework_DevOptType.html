@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Describes values that you use to develop and test your app locally.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>Developer options type</title>
+</head>
+<body id="c_appframework_devOptType"><main role="main"><article role="article" aria-labelledby="d12949e10">
+	<h1 class="topictitle1" id="d12949e10">Developer options type</h1>
+
+	
+	<div class="body conbody"><p class="shortdesc">Describes values that you use to develop and test your app locally.</p>
+
+		<p>The <code class="ph codeph">dev_opts</code> object type is used only for local testing. Parameters in
+<code class="ph codeph">dev_opts</code> blocks are not passed to the <span class="ph">IBM®
+QRadar®</span> Console when you deploy
+your app. </p>
+
+		<p>You use the <code class="ph codeph">dev_opts</code> block in the <span class="ph filepath">manifest.json</span> file to
+specify the IP address of a remote <span class="ph">QRadar</span> Console. If your
+application uses <span class="ph">QRadar</span> API
+endpoints, you can use the <code class="ph codeph">dev_opts</code> object to contact the <span class="ph">QRadar</span> API and test the
+application locally before you upload to your <span class="ph">QRadar</span> production instance.</p>
+
+<p>The following table describes the parameters of the <code class="ph codeph">Dev_opts</code> block:</p>
+
+		
+<div class="tablenoborder"><table summary="" id="c_appframework_devOptType__table_pmk_stc_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. <code class="ph codeph">Dev_opts</code> block fields</span></caption><colgroup><col style="width:25%"><col style="width:12.5%"><col style="width:25%"><col style="width:37.5%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d12949e90"> Field </th>
+
+<th id="d12949e93"> Required </th>
+
+<th id="d12949e96"> Type </th>
+
+<th id="d12949e99"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d12949e90 ">
+<span class="keyword parmname">console_ip</span>
+</td>
+
+<td headers="d12949e93 ">Yes</td>
+
+<td headers="d12949e96 "> String </td>
+
+<td headers="d12949e99 "> The IP address of the remote <span class="ph">QRadar
+Console</span> that contacts the API
+endpoints that your app uses.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+		<p>The following code is a sample <code class="ph codeph">dev_opts</code> block from the
+<span class="ph filepath">manifest.json</span> file:</p>
+
+		<pre class="codeblock"><code>...
+
+	"dev_opts": [
+		{
+			"console_ip":"10.11.12.13",
+		}
+	],
+
+...</code></pre>
+		<p>When you run your app, you are prompted for your <span class="ph">QRadar</span> user name and password. You
+can also store those credentials for your local development. Credentials are stored in clear text in
+the <span class="ph filepath">&lt;USER_HOME&gt;/.qradar_appfw.auth</span> file on Unix and Linux, and in the
+<span class="ph filepath">C:\Users\&lt;<var class="keyword varname">USER_HOME</var>&gt;\.qradar_appfw.auth</span> file on
+Windows.</p>
+
+	</div>
+
+<aside role="complementary" aria-labelledby="d12949e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+</nav></aside></article></main></body></html>

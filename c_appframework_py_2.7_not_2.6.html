@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use environmental variables to make your app use Python 2.7 instead of Python 2.6.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Use Python 2.7 in your app</title>
+</head>
+<body id="concept_yy1_55c_d1b"><main role="main"><article role="article" aria-labelledby="d17265e10">
+<h1 class="topictitle1" id="d17265e10">Use Python 2.7 in your app </h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use environmental variables to make your app use Python 2.7 instead of Python
+2.6.</p>
+
+
+<p data-hd-otherprops="730">This feature was introduced in <span class="ph">IBM®
+QRadar®</span> 7.3.0 Patch 2
+(7.3.0.20170620100024) SFS.</p>
+
+<p>Add the following environmental variables to the manifest file to instruct the app to use Python
+2.7:</p>
+
+<div class="p">
+<pre class="codeblock"><code>"environment_variables":[
+      {
+         "name":"PATHSTART",
+         "value":"\/usr\/local\/bin"
+      }
+   ], </code></pre>
+</div>
+
+<p>The following manifest file example includes the environment variables that make the app use
+Python 2.7.</p>
+
+<div class="p">
+<pre class="codeblock"><code>{
+   "environment_variables":[
+      {
+         "name":"PATHSTART",
+         "value":"\/usr\/local\/bin"
+      }
+   ],
+   "console_ip":"10.11.12.13",
+   "configuration_pages":[
+      {
+         "required_capabilities":[
+            "ADMIN"
+         ],
+         "description":"Application Development",
+         "text":"Develop Applications",
+         "url":"bootstrapper"
+      }
+   ],
+   "name":"Application Development",
+   "log_level":"debug",
+   "description":"Application for installing other applications in Development-mode.",
+   "resources":{
+      "memory":200
+   },
+   "version":"1.0.2",
+   "uuid":"ae1c83d0-be94-11e5-a837-0800200c9a66",
+   "app_id":1006
+} 
+</code></pre>
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d17265e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="After you set up your development environment, you import it into Eclipse to use that Eclipse integrated development environment (IDE) features to develop your app.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="t_appframework_createDevEnv.html">
+<title>Developing apps in Eclipse</title>
+</head>
+<body id="task_o4x_qqn_tt"><main role="main"><article role="article" aria-labelledby="d18195e10">
+<h1 class="topictitle1" id="d18195e10">Developing apps in Eclipse</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">After you set up your development environment, you import it into Eclipse to use that
+Eclipse integrated development environment (IDE) features to develop your app. </p>
+
+<section class="section context" role="region" aria-labelledby="taskd18195e18"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd18195e18">About this task</h2></div>
+<p>For Python development, install PyDev, the Eclipse IDE that is used in Python development. The
+latest version of Eclipse can be found on the Eclipse website <a href="https://eclipse.org/downloads/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">https://eclipse.org/downloads/</a> (https://eclipse.org/downloads/). </p>
+
+</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd18195e28">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Install PyDev into Eclipse. </span> 
+<ul class="ul choices">
+<li class="li choice">To install from the Eclipse Marketplace, click <span class="ph menucascade"><span class="ph uicontrol">Help</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Eclipse Marketplace</span></span> on the main Eclipse <span class="ph uicontrol">Help</span> panel.</li>
+
+<li class="li choice">To install the PyDev repository from (http://pydev.org/updates), click <span class="ph menucascade"><span class="ph uicontrol">Help</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Install New Software</span></span> on the main Eclipse <span class="ph uicontrol">Help</span> panel. </li>
+
+</ul>
+
+</li>
+<li class="step stepexpand">
+<span class="cmd">After you install PyDev, switch the perspective to PyDev.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">In the PyDev perspective, click <span class="ph menucascade"><span class="ph uicontrol">File</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> New</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">PyDev project</span></span> and do the following tasks in the <span class="ph uicontrol">PyDev Project</span> dialog box. </span> 
+<ol type="a" class="ol substeps">
+<li class="li substep substepexpand">
+<span class="cmd">Enter a project name.</span>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">Select <span class="ph uicontrol">2.6</span> from the <span class="ph uicontrol">Grammar Version</span> list.</span>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">Select <span class="ph uicontrol">Create links to existing sources</span></span>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">To configure the interpreter to use the virtual environment in the SDK, click <span class="ph uicontrol">Click
+here to configure an interpreter not listed</span>. </span>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">Click <span class="ph uicontrol">New</span> in the <span class="keyword wintitle">Python Interpreters</span> dialog and
+enter a name and path to the Python executable file on your system. </span>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">Click <span class="ph uicontrol">OK</span>. </span> 
+<div class="itemgroup info">
+<p>Ensure that the <span class="ph uicontrol">site-packages</span> folder path
+(.../&lt;<var class="keyword varname">app_name</var>&gt;/<span class="ph filepath">qradar_appfw_venw/lib/python2.7/site-packages</span>)
+check box is selected when you select the folders to be added to the system python path.</p>
+
+</div>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">Click <span class="ph uicontrol">Apply</span>, and <span class="ph uicontrol">OK</span> to return to the
+<span class="ph uicontrol">PyDev Project</span> dialog.</span>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">Click <span class="ph uicontrol">Create links to existing sources</span>, and then click
+<span class="ph uicontrol">Next</span>.</span>
+</li>
+
+<li class="li substep substepexpand">
+<span class="cmd">Click <span class="ph uicontrol">Add external source folder</span> and go to the root directory of your
+development environment, click <span class="ph uicontrol">OK</span>, and then click
+<span class="ph uicontrol">Finish.</span></span> 
+<div class="itemgroup stepresult">
+<p>The new Eclipse PyDev project that contains your development environment appears in your
+<span class="ph uicontrol">Package Explorer</span>.</p>
+
+</div>
+</li>
+
+</ol>
+
+</li>
+</ol>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d18195e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="t_appframework_createDevEnv.html" title="Use the QRadar GUI Application Framework SDK (Software Development Kit) to create a basic development environment for your app.">Creating your development environment</a></div>
+</div>
+</nav></aside></article></main></body></html>

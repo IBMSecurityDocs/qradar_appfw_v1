@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Build apps in Python that integrate with, and add extra functions to, QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Sample apps</title>
+</head>
+<body id="concept_lsl_mhn_ps"><main role="main"><article role="article" aria-labelledby="d17744e10">
+<h1 class="topictitle1" id="d17744e10">Sample apps</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Build apps in Python that integrate with, and add extra functions to, <span class="ph">QRadar®</span>. </p>
+
+<p>The mini-tutorials for the sample apps help to explain the basics of what you need to know to
+build and integrate your own apps into <span class="ph">QRadar</span>. </p>
+
+<p>The following list describes some of the sample apps that are available:</p>
+
+<ul>
+<li><span class="ph filepath">com.ibm.AppMan.1.0.0.zip</span> creates an icon on the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Admin</span> tab, and opens an HTML page when you click it that shows all of the
+apps that are currently installed.</li>
+
+<li><span class="ph filepath">com.ibm.BugzillaOffenses.0.1.0.zip</span> polls <span class="ph">QRadar</span> for offenses and pushing
+those offenses as tickets to the Bugzilla REST API.</li>
+
+<li><span class="ph filepath">com.ibm.configpage-with-image.1.0.0.zip</span> creates an icon on the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Admin</span> tab and opens an HTML page when you click it.</li>
+
+<li><span class="ph filepath">com.ibm.HelloWorld.1.0.0.zip</span> creates a new tab in the <span class="ph">QRadar</span> UI with the text "Hello
+World!". This simple app is also created when you use the SDK to create a development
+environment.</li>
+
+<li><span class="ph filepath">com.ibm.si.HelloWorldG11n.1.0.0.zip</span> a globalized version of the simple
+Hello World app.</li>
+
+<li><span class="ph filepath">com.ibm.googlemaps.belfast.zip</span> creates a new tab and displays a map.</li>
+
+<li><span class="ph filepath">com.ibm.IPMetadataProvider.1.0.0.zip</span> demonstrates how to add IP metadata to
+<span class="ph">QRadar</span> tooltips.</li>
+
+<li><span class="ph filepath">com.ibm.IPMetadataProviderWithImage.1.0.0.zip</span> - an app that demonstrates
+how to add IP address metadata and images to <span class="ph">QRadar</span> tooltips.</li>
+
+<li><span class="ph filepath">com.ibm.memory.resources.zip</span> demonstrates how to use the manifest to request
+memory resource for an app.</li>
+
+<li><span class="ph filepath">com.ibm.MyFirstRESTApp.1.0.0.zip</span> calls a REST API and adds the data to a
+dashboard item. This app is included in the <span class="ph">QRadar</span> Software Development
+Kit.</li>
+
+<li><span class="ph filepath">com.ibm.oauthExample.zip</span> minimal example of how to set-up an app manifest to
+request to use oAuth authentication.</li>
+
+<li><span class="ph filepath">com.ibm.OffenseVisualizer.1.0.0.zip</span> displays offenses on the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Offenses</span> tab.</li>
+
+<li><span class="ph filepath">com.ibm.ReferenceDataManagerLite.zip</span> creates a configuration page for
+handling reference data.</li>
+
+<li><span class="ph filepath">com.ibm.si.dashboard-example.1.0.0.zip</span> adds a dashboard item to the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Dashboard</span> tab.</li>
+
+<li><span class="ph filepath">com.ibm.si.dashboard-with-images.1.0.0.zip</span> adds a dashboard item with
+images to the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Dashboard</span> tab.</li>
+
+<li><span class="ph filepath">com.ibm.si.multi-components-example.1.0.0.zip</span> adds a tab, a new toolbar
+button in <span class="ph">QRadar</span>, and an icon
+on the <span class="ph uicontrol">Admin</span> tab.</li>
+
+<li><span class="ph filepath">com.ibm.si.offense-toolbar-button.1.0.1.zip</span> adds a button to the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Offenses</span> tab toolbar that opens a JavaScript alert dialog that contains
+offense data.</li>
+
+<li><span class="ph filepath">com.ibm.store.1.0.0.zip</span> creates a new tab in <span class="ph">QRadar</span> that saves the data that is
+entered in a database within the docker container.</li>
+
+<li><span class="ph filepath">com.QuickScan.zip</span> creates a tab that allows you to quickly kick off a scan
+in <span class="ph">QRadar Vulnerability Manager</span>.</li>
+
+</ul>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d17744e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_DBitem.html">Dashboard item example</a></strong><br>
+You can use <span class="ph">IBM® QRadar</span> GUI Application Framework to add a dashboard item to your <span class="ph">QRadar</span> dashboard.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_samples_PageScript.html">Page script / toolbar button example</a></strong><br>
+The page script / toolbar button example adds a button to the toolbar on the <span class="ph uicontrol">Offenses</span> or <span class="ph uicontrol">Offense Summary</span> tabs in <span class="ph">IBM QRadar</span>. The new button calls a page script when you click it.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_PassingContext.html">Passing context-specific information to a page script</a></strong><br>
+You use a GUI Action to pass information about offenses, assets, vulnerabilities from a <span class="ph">QRadar</span> table to a page script.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_samples_metadata.html">Context-specific metadata provider example</a></strong><br>
+Metadata providers are used to show extra context-sensitive information in  <span class="ph">IBM QRadar</span>.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_samples_AddRighclick.html">Add right-click functionality</a></strong><br>
+Add right-click functionality to a tab your app created in <span class="ph">IBM QRadar</span>.</li>
+<li class="ulchildlink"><strong><a href="c_appfw_samples_CustFrags.html">Custom fragments example</a></strong><br>
+The custom fragments feature allows an app to inject its own content into <span class="ph">QRadar</span> tabs and pages. The application determines what the content is and how it is rendered. The injection points are fixed, predetermined locations within the <span class="ph">QRadar</span> page set.</li>
+<li class="ulchildlink"><strong><a href="c_appfw_samples_CustomCols.html">Custom column example</a></strong><br>
+You can add columns that contain custom content to tables in  <span class="ph">QRadar</span>.</li>
+<li class="ulchildlink" data-hd-otherprops="730"><strong><a href="c_appfw_tutorial_namedService.html">Named service sample app</a></strong><br>
+This example shows how to run a Node.js server as a named service with a single endpoint. The app takes data that is served from the service's endpoint and displays it on a new tab in the <span class="ph">QRadar</span> UI.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

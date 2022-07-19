@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use rule names and rule IDs as parameters in custom action scripts.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_CREResp.html">
+<title>Custom action and QRadar rules</title>
+</head>
+<body id="concept_yxv_myh_h1b"><main role="main"><article role="article" aria-labelledby="d2706e10">
+<h1 class="topictitle1" id="d2706e10">Custom action and QRadar rules</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use rule names and rule IDs as parameters in custom action scripts.</p>
+
+<p>Pass the rule ID and rule name to custom action scripts by using the <span class="ph filepath">RULE_ID</span>
+and <span class="ph filepath">RULE_NAME</span> environmental variables.</p>
+
+<p>The following Bash script example shows how to access the rule ID and rule name of the custom
+rule that triggers the custom action:</p>
+
+<section class="section" role="region" aria-labelledby="d2706e32"><h2 class="sectiontitle" id="d2706e32">Bash script example</h2>
+
+<div class="p">
+<pre class="codeblock"><code>#!/bin/bash 
+# The following script shows how to access 
+# the id and name of the custom rule that triggered 
+# the custom action in bash 
+
+echo "Rule id: $RULE_ID" 
+echo "Rule name: $RULE_NAME"</code></pre>
+</div>
+
+<p>The following Python script example shows how to access the rule ID and rule name of the custom
+rule that triggers the custom action:</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d2706e47"><h2 class="sectiontitle" id="d2706e47">Python script example</h2>
+
+<pre class="codeblock"><code>#!/usr/bin/python
+# The following script shows how to access
+# the id and name of the custom rule that triggered
+# the custom action in python
+
+import os
+rule_id = os.environ.get('RULE_ID')
+rule_name = os.environ.get('RULE_NAME')
+
+print "Rule id: " + rule_id
+print "Rule name: " + rule_name</code></pre>
+<p>The following Perl script example shows how to access the rule ID and rule name of the custom
+rule that triggers the custom action:</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d2706e59"><h2 class="sectiontitle" id="d2706e59">Perl script example</h2>
+
+<pre class="codeblock"><code>#!/bin/perl
+# The following script shows how to access
+# the id and name of the custom rule that triggered
+# the custom action in perl
+
+$ruleId = $ENV{'RULE_ID'};
+$ruleName = $ENV{'RULE_NAME'};
+
+print "Rule id: $ruleId\n";
+print "Rule name: $ruleName\n";</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d2706e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_CREResp.html" title="You can add your own script that runs as a part of a custom action when a custom rules engine (CRE) rule is triggered.">Custom actions for CRE responses</a></div>
+</div>
+</nav></aside></article></main></body></html>

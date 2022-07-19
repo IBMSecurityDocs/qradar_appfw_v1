@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can use page scripts to link between apps, select rows in a QRadar table, and get the IP address of an asset.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_PageScript.html">
+<title>Page script samples</title>
+</head>
+<body id="c_appframework_usefulPgScrs"><main role="main"><article role="article" aria-labelledby="d28423e10">
+<h1 class="topictitle1" id="d28423e10">Page script samples</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You can use page scripts to link between apps, select rows in a <span class="ph">QRadar®</span> table, and get the IP
+address of an asset.</p>
+
+<section class="section" role="region" aria-labelledby="d28423e24"><h2 class="sectiontitle" id="d28423e24">How to link between apps</h2>
+
+<p>You use the <code class="ph codeph">setActiveTab(tabId,url)</code> function from the
+<span class="ph filepath">qradar.js</span> library to link between two apps that are installed on the same <span class="ph">QRadar
+Console</span>.</p>
+
+<p>For example, you want to link from MyApp1 to MyApp2. MyApp1 uses the following HTML template with
+a div tag that calls a JavaScript function:</p>
+
+<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;myApp1&lt;/title&gt; 
+  &lt;script type="text/javascript" src="static/js/myApp2.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div <span class="keyword parmname">onclick="somejs();"</span>&gt;
+    Link to myApp2&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+<p>The <code class="ph codeph">somejs()</code> function in the <span class="ph filepath">static/js/myApp2.js</span> file uses
+the <code class="ph codeph">setActiveTab(tabId,url)</code> function from the <span class="ph filepath">qradar.js</span>
+library:</p>
+
+<pre class="codeblock"><code>function <span class="keyword parmname">somejs()</span> {
+     alert('set active tab');    
+     top.setActiveTab("<var class="keyword varname">myApp2_1057</var>","<var class="keyword varname">plugins/1057/app_proxy/index</var>");
+    }</code></pre>
+<p>The <span class="keyword parmname">tabId</span> parameter uses the following format:
+<code class="ph codeph">areasID_applicationID</code>. The areas ID is the value of the <span class="keyword parmname">id</span>
+field in the <span class="keyword parmname">areas</span> block of the myApp2 <span class="ph filepath">manifest.json</span>
+file.</p>
+
+<div class="p">The <span class="keyword parmname">url</span> parameter uses the following format:
+<pre class="codeblock"><code>plugins/&lt;<var class="keyword varname">applicationID</var>&gt;/app_proxy/&lt;<var class="keyword varname">areasURL</var>&gt;</code></pre>.</div>
+
+<p> The <var class="keyword varname">applicationID</var> is assigned when you install your app. You can use the
+<span class="keyword apiname">POST /gui_app_framework/application_creation_task</span> endpoint to retrieve the
+<var class="keyword varname">applicationID</var>.</p>
+
+<p>The <var class="keyword varname">areasURL</var> is the value of the <span class="keyword parmname">url</span> field in the
+<span class="keyword parmname">areas</span> block of the following myApp2 <span class="ph filepath">manifest.json</span>
+file.</p>
+
+<pre class="codeblock"><code>"areas": [
+         {           
+       <span class="keyword parmname">"id":"myApp2"</span>,           
+       "text":"myApp2",
+       "description":"The app I am linking to",
+       <span class="keyword parmname">"url":"index"</span>,       
+       "required_capabilities":["ADMIN"]         }   
+     ],</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d28423e150"><h2 class="sectiontitle" id="d28423e150">How to get the selected rows in a table</h2>
+
+<p>To get all the selected rows in a table on a <span class="ph">QRadar</span> page, use the following
+code in your page script:</p>
+
+<pre class="codeblock"><code>var selectedIds = getSelectedRowIds();
+
+var grid = getGrid();
+
+var store = grid.store;
+var row = grid.row(selectedIds[0], true );</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d28423e166"><h2 class="sectiontitle" id="d28423e166">How to get the IP address of the selected asset from the <span class="ph uicontrol">Asset</span>
+page</h2>
+
+<p>To get the IP address of the selected asset from the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Asset</span> tab use the following code in your page script:</p>
+
+<pre class="codeblock"><code>var assetId = selectedRows[0].id;</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d28423e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_PageScript.html" title="The page script / toolbar button example adds a button to the toolbar on the Offenses or Offense Summary tabs in IBM QRadar. The new button calls a page script when you click it.">Page script / toolbar button example</a></div>
+</div>
+</nav></aside></article></main></body></html>

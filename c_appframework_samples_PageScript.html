@@ -1,0 +1,538 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The page script / toolbar button example adds a button to the toolbar on the Offenses or Offense Summary tabs in IBM QRadar. The new button calls a page script when you click it.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<title>Page script / toolbar button example</title>
+</head>
+<body id="c_appframework_samples_PageScript"><main role="main"><article role="article" aria-labelledby="d26915e10">
+<h1 class="topictitle1" id="d26915e10">Page script / toolbar button example</h1>
+
+
+<div class="body conbody"><p class="shortdesc">The page script / toolbar button example adds a button to the toolbar on the
+<span class="ph uicontrol">Offenses</span> or <span class="ph uicontrol">Offense Summary</span> tabs in <span class="ph">IBM®
+QRadar®</span>. The new button calls a
+page script when you click it.</p>
+
+		<p>When you select an offense in the <span class="ph uicontrol">Offenses</span> or <span class="ph uicontrol">Offense
+Summary</span> tab, and click the button, information about the selected offense is displayed
+in an alert.</p>
+
+<p>The following image shows the <span class="ph uicontrol">My Offense Button</span>.</p>
+
+		<div class="fignone" id="c_appframework_samples_PageScript__fig_cwh_dtl_tt">
+			<div class="image"><img src="appframework_PgScrOffenses.png" alt="My Offense Button"></div>
+		</div>
+
+<p>The following image shows the output from using the <span class="ph uicontrol">My Offense Button</span>.</p>
+
+		<div class="fignone" id="c_appframework_samples_PageScript__fig_uky_ftl_tt">
+			<div class="image"><img src="appframework_PgScrOffenseSumm.png" alt="My Offense Button output"></div>
+		</div>
+
+		<p>The following table shows the files that are used for this sample app:</p>
+
+		
+<div class="tablenoborder"><table summary="" id="c_appframework_samples_PageScript__concept_a5z_4wh_nt__table_twp_gcj_lt" class="defaultstyle"><caption><span class="tablecap">Table 1. Sample app files</span></caption><colgroup><col style="width:26.785714285714285%"><col style="width:73.21428571428571%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d26915e81" class="thleft">Files/Folders</th>
+
+<th id="d26915e84" class="thleft">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="c_appframework_samples_PageScript__d67e32 " class="tdleft"><span class="ph filepath">app</span></td>
+
+<td headers="c_appframework_samples_PageScript__d67e34 " class="tdleft">The root directory for application files. The app folder contains the following files:
+<p><span class="ph filepath">qpylib</span> folder that contains the Python library files that your application
+can use to connect with <span class="ph">QRadar</span>
+API endpoints.</p>
+<p><span class="ph filepath">__init__.py</span> - a sample initialization file your app. It
+creates a Flask instance, imports views from <span class="ph filepath">views.py</span> and functions from the
+<span class="ph filepath">qpylib</span> library.</p>
+<p><span class="ph filepath">views.py</span> - The main entry point into
+the web application. This file and the <span class="ph filepath">manifest.json</span> file are the only files
+that are required in every application. This file contains sample code for the sample
+application.</p>
+<p>The <span class="ph filepath">/static/js/custom_script.js</span> script that is run when the
+button is clicked.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_samples_PageScript__d67e32 " class="tdleft"><span class="ph filepath">__init__.py</span></td>
+
+<td headers="c_appframework_samples_PageScript__d67e34 " class="tdleft">Creates an instance of the Flask micro-framework that is used to serve content to <span class="ph">QRadar</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_samples_PageScript__d67e32 " class="tdleft"><span class="ph filepath">manifest.json</span></td>
+
+<td headers="c_appframework_samples_PageScript__d67e34 " class="tdleft">This file tells <span class="ph">QRadar</span>
+what the sample app does.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+		<section class="section" role="region" aria-labelledby="d26915e164"><h2 class="sectiontitle" id="d26915e164"><span class="ph filepath">manifest.json</span></h2>
+			
+			<p>The <span class="ph filepath">manifest.json</span> file contains the following code:</p>
+
+			<pre class="codeblock"><code>{
+    "name":"Page script test App",
+    "description":"An example of to test page scripts",
+    "version":"1.0.1",
+    "uuid":"4a5d50cc-b9f1-4526-b356-5cb2d60e9467",
+
+    "rest_methods": [
+        {
+            "name":"offenseListFunction",
+            "url":"/offenseListFunction",
+            "method":"GET",
+            "argument_names":["appContext"]
+        }
+    ],
+
+    "gui_actions": [
+        {
+            "id":"OffenseListToolbarButton",
+            "text":"My Offense Button",
+            "description":"My Offense Button",
+            "icon":"",
+            "rest_method":"offenseListFunction",
+            "javascript":"my_offense_toolbar_button_action(result)",
+            "groups":["OffenseListToolbar"]
+        },
+        {
+            "id":"OffenseSummaryToolbarButton",
+            "text":"My Offense Button",
+            "description":"My Offense Button",
+            "icon":"",
+            "rest_method":"offenseListFunction",
+            "javascript":"my_offense_toolbar_button_action(result)",
+            "groups":["OffenseSummaryToolbar"]
+        }
+    ],
+
+    "page_scripts": [
+        {
+            "app_name":"SEM",
+            "page_id":"OffenseList",
+            "scripts":["static/js/custom_script.js"]
+        },
+        {
+            "app_name":"SEM",
+            "page_id":"OffenseSummary",
+            "scripts":["static/js/custom_script.js"]
+        }
+    ],
+}</code></pre>
+			<p>The first three objects, <code class="ph codeph">name</code>, <code class="ph codeph">description</code>, and
+<code class="ph codeph">version</code>, provide basic app information.</p>
+
+			<p>The <code class="ph codeph">gui_actions</code> object describes a new GUI Action that the user can perform
+in the <span class="ph">QRadar</span> user interface.
+It is abstracted from the underlying representation. </p>
+
+			<p>GUI Actions are represented as buttons on page toolbars, or as right-click menu options.</p>
+
+			<p>GUI Actions can run a block of JavaScript, invoke a REST method, or both.</p>
+
+			<p>The <code class="ph codeph">gui_actions</code> block contains sections for both the <span class="keyword wintitle">Offenses
+</span>page toolbar and the <span class="keyword wintitle">Offense Summary</span> page toolbar. </p>
+
+<p>The <span class="keyword wintitle">Offenses </span>page toolbar section contains the fields that are described in
+the following table:</p>
+
+			
+<div class="tablenoborder"><table summary="" class="defaultstyle"><caption><span class="tablecap">Table 2. Offenses page toolbar fields</span></caption><colgroup><col style="width:14.150943396226415%"><col style="width:50.70754716981132%"><col style="width:35.14150943396226%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d26915e241">Field</th>
+
+<th id="d26915e244">Description</th>
+
+<th id="d26915e247">Value</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d26915e241 "><span class="keyword parmname">id</span></td>
+
+<td headers="d26915e244 ">A unique ID for this area within the application</td>
+
+<td headers="d26915e247 "><code class="ph codeph">OffenseListToolbarButton</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e241 "><span class="keyword parmname">text</span></td>
+
+<td headers="d26915e244 ">The name of the GUI Action that is displayed in the user interface.</td>
+
+<td headers="d26915e247 "><code class="ph codeph">My Offense Button</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e241 "><span class="keyword parmname">description</span></td>
+
+<td headers="d26915e244 ">A description of the GUI Action that is displayed when your mouse hovers over the
+item.</td>
+
+<td headers="d26915e247 "><code class="ph codeph">My Offense Button</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e241 "><span class="keyword parmname">icon</span></td>
+
+<td headers="d26915e244 ">A URL to load, relative to the application root. Only URLs that exist within the app can be
+referenced.</td>
+
+<td headers="d26915e247 "><code class="ph codeph">""</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e241 "><span class="keyword parmname">rest_method</span></td>
+
+<td headers="d26915e244 ">The name of the REST method to load this item. This method must be declared in the
+<span class="keyword parmname">rest_methods</span> block of the manifest.</td>
+
+<td headers="d26915e247 "><code class="ph codeph">offenseListFunction</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e241 "><span class="keyword parmname">javascript</span></td>
+
+<td headers="d26915e244 ">A JavaScript code block to run when this action is performed. Either this argument or the
+REST method argument is required. If both are specified, then the REST method is run first, the
+results are then passed into the JavaScript code block by using the variable
+<var class="keyword varname">result</var>.<p>If only the JavaScript argument is specified, a
+<var class="keyword varname">context</var> variable that contains the <var class="keyword varname">context</var> of the GUI Action,
+is passed into the JavaScript code block.</p>
+</td>
+
+<td headers="d26915e247 ">
+<pre class="codeblock"><code>my_offense_toolbar_button
+_action(result)</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d26915e241 "><span class="keyword parmname">groups</span></td>
+
+<td headers="d26915e244 ">A list of one or more GUI Action groups to install the action into. This string is the
+identifier of the toolbar or right-click menu in <span class="ph">QRadar</span>. At least one group must be
+provided. <p>You can also use a group name in this format
+<code class="ph codeph">ariel:&lt;<var class="keyword varname">FIELD_NAME</var>&gt;</code>, where
+<code class="ph codeph">&lt;<var class="keyword varname">FIELD_NAME</var>&gt;</code> is the name of a field in the <span class="ph">QRadar</span> Event or Flow viewer. If
+this field is specified, the action is installed into the menu of that field, and the
+<span class="keyword parmname">context</span> parameter is the contents of the field. </p>
+</td>
+
+<td headers="d26915e247 "><code class="ph codeph">["OffenseListToolbar"]</code></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+			<p>The <span class="keyword wintitle">Offenses Summary</span> page toolbar section contains the fields that are
+described in the following table:</p>
+
+			
+<div class="tablenoborder"><table summary="" id="c_appframework_samples_PageScript__table_bh3_grp_5t" class="defaultstyle"><caption><span class="tablecap">Table 3. Offenses summary page toolbar fields</span></caption><colgroup><col style="width:15.873015873015872%"><col style="width:47.61904761904762%"><col style="width:36.507936507936506%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d26915e421">Field</th>
+
+<th id="d26915e424">Description</th>
+
+<th id="d26915e427">Value</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d26915e421 "><span class="keyword parmname">id</span></td>
+
+<td headers="d26915e424 ">A unique ID for this area within the application</td>
+
+<td headers="d26915e427 "><code class="ph codeph">OffenseSummaryToolbarButton</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e421 "><span class="keyword parmname">text</span></td>
+
+<td headers="d26915e424 ">The name of the GUI Action that is displayed in the user interface.</td>
+
+<td headers="d26915e427 "><code class="ph codeph">My Offense Button</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e421 "><span class="keyword parmname">description</span></td>
+
+<td headers="d26915e424 ">A description of the GUI Action that is displayed when your mouse hovers over the
+item.</td>
+
+<td headers="d26915e427 "><code class="ph codeph">My Offense Button</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e421 "><span class="keyword parmname">icon</span></td>
+
+<td headers="d26915e424 ">A URL to load, relative to the application root. Only URLs that exist within the <span class="ph">QRadar</span> app can be
+referenced.</td>
+
+<td headers="d26915e427 "><code class="ph codeph">""</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e421 "><span class="keyword parmname">javascript</span></td>
+
+<td headers="d26915e424 ">A JavaScript code block to run when this action is performed. Either this argument or the
+REST method argument is required. If both are specified, then the REST method is run first, the
+results are then passed into the JavaScript code block by using the variable
+<var class="keyword varname">result</var>.<p>If only the JavaScript argument is specified, a
+<var class="keyword varname">context</var> variable that contains the <var class="keyword varname">context</var> of the GUI Action,
+is passed into the JavaScript code block.</p>
+</td>
+
+<td headers="d26915e427 ">
+<pre class="codeblock"><code>my_offense_toolbar_button_
+action(context)</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d26915e421 "><span class="keyword parmname">groups</span></td>
+
+<td headers="d26915e424 ">A list of one or more GUI Action groups to install the action into. This string is the
+identifier of the toolbar or right-click menu in <span class="ph">QRadar</span>. At least 1 group must be
+provided. <p>You can also use a group name in this format
+<code class="ph codeph">ariel:&lt;<var class="keyword varname">FIELD_NAME</var>&gt;</code>, where
+<code class="ph codeph">&lt;<var class="keyword varname">FIELD_NAME</var>&gt;</code> is the name of a field in the <span class="ph">QRadar</span> Event or Flow viewer. If
+this field is specified, the action is installed into the menu of that field, and the
+<span class="keyword parmname">context</span> parameter is the contents of the field. </p>
+</td>
+
+<td headers="d26915e427 "><code class="ph codeph">["OffenseSummaryToolbar"]</code></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+			<p>The <code class="ph codeph">rest_methods</code> block contains the fields that are described in the
+following table:</p>
+
+			
+<div class="tablenoborder"><table summary="" id="c_appframework_samples_PageScript__concept_a5z_4wh_nt__table_xc5_3p4_ps" class="defaultstyle"><caption><span class="tablecap">Table 4. <code class="ph codeph">rest_methods</code> block fields</span></caption><colgroup><col style="width:18.46153846153846%"><col style="width:46.15384615384615%"><col style="width:35.38461538461538%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d26915e589">Field</th>
+
+<th id="d26915e592">Description</th>
+
+<th id="d26915e595">Value</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="c_appframework_samples_PageScript__d67e165 "><span class="keyword parmname">name</span></td>
+
+<td headers="c_appframework_samples_PageScript__d67e169 ">A unique name for this REST method within the application.</td>
+
+<td headers="c_appframework_samples_PageScript__d67e167 "><code class="ph codeph">offenseListFunction</code></td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_samples_PageScript__d67e165 "><span class="keyword parmname">url</span></td>
+
+<td headers="c_appframework_samples_PageScript__d67e169 ">The URL to access the REST method, relative to the application root. Only URLs within the app
+are supported.</td>
+
+<td headers="c_appframework_samples_PageScript__d67e167 "><code class="ph codeph">/offenseListFunction</code></td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_samples_PageScript__d67e165 "><span class="keyword parmname">method</span></td>
+
+<td headers="c_appframework_samples_PageScript__d67e169 ">The HTTP method on the named endpoint (GET/POST/DELETE). </td>
+
+<td headers="c_appframework_samples_PageScript__d67e167 "><code class="ph codeph">GET</code></td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_samples_PageScript__d67e165 "><span class="keyword parmname">argument_names</span></td>
+
+<td headers="c_appframework_samples_PageScript__d67e169 ">The names of arguments that this method expects. Arguments that are passed to the method URL
+are encoded, as either query string parameters or in the PUT/POST body.</td>
+
+<td headers="c_appframework_samples_PageScript__d67e167 "><code class="ph codeph">["context"]</code></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+			<p>The <code class="ph codeph">page_scripts</code> block contains the fields that are described in the
+following table:</p>
+
+			
+<div class="tablenoborder"><table summary="" class="defaultstyle"><caption><span class="tablecap">Table 5. Page scripts block fields</span></caption><colgroup><col style="width:16.129032258064516%"><col style="width:48.387096774193544%"><col style="width:35.483870967741936%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d26915e684">Name</th>
+
+<th id="d26915e687">Description</th>
+
+<th id="d26915e690">Value</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d26915e684 "><span class="keyword parmname">app_name</span></td>
+
+<td headers="d26915e687 ">The name of the <span class="ph">QRadar</span>
+application you want to include the script into. The wildcard "*" is also supported if it is used
+with the <span class="keyword parmname">page_id</span> field, to have a file included in every <span class="ph">QRadar</span> page.</td>
+
+<td headers="d26915e690 "><code class="ph codeph">SEM</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e684 "><span class="keyword parmname">page_id</span></td>
+
+<td headers="d26915e687 ">The ID of the <span class="ph">QRadar</span>
+page where the script is included. The wildcard "*" is also supported when it is used with the
+<span class="keyword parmname">app_name</span>field. When the wildcard character is used, a file is included on every
+<span class="ph">QRadar</span> page.</td>
+
+<td headers="d26915e690 "><code class="ph codeph">OffenseList</code></td>
+
+</tr>
+
+<tr>
+<td headers="d26915e684 "><span class="keyword parmname">scripts</span></td>
+
+<td headers="d26915e687 ">The scripts that you want to include, relative to the application root.</td>
+
+<td headers="d26915e690 "><code class="ph codeph">["static/js/custom_script.js"]</code></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+		</section>
+
+		<section class="section" role="region" aria-labelledby="d26915e767"><h2 class="sectiontitle" id="d26915e767"><span class="ph filepath">views.py</span></h2>
+			
+			<p>The <span class="ph filepath">views.py</span> for this example establishes the Flask routes that are used
+by the application. The script injects context information from the REST API endpoint into the
+<var class="keyword varname">offense</var> variable. This content is used by the page script.</p>
+
+			<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import request
+from app import app
+from qpylib import qpylib
+import json
+
+@app.route('/offenseListFunction', methods=['GET'])     
+def offenseListFunction():
+    qpylib.log("offenseListFunction", "info")
+    offense = request.args.get("appContext")
+    qpylib.log("appContext=" + offense, "info")
+
+    #You can process the data and return any value here, 
+    #that will be passed into javascript
+    return json.dumps({'context_passed_to_python_route':offense})</code></pre>
+		</section>
+
+		<section class="section" role="region" aria-labelledby="d26915e786"><h2 class="sectiontitle" id="d26915e786"><span class="ph filepath">static/js/custom_script.js</span></h2>
+			
+			<p>Contains the function that turns the content of the offense variable into a string and
+displays it within a <span class="keyword wintitle">JavaScript alert</span> dialog.</p>
+
+			<pre class="codeblock"><code>function my_offense_toolbar_button_action(offense)
+{
+	alert(JSON.stringify(offense));
+}
+</code></pre>
+			<p>Script files must be fragments and not fully formed HTML because they are injected in to a
+fully rendered page.</p>
+
+			<div class="note"><span class="notetitle">Note:</span> Be careful how you name functions because apps can share scripts from <span class="ph">QRadar</span>. It is good practice to add
+a prefix to the JavaScript function such as the app name.</div>
+
+		</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d26915e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_usefulPgScrs.html">Page script samples</a></strong><br>
+You can use page scripts to link between apps, select rows in a <span class="ph">QRadar</span> table, and get the IP address of an asset.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="An action that the user can do in IBM QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>GUI Action type</title>
+</head>
+<body id="c_appframework_guiType"><main role="main"><article role="article" aria-labelledby="d20226e10">
+<h1 class="topictitle1" id="d20226e10">GUI Action type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">An action that the user can do in <span class="ph">IBM®
+QRadar®</span>.</p>
+
+<p>In <span class="ph">QRadar</span>, GUI Actions are
+represented as either buttons in page toolbars, or as right-click menu options. On touchscreen
+devices, GUI Actions are for items that are pressed for a long time.</p>
+
+<p>When run, GUI Actions run a block of JavaScript, or invoke a REST method, or a combination of
+both. If you use both the <span class="keyword parmname">rest_method</span> and <span class="keyword parmname">javascript</span>
+attributes, the GUI Action invokes the server-side REST method within your app. It then runs the
+client-side JavaScript.</p>
+
+<p>The following table describes the <code class="ph codeph">gui_actions</code> block fields in the
+<code class="ph codeph">manifest.json</code> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_guiType__table_wqr_ltc_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. <code class="ph codeph">GUI_Actions</code> block fields</span></caption><colgroup><col style="width:28.57142857142857%"><col style="width:14.285714285714285%"><col style="width:14.285714285714285%"><col style="width:42.857142857142854%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d20226e71"> Field </th>
+
+<th id="d20226e74"> Required </th>
+
+<th id="d20226e77"> Type </th>
+
+<th id="d20226e80"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">id </span></td>
+
+<td headers="d20226e74 "> Yes </td>
+
+<td headers="d20226e77 "> String </td>
+
+<td headers="d20226e80 ">A unique ID for this area within the application.</td>
+
+</tr>
+
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">text</span>
+</td>
+
+<td headers="d20226e74 "> Yes </td>
+
+<td headers="d20226e77 "> String </td>
+
+<td headers="d20226e80 ">Concise text to display that describes the area. Can optionally point at a resource bundle
+key if the application is globalized. </td>
+
+</tr>
+
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">description</span>
+</td>
+
+<td headers="d20226e74 "> No </td>
+
+<td headers="d20226e77 "> String </td>
+
+<td headers="d20226e80 ">Detailed text to display that describes the area. Can optionally point at a resource bundle
+key if the application is globalized. </td>
+
+</tr>
+
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">icon</span>
+</td>
+
+<td headers="d20226e74 "> Yes </td>
+
+<td headers="d20226e77 "> String </td>
+
+<td headers="d20226e80 ">Path to the toolbar or right-click menu icon to load, relative to the application
+root.<p>Icons must be 16x16 pixels.</p>
+<p>If you do not want to add an icon, set the value of this
+parameter to <code class="ph codeph">null</code>.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">rest_method</span>
+</td>
+
+<td headers="d20226e74 "> No </td>
+
+<td headers="d20226e77 "> String </td>
+
+<td headers="d20226e80 ">A REST method to call when this action is performed. The <span class="keyword parmname">context</span>
+parameter must be specified as an argument. The REST method is populated with whatever the context
+of the GUI Action group is. The GUI Action group context varies, depending on what GUI Action group
+the action is invoked from. As an example, on the right-click menu of an IP address, the
+<span class="keyword parmname">context</span> parameter contains the IP address. <p>Either this argument or the
+JavaScript argument is required. If both are specified, then the REST method is run first, the
+results of which can be passed back into the JavaScript code block by using the
+<var class="keyword varname">result</var> variable. This method must be declared in the
+<span class="keyword parmname">rest_methods</span> block of the manifest.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">javascript</span>
+</td>
+
+<td headers="d20226e74 "> No </td>
+
+<td headers="d20226e77 "> String </td>
+
+<td headers="d20226e80 ">A JavaScript code block to run when this action is performed. Either this argument or the
+REST method argument is required. If both are specified, then the REST method is executed first, the
+results of which are passed into the JavaScript code block that uses the <var class="keyword varname">result</var>
+variable.<p>If only the JavaScript argument is specified, a <var class="keyword varname">context</var> variable that
+contains the <var class="keyword varname">context</var> of the GUI action, is passed into the JavaScript code
+block.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">groups</span>
+</td>
+
+<td headers="d20226e74 "> Yes </td>
+
+<td headers="d20226e77 "> Array of String </td>
+
+<td headers="d20226e80 ">
+<p>A list of one or more GUI Action groups to install the action into (in other words, the
+identifier of the toolbar or right-click menu). You must provide at least 1 group. </p>
+
+<p>You can also use a group name in this format
+<code class="ph codeph">ariel:&lt;<var class="keyword varname">FIELD_NAME</var>&gt;</code>, where
+<code class="ph codeph">&lt;<var class="keyword varname">FIELD_NAME</var>&gt;</code> is the name of a field in the <span class="ph">QRadar</span> Event or Flow viewer. If
+this field is specified, the action is installed into the menu of that field, and the
+<span class="keyword parmname">context</span> parameter is the contents of the field. </p>
+
+</td>
+
+</tr>
+
+
+<tr>
+<td headers="d20226e71 ">
+<span class="keyword parmname">required_capabilities</span>
+</td>
+
+<td headers="d20226e74 "> No </td>
+
+<td headers="d20226e77 "> Array of String </td>
+
+<td headers="d20226e80 "> A set of capabilities that a user must affiliate with their user role to access this
+area.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The following code is a sample <code class="ph codeph">gui_actions</code> block from the
+<span class="ph filepath">manifest.json</span> file:</p>
+
+<pre class="codeblock"><code>...
+
+	"gui_actions": [
+		{
+			"id":"addToReferenceSet",
+			"text":"Add To Reference Set",
+			"description":"Adds to a reference set",
+			"icon":"static/images/Btn1.png",
+                     
+			"rest_method":"addToReferenceSet",
+			"javascript":"alert(result)",
+			"groups":[ "ipPopup" ],
+			"required_capabilities":[ "ADMIN" ]
+		},
+		{
+			"id":"sampleToolbarButton",
+			"text":"Sample Toolbar Button",
+			"description":"Sample toolbar button 
+                     that calls a REST method, 
+                     passing an offense ID along",
+			"icon":"static/images/Btn2.png",
+			"rest_method":"sampleToolbarMethod",
+			"javascript":"alert(result)",
+			"groups":[ "OffenseListToolbar" ],
+			"required_capabilities":[ "ADMIN" ]
+		}
+	],
+
+..</code></pre>
+</div>
+
+<aside role="complementary" aria-labelledby="d20226e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+</nav></aside></article></main></body></html>

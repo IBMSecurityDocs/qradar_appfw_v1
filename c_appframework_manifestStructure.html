@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The manifest is a JSON file that describes to IBM QRadar the capabilities that the app provides.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_structure.html">
+<title>Application manifest structure</title>
+</head>
+<body id="c_appframework_manifestStructure"><main role="main"><article role="article" aria-labelledby="d11924e10">
+<h1 class="topictitle1" id="d11924e10">Application manifest structure</h1>
+
+
+<div class="body conbody"><p class="shortdesc">The manifest is a JSON file that describes to <span class="ph">IBM®
+QRadar®</span> the capabilities that the
+app provides.</p>
+
+<p>The following table describes the fields that you can include in the
+<code class="ph codeph">manifest.json</code> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_manifestStructure__table_uby_z4c_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. Application manifest fields</span></caption><colgroup><col style="width:25.53191489361702%"><col style="width:21.27659574468085%"><col style="width:21.27659574468085%"><col style="width:31.914893617021274%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d11924e50"> Field </th>
+
+<th id="d11924e53"> Required </th>
+
+<th id="d11924e56"> Type </th>
+
+<th id="d11924e59"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">name</span></td>
+
+<td headers="d11924e53 "> Yes </td>
+
+<td headers="d11924e56 "> String </td>
+
+<td headers="d11924e59 ">The user-readable name of the app. If the app is globalized This field can optionally point
+at a resource bundle key. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">description</span></td>
+
+<td headers="d11924e53 "> Yes </td>
+
+<td headers="d11924e56 "> String </td>
+
+<td headers="d11924e59 ">The user-readable description of the app. If the application is globalized, this field can
+optionally point at a resource bundle. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">version</span></td>
+
+<td headers="d11924e53 "> Yes </td>
+
+<td headers="d11924e56 "> String </td>
+
+<td headers="d11924e59 ">A version string for the app. You can use any format that you want here. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">uuid</span></td>
+
+<td headers="d11924e53 ">Yes</td>
+
+<td headers="d11924e56 ">String</td>
+
+<td headers="d11924e59 ">An RFC 4122-compliant universally unique identifier for the application.<p>The
+<span class="keyword cmdname">create</span> command uses the Python UUID package to generate a random 128-bit number
+for the <span class="keyword parmname">uuid</span> value.</p>
+<p>If you do not use the SDK to create the app manifest
+file, you must manually enter a unique value in the <span class="keyword parmname">uuid</span> field. </p>
+
+</td>
+
+</tr>
+
+
+
+
+<tr data-hd-otherprops="731">
+<td headers="d11924e50 "><span class="keyword parmname">authentication</span></td>
+
+<td headers="d11924e53 ">Yes</td>
+
+<td headers="d11924e56 ">String</td>
+
+<td headers="d11924e59 ">Authorization for the app to access <span class="ph">QRadar</span>. The only mandatory entry
+is <code class="ph codeph">"requested_capabilities"</code>: ["&lt;<var class="keyword varname">capability</var>&gt;"].<p>For example,
+admin is a commonly used user capability.</p>
+<p>Enter at least one supported <span class="ph">QRadar</span> user capability. The
+installation fails if any of the <code class="ph codeph">requested_capabilities</code> are not defined in <span class="ph">QRadar</span>.</p>
+</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d11924e50 "><span class="keyword parmname">load_flask</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Boolean</td>
+
+<td headers="d11924e59 ">Set to false when you don't want to make Python Flask framework available to your app.
+Typically, you might disable Flask when you want your app to use a different web application
+framework.<p>If not specified, this field defaults to true.</p>
+<p>Supported by <span class="ph">QRadar
+Console</span> V7.3.0</p>
+ and V7.3.1</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d11924e50 "><span class="keyword parmname">node_only</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Boolean</td>
+
+<td headers="d11924e59 ">If you want your app to be installed on an app node only and not on the <span class="ph">QRadar
+Console</span> Console, set to true.<p>Useful
+when your app is resource-intensive. When you use this field, inform your users that your app runs
+only on an app node appliance (unmanaged host).</p>
+<p>If not specified, this field defaults to
+false.</p>
+<p>Supported by <span class="ph">QRadar
+Console</span>
+V7.3.0</p>
+and later.</td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">debugging</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Boolean </td>
+
+<td headers="d11924e59 ">Set to true to turn on logging for your app. If not specified, this field defaults to
+false.</td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname"> areas</span></td>
+
+<td headers="d11924e53 "> No </td>
+
+<td headers="d11924e56 "> Array of Area Type </td>
+
+<td headers="d11924e59 "> One or more Area objects describe new complete pages of the application. In <span class="ph">QRadar</span>, Area objects are
+represented as tabs. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname"> rest_methods</span>
+</td>
+
+<td headers="d11924e53 "> No </td>
+
+<td headers="d11924e56 "> Array of REST Method Type </td>
+
+<td headers="d11924e59 "> One or more REST Method objects describe REST methods that the app exposes. REST Method
+objects are required parameters for Dashboard Items and Metadata Providers, and are optional for
+Actions. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">dashboard_items</span>
+</td>
+
+<td headers="d11924e53 "> No </td>
+
+<td headers="d11924e56 "> Array of Dashboard Item Type </td>
+
+<td headers="d11924e59 ">One or more Dashboard Item objects describe the contents of new items that you want to expose
+to the <span class="ph">QRadar</span> dashboard.
+</td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">configuration_pages </span></td>
+
+<td headers="d11924e53 "> No </td>
+
+<td headers="d11924e56 "> Array of Configuration Page Type </td>
+
+<td headers="d11924e59 ">One or more Configuration Page objects describe new complete pages of the app that represent
+configuration. In <span class="ph">QRadar</span>,
+configuration pages are opened from the <span class="ph uicontrol">Admin</span> tab. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">gui_actions</span>
+</td>
+
+<td headers="d11924e53 "> No </td>
+
+<td headers="d11924e56 "> Array of GUI Action Type </td>
+
+<td headers="d11924e59 "> One or more GUI Action objects describe new actions that can be performed on items in the
+user interface by page toolbars or by right-click menus. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">page_scripts</span>
+</td>
+
+<td headers="d11924e53 "> No </td>
+
+<td headers="d11924e56 "> Array of Page Script type </td>
+
+<td headers="d11924e59 "> One or more Page Script objects describe new JavaScript files that you want included within
+an existing page in <span class="ph">QRadar</span>. By
+default, these scripts run in their own namespace. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">metadata_providers</span>
+</td>
+
+<td headers="d11924e53 "> No </td>
+
+<td headers="d11924e56 "> Array of Metadata Provider type </td>
+
+<td headers="d11924e59 "> One or more Metadata Provider objects describe REST methods that can be called to fetch new
+metadata information for certain data types in <span class="ph">QRadar</span>. Metadata is shown in
+tooltips when a mouse is hovered-over an item. </td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">resource_bundles</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Array of Resource Bundle type</td>
+
+<td headers="d11924e59 ">One or more Resource Bundle objects. You use these objects for language locales and locale
+properties file locations.</td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">dev_opts</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Array of Developer Options type</td>
+
+<td headers="d11924e59 ">One or more Developer Option objects. You use these objects to specify values that are used
+when you develop locally.</td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">resources</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Integer</td>
+
+<td headers="d11924e59 "> One or more Resource objects. You use these objects to configure the amount of memory in
+megabytes that is available for the app to use.<p>Supported by <span class="ph">QRadar</span>
+<span class="ph">V7.2.7</span> and later.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">fragments</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Array of Fragments type</td>
+
+<td headers="d11924e59 ">Use these objects to determine the injection point in the <span class="ph">QRadar</span> UI where content is added
+and the rest endpoint that is used to retrieve the content.<p>Supported by <span class="ph">QRadar</span>
+<span class="ph">V7.2.8</span> and later.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d11924e50 "><span class="keyword parmname">custom_columns</span></td>
+
+<td headers="d11924e53 ">No</td>
+
+<td headers="d11924e56 ">Array of Custom Columns type</td>
+
+<td headers="d11924e59 "> One or more Custom column objects. You use these objects to identify the context (the page
+and table in the <span class="ph">QRadar</span> UI)
+where a custom column is added, a label for the column header, the type of data to be added, and the
+rest endpoint that is used to add the column content.<p>Supported by <span class="ph">QRadar</span>
+<span class="ph">V7.2.8</span> and later.</p>
+</td>
+
+</tr>
+
+
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d11924e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_structure.html" title="An IBM QRadar app that you create is distributed within a compressed file.">App file structure</a></div>
+</div>
+</nav></aside></article></main></body></html>

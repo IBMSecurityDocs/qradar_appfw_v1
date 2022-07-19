@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Tune the IBM QRadar Application Framework to optimize app memory usage.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_SDKintro.html">
+<title>Optimize app memory usage</title>
+</head>
+<body id="c_appframework_MemoryTuning"><main role="main"><article role="article" aria-labelledby="d22923e10">
+<h1 class="topictitle1" id="d22923e10">Optimize app memory usage</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Tune the <span class="ph">IBM®
+QRadar®</span>
+Application Framework to optimize app memory usage.</p>
+
+<p>Use any of the following methods to help prevent your app from using an excessive amount of
+memory.</p>
+
+<ul>
+<li>Avoid allocating large amounts of memory by chunking (or staggering) the work into small memory
+footprints.</li>
+
+<li>Change the memory model that is used by the Application Framework.</li>
+
+<li>Call for garbage collection when you're finished with code that uses large amounts of
+memory.</li>
+
+</ul>
+
+<section class="section" role="region" aria-labelledby="d22923e42"><h2 class="sectiontitle" id="d22923e42">Changing the Application Framework memory model</h2>
+
+<p>By default, the Application Framework configures the Werkzeug WSGI web application server that
+Flask uses to run as a single process. Threads are used to handle each request. You can configure
+the application server to create a separate process to handle each new request. When the request is
+completed, the process is removed, and all of the memory that is allocated by the Python interpreter
+to process this request is released.</p>
+
+<p>To override this behavior, edit the <span class="ph filepath">run.py</span> file and add
+<span class="keyword parmname">threaded=False</span> and <span class="keyword parmname">process=N</span> where N is greater than 1. In
+the following example, a value of <span class="keyword parmname">process=3</span> allocates approximately 25 MB per
+interpreter and leaves some room for growth.</p>
+
+<div class="p">
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from app import app
+from app.qpylib import qpylib
+
+qpylib.create_log()
+app.run(debug = True, host='0.0.0.0', 
+<kbd class="ph userinput"><span class="keyword parmname">threaded=False</span></kbd>,
+ <kbd class="ph userinput"><span class="keyword parmname">process=3</span></kbd>)</code></pre>
+</div>
+
+<p>Include the source to the <span class="ph filepath">run.py</span> in the <span class="ph filepath">template</span> folder
+within your app archive file (.zip). The <span class="ph filepath">run.py</span> file that is created during the
+installation is then overwritten with your settings.</p>
+
+<div class="p">
+<div class="note"><span class="notetitle">Note:</span> When you package an app with the SDK, the <span class="ph filepath">run.py</span> is skipped and you must
+manually add it to your app archive file (.zip).</div>
+
+</div>
+
+<p>For more information about parameters that can be passed to the Werkzeug WSGI web application
+server, see <a href="http://werkzeug.pocoo.org/docs/0.11/serving/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">http://werkzeug.pocoo.org/docs/0.11/serving/</a>.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d22923e107"><h2 class="sectiontitle" id="d22923e107">Calling for garbage collection</h2>
+
+<p>The Python interpreter might not know when to free the memory. You can speed up garbage
+collection by placing the following code right after sections where large amounts of memory are no
+longer needed:</p>
+
+<pre class="codeblock"><code><span class="keyword apiname">import</span> gc
+gc.collect()</code></pre>
+<div class="note"><span class="notetitle">Note:</span> Python does not ensure that any memory that your code uses gets returned to the OS. Garbage
+collection ensures that the memory used by an object is free to be used by another object at some
+future time. Changing the Application Framework memory model option is important for apps that run
+for a long time. Killing the process ensures the memory is freed for use by other components.</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d22923e124"><h2 class="sectiontitle" id="d22923e124">Tools</h2>
+
+<p>Some tools that can help you identify memory problems:</p>
+
+<dl>
+
+<dt class="dlterm">Memory Profiler</dt>
+
+<dd class="dlentry">A Python module for monitoring memory consumption of a process. For more information, see <a href="https://pypi.python.org/pypi/memory_profiler" rel="noopener" target="_blank" title="(Opens in a new tab or window)">https://pypi.python.org/pypi/memory_profiler</a>.</dd>
+
+
+
+<dt class="dlterm">Linux utilities</dt>
+
+<dd class="dlentry">The command-line utility <span class="keyword apiname">top</span> can be used to monitor all Python processes
+running on the machine:<pre class="codeblock"><code>top -p $(pgrep -d',' python)</code></pre><p>You can also use the
+following command to get the total MB used by all Python interpreters on your
+system:</p>
+<pre class="codeblock"><code><span class="keyword cmdname">ps</span> -e -o pid,comm,rss | 
+<span class="keyword apiname">awk</span> '/python/{sum+=$3} END {print sum}' </code></pre></dd>
+
+
+
+<dt class="dlterm">Resource Module</dt>
+
+<dd class="dlentry">
+<p>You can log the amount of memory your process uses by adding the following code to your
+module:</p>
+
+<pre class="codeblock"><code><span class="keyword apiname">import</span> resource
+<span class="keyword apiname">print</span> 'Memory usage: %s (kb)' % resource.getrusage
+(resource.RUSAGE_SELF).ru_maxrss</code></pre>
+</dd>
+
+
+</dl>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d22923e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_SDKintro.html" title="The IBM QRadar application framework comes with its own software development kit (SDK).">Software development kit overview</a></div>
+</div>
+
+<div class="linklist relinfo relconcepts" lang="en-us"><h2 class="linkheading">Related concepts</h2>
+<ul><li><a href="c_appframework_ResourcesType.html#concept_ffb_ll1_bv" title="Defines the memory resources to allocate to your app.">Resources type</a></li>
+</ul></div>
+</nav></aside>
+</article></main></body></html>

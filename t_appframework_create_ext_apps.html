@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Package and export multiple apps and other content in an extension so users can download related apps or content in one file.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="t_appframework_createExt.html">
+<title>Adding multiple apps in an extension</title>
+</head>
+<body id="t_appframework_create_Ext_apps"><main role="main"><article role="article" aria-labelledby="d26092e10">
+<h1 class="topictitle1" id="d26092e10">Adding multiple apps in an extension</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">Package and export multiple apps and other content in an extension so users can download
+related apps or content in one file. </p>
+
+<section class="section context" role="region" aria-labelledby="taskd26092e18"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd26092e18">About this task</h2></div>You can include multiple apps or content types in an extension, which you export as a
+compressed (.zip) file. </section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd26092e21">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Use SSH to log in to QRadar as the root user.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">To get a list of the content types and search parameters, type the following command:</span> 
+<div class="itemgroup info">
+<p><kbd class="ph userinput">/opt/qradar/bin/contentManagement.pl -h export</kbd></p>
+
+</div>
+<div class="itemgroup stepxmp"><p>In the following example, you search for apps that are represented by the content type
+ID of 100, and the regex <span class="ph filepath">.*</span>, which matches
+everything.</p>
+<p><kbd class="ph userinput">/opt/qradar/bin/contentManagement.pl --action search -c 100 -r
+.*</kbd></p>
+<p>You must specify the content type (-c) and a search regex
+(-r).</p>
+<br><p>In the following example, you search for the custom
+content type "dashboard" that is represented by the content type ID of 4, and the regex
+<span class="ph filepath">.*</span>, which matches everything for dashboards content.</p>
+
+<p><kbd class="ph userinput">/opt/qradar/bin/contentManagement.pl --action search -c 4 -r .* </kbd></p>
+<p>Use
+regex to narrow your search, for example, you use the following search to find dashboards content
+that includes 'Threat' in the name.</p>
+<p><kbd class="ph userinput">/opt/qradar/bin/contentManagement.pl --action
+search -c 4 -r Threat </kbd></p>
+ &nbsp;</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Add the content type IDs or string and the IDs of the apps or content in a text file. The
+content type can be represented by the string or ID. Use the following format:</span> 
+<div class="itemgroup info">
+<pre class="codeblock"><code>&lt;content_type_ID_or_string&gt;,&lt;Content_or_app_ID&gt;
+&lt;content_type_ID_or_string&gt;,&lt;Content_or_app_ID&gt;
+</code></pre>
+<div class="p">Use the following rules to create the package text file:<ul>
+<li>Use a separate line for each content type.</li>
+
+<li>Make sure that the first value that you enter on a line is the content type.</li>
+
+<li>Make sure that the value that follows the content type is the ID of the app or the content.</li>
+
+<li>Use commas to separate values.</li>
+
+</ul>
+</div>
+
+<p>Here's an example of packaging an app that has a content type of 100 and a dashboard that has a
+content type of 4.</p>
+
+<div class="p">
+<pre class="codeblock"><code>4,22
+100,1051</code></pre>
+</div>
+
+</div>
+<div class="itemgroup info">
+<p>Here's the same example where the string is used instead of the content type ID to represent the
+content type.</p>
+
+<div class="p">
+<pre class="codeblock"><code>dashboard,22
+installed_application,1051</code></pre>
+</div>
+
+<div class="p">In the following example, strings are used for the content type, which are followed by the
+content IDs.<pre class="codeblock"><code>installed_application,1001
+customrule,1274,1275
+dashboard,10</code></pre></div>
+
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Save the text file as <span class="ph filepath">&lt;<var class="keyword varname">my_package</var>&gt;.txt</span></span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Type the following command to assemble and export your content in an extension file:</span> 
+<div class="itemgroup stepxmp"><p><kbd class="ph userinput">/opt/qradar/bin/contentManagement.pl -a export -c package -f
+&lt;<var class="keyword varname">mypackage</var>&gt;.txt</kbd>.</p>
+ &nbsp;</div>
+<div class="itemgroup stepresult">The extension is created as a <span class="ph filepath">.zip</span> file in the
+<span class="ph filepath">/opt/qradar/bin</span> folder. The file name has the following
+format:<pre class="codeblock"><code>&lt;file_name&gt;-ContentExport-YYYYMMDDhhmmss.zip</code></pre></div>
+</li>
+</ol>
+
+<section class="section postreq" role="region" aria-labelledby="taskd26092e165"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd26092e165">What to do next</h2></div>Download the compressed (<span class="ph filepath">.zip</span>) file from the
+<span class="ph filepath">/opt/qradar/bin</span> folder on your <span class="ph">QRadar®
+Console</span>. You can then use <span class="ph">QRadar</span>
+<span class="ph uicontrol">Extensions Management </span>on the <span class="ph uicontrol">Admin</span> tab to install your
+extension on your <span class="ph">QRadar
+Console</span>.<p>For
+more information about using the <span class="ph filepath">contentManagement.pl</span> script to export content,
+and about Extensions Management, see the <span class="ph">QRadar</span>
+<cite>SIEM Administration Guide</cite>.</p>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d26092e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="t_appframework_createExt.html" title="After you deploy and test your app, you must export it as an extension to deploy it in a production environment.">Creating an extension from your app</a></div>
+</div>
+</nav></aside></article></main></body></html>

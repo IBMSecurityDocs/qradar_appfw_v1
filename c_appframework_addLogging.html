@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The IBM QRadar Python helper library (qpylib) contains two useful functions that you can use to add logging to your app.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_logs.html">
+<title>Adding logging to your app</title>
+</head>
+<body id="concept_nhf_3nq_st"><main role="main"><article role="article" aria-labelledby="d6698e10">
+<h1 class="topictitle1" id="d6698e10">Adding logging to your app</h1>
+
+
+<div class="body conbody"><p class="shortdesc">The <span class="ph">IBM®
+QRadar®</span> Python
+helper library (<span class="keyword apiname">qpylib</span>) contains two useful functions that you can use to add
+logging to your app.</p>
+
+<section class="section" role="region" aria-labelledby="d6698e30"><h2 class="sectiontitle" id="d6698e30">The <span class="keyword apiname">log()</span> function</h2>
+
+<p>Import the <span class="keyword apiname">qpylib</span> helper library into your app's <span class="ph filepath">views.py</span>
+to use the <span class="keyword apiname">log()</span> function. This function writes messages at your chosen log level
+to the <span class="ph filepath">/store/log/app.log</span> file.</p>
+
+<p>By default, logging is turned on and set to <var class="keyword varname">INFO</var> level. Lower level logging
+messages are ignored. Use the <span class="keyword apiname">POST /log_level</span> endpoint to change log level.</p>
+
+<p>The <span class="keyword apiname">log()</span> function uses the following format:</p>
+
+<pre class="codeblock"><code>def log(message, level='info'):</code></pre>
+<p>For example:</p>
+
+<pre class="codeblock"><code>from qpylib import qpylib
+
+..
+
+#in precedence order from lowest level to highest
+
+qpylib.log('debug message' ,'debug')
+
+qpylib.log('info message' ,'info')
+
+qpylib.log('warning message' ,'warning')
+
+qpylib.log('error message' ,'error')
+
+qpylib.log('critical message' ,'critical')</code></pre>
+<div class="note"><span class="notetitle">Note:</span> 
+<p>All <span class="keyword apiname">qpylib</span> functions that you import into your app's
+<span class="ph filepath">views.py</span> file can be called globally. For that reason, it is a good idea to add
+a namespace to the <span class="keyword apiname">qpylib</span> functions you import to prevent clashes with other
+functions.</p>
+
+</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d6698e94"><h2 class="sectiontitle" id="d6698e94">The <span class="keyword apiname">set_log_level()</span> function</h2>
+
+<p>You can use this function to set the current log level. This function is used by the
+<span class="keyword apiname">POST /log_level</span> endpoint but can also be called programmatically.</p>
+
+<pre class="codeblock"><code>def set_log_level(log_level='info'):</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d6698e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_logs.html" title="App logs are stored in the /store/log directory of your application's Docker container.">App logs</a></div>
+</div>
+</nav></aside></article></main></body></html>

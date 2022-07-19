@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Apps use the OAuth authorization protocol to authorize the app to access QRadar resources.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>OAuth app authorization with QRadar</title>
+</head>
+<body id="concept_fjy_f5b_pz"><main role="main"><article role="article" aria-labelledby="d17349e10">
+<h1 class="topictitle1" id="d17349e10">OAuth app authorization with QRadar </h1>
+
+
+<div class="body conbody"><p class="shortdesc">Apps use the OAuth authorization protocol to authorize the app to access <span class="ph">QRadar®</span> resources.</p>
+
+<p>Configure OAuth parameters in the authentication section of the manifest file. The only mandatory
+entry is for the<code class="ph codeph"> "requested_capabilities"</code>. When users install the app by using the
+<span class="ph uicontrol">Extensions Management </span> tool in <span class="ph">QRadar</span>, they select a user that
+has the user capability that is defined in <code class="ph codeph">"requested_capabilities"</code>. When this
+authorization is configured, the app can access <span class="ph">QRadar</span> resources. </p>
+
+<div class="p">The following example shows the authentication section in the manifest file.
+<pre class="codeblock"><code>"authentication": 
+              { "oauth2": { 
+                   "authorisation_flow": "CLIENT_CREDENTIALS", 
+                   "requested_capabilities": ["ADMIN"] } } </code></pre></div>
+
+<p>The <code class="ph codeph">"authorisation_flow"</code> entry is optional. The only accepted value is
+<code class="ph codeph">"CLIENT_CREDENTIALS"</code>.</p>
+
+<p>If the authorization is not configured as <code class="ph codeph">CLIENT_CREDENTIALS</code>, the installation
+fails and returns the following message: </p>
+
+<p><samp class="ph msgph">"OAuth flow type X is not currently supported"</samp>. </p>
+
+<p>The <code class="ph codeph">"requested_capabilities"</code> must contain at least one entry.  It provides the
+capability or permissions that the app needs to function in <span class="ph">QRadar</span>. The app installation fails
+if the <code class="ph codeph">requested_capabilities</code> capability that is configured is not listed in <span class="ph">QRadar</span>.</p>
+
+<p> </p>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d17349e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink" data-hd-otherprops="732"><strong><a href="t_app_oauth_mgmt.html">Enhancing security in app authorization by using the App Authorization Manager</a></strong><br>
+The App Authorization Manager helps to enhance the security of your app authorization by providing the capability to edit or delete existing authorization tokens.</li>
+<li class="ulchildlink" data-hd-otherprops="732"><strong><a href="c_appframework_oauth_bearer.html">OAuth bearer token</a></strong><br>
+The OAuth bearer token is an access token that allows an app to access specific QRadar resources.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

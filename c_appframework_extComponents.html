@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use content extensions to update IBM QRadar security template information or add new content such as rules, reports, searches, logos, reference sets, custom properties.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="t_appframework_createExt.html">
+<title>QRadar content extensions</title>
+</head>
+<body id="concept_hsy_5cz_qt"><main role="main"><article role="article" aria-labelledby="d30362e10">
+<h1 class="topictitle1" id="d30362e10"><span class="ph">QRadar</span> content
+extensions</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use content extensions to update <span class="ph">IBM®
+QRadar®</span> security template
+information or add new content such as rules, reports, searches, logos, reference sets, custom
+properties.</p>
+
+<section class="section" role="region" aria-labelledby="d30362e30"><h2 class="sectiontitle" id="d30362e30">Types of <span class="ph">QRadar</span> content
+extensions</h2>
+
+<p>All apps and content extensions are hosted on the <a href="https://exchange.xforce.ibmcloud.com/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">IBM X-Force
+Exchange</a> portal (https://exchange.xforce.ibmcloud.com/), where you can filter by content type
+such as custom AQL function or custom property. You can use content extensions can be used in
+conjunction with apps.</p>
+
+<p>The following table describes the types of content extension that you can deploy in <span class="ph">QRadar</span>.</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_hsy_5cz_qt__table_x5l_nwy_qt" class="defaultstyle"><colgroup><col style="width:27.27272727272727%"><col style="width:18.181818181818183%"><col style="width:54.54545454545454%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d30362e65">Content extension type</th>
+
+<th id="d30362e68">Enhancement type</th>
+
+<th id="d30362e71">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d30362e65 ">Dashboard</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">An associated set of dashboard items, which you view on the Dashboard tab in <span class="ph">QRadar</span>. Dashboard items are
+widgets are visual representations of saved search results.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Reports</td>
+
+<td headers="d30362e68 ">Data/Functionality</td>
+
+<td headers="d30362e71 ">Templates for reports that are built upon saved event or flow searches. Generate on-demand
+reports or schedule them to run at repeating intervals.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Saved searches</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A set of search criteria (filters, time window, columns to display or group data by). By
+saving the criteria of commonly run searches, you don't need to define them repeatedly. Saved
+searches are required for reports and dashboards.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">FGroup</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A group of similar items by type, such as a group of log sources, a group of rules, a group
+of searches, or a group of report templates. FGroups are used as organizational units.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Custom rules</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A set of tests that are run against events or flows that enter the system. The rule is
+triggered when the tests match the input. Rules can have responses which are actions that are
+triggered when the rule is triggered. Responses can include actions such as generating an offense,
+generating a new event, sending an email, annotating the event, or adding data to a reference data
+collection.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Custom properties</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">Defines a property that is extracted or derived from an inbound event or flow. Can be based
+on a regular expression that extracts a subset of a particular event or flow payload as a textual
+property. They can be based on calculations, and perform an arithmetic operation on existing numeric
+properties of the event or flow.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Log source</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A representation of a source of events such as a server, mainframe, workstation, firewall,
+router, application, or database. Any events that enter <span class="ph">QRadar</span> and originate from that
+source are attributed to the log source. Log sources contain the configuration information that is
+needed to receive inbound events, or to pull event data from the event source. Log sources contain
+information that is specific to your environment such as IP address or host name and other possible
+configuration parameters.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Log source extensions</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A parsing logic definition that is used to synthesize a custom DSM for an event source for
+which there is no existing DSM. Use log source extensions to enhance or override the parsing
+behavior of an existing DSM.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Custom QID map entries</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A combination of Event name, Event description, Severity, and Low-level category values that
+are used to represent a particular type of event that a log source might receive. Custom Qid map
+entries are created to supplement the default QID map that <span class="ph">QRadar</span> provides for events that
+are not officially supported by <span class="ph">QRadar</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Reference Data Collection</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A container definition that is represented as either a set, a map, a map of sets, a map of
+maps, or a table for holding reference data. Searches and rules can reference Reference data
+collections.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Historical Correlation Profile</td>
+
+<td headers="d30362e68 ">Data</td>
+
+<td headers="d30362e71 ">A combination of a saved search and a set of one or more rules. Use historical correlation
+profiles to test rules by rerunning a set of historical events through an offline version of the
+custom rule engine that has a subset of rules enabled.</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Custom Functions</td>
+
+<td headers="d30362e68 ">Functionality</td>
+
+<td headers="d30362e71 ">A SQL-like function (defined in JavaScript) that you can use in an Advanced search to enhance
+or manipulate data</td>
+
+</tr>
+
+<tr>
+<td headers="d30362e65 ">Custom Actions</td>
+
+<td headers="d30362e68 ">Functionality</td>
+
+<td headers="d30362e71 ">A custom response for a rule to run, when the rule is triggered. Custom actions are defined
+by a Python, Perl, or Bash script that can accept arguments from the event or flow data that
+triggered the rule.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>For more information about content management, see the <cite>IBM
+QRadar Administration Guide</cite></p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d30362e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="t_appframework_createExt.html" title="After you deploy and test your app, you must export it as an extension to deploy it in a production environment.">Creating an extension from your app</a></div>
+</div>
+</nav></aside></article></main></body></html>

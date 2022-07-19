@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can create IBM QRadar apps that use custom Ariel Query Language (AQL) functions.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Custom AQL functions</title>
+</head>
+<body id="c_appframework_AQLsamples"><main role="main"><article role="article" aria-labelledby="d8514e10">
+    <h1 class="topictitle1" id="d8514e10">Custom AQL functions</h1>
+
+    
+    <div class="body conbody"><p class="shortdesc">You can create <span class="ph">IBM®
+QRadar®</span> apps that use custom
+Ariel Query Language (AQL) functions.</p>
+
+        <p>After you upload the app, you can use these custom functions in AQL statements in
+advanced searches, API calls, and application apps. For more information about AQL, see the <cite>IBM
+QRadar Ariel Query Language Guide</cite>.</p>
+
+        <section class="section" role="region" aria-labelledby="d8514e38"><h2 class="sectiontitle" id="d8514e38">Coding tips</h2>
+            
+            <p>Before you implement custom AQL functions, consider these items:</p>
+
+            <ul>
+                <li>Scripts are not throttled and cannot be canceled. Be careful of infinite loops
+and resource leaks in your code.</li>
+
+                <li>Deletion of custom functions is possible, but not supported.</li>
+
+                <li><span class="ph">QRadar</span>
+parses AQL strings much more than it needs to. Expensive <code class="ph codeph">init_function_name</code>
+implementations that are combined with the use of your function in a literal context can be
+expensive. Use with caution.</li>
+
+                <li>The <code class="ph codeph">execute_function_name</code> implementation must be thread-safe.
+Use the <span class="ph filepath">Utils.concurrent</span> library to ensure thread safety.</li>
+
+            </ul>
+
+        </section>
+
+        <section class="section" role="region" aria-labelledby="d8514e74"><h2 class="sectiontitle" id="d8514e74">Custom AQL function management</h2>
+            
+            <p>Custom AQL functions are uploaded and updated by using the <span class="ph">QRadar</span> Extension Manager on the
+<span class="ph uicontrol">Admin</span> tab. For more information about the <span class="ph">QRadar</span> Extension Manager, see the
+<cite>IBM
+QRadar Administration Guide</cite>.</p>
+
+            <p>The following XML file is an example of a <span class="ph">QRadar</span> extension that defines a
+custom AQL function.</p>
+
+            <pre class="codeblock"><code>&lt;content&gt;
+    &lt;custom_function&gt;
+        &lt;namespace&gt;application&lt;/namespace&gt;
+        &lt;name&gt;concat&lt;/name&gt;
+        &lt;return_type&gt;string&lt;/return_type&gt;
+        &lt;parameter_types&gt;string string&lt;/parameter_types&gt;
+        &lt;execute_function_name&gt;calculate&lt;/execute_function_name&gt;
+        &lt;script_engine&gt;javascript&lt;/script_engine&gt;
+        &lt;varargs&gt;false&lt;/varargs&gt;
+        &lt;script&gt;
+                function calculate(input1, input2)
+                {
+                   return input1 + input2;
+                }
+        &lt;/script&gt;
+        &lt;username&gt;user1&lt;/username&gt;
+    &lt;/custom_function&gt;
+&lt;/content&gt;</code></pre>
+            <p>You can also use the Content Management Tool, which is a command-line tool, to upload
+extensions:</p>
+
+            <pre class="codeblock"><code>/opt/qradar/bin/contentManagement.pl -a update -f my_bundle.xml</code></pre>
+            <p>The following code samples provide examples of how you can create <span class="ph">QRadar</span> apps that define custom AQL
+functions for use in AQL statements.</p>
+
+        </section>
+
+        <section class="section" role="region" aria-labelledby="d8514e126"><h2 class="sectiontitle" id="d8514e126">Example: Custom functions in AQL statements</h2>
+            
+            <p>AQL statements that use custom functions use the following basic format:</p>
+
+            <pre class="codeblock"><code>SELECT &lt;CUSTOM FUNCTION NAMESPACE&gt;::&lt;CUSTOM FUNCTION NAME&gt;(&lt;INPUTS&gt;) FROM &lt;TABLE&gt;</code></pre>
+            <pre class="codeblock"><code>SELECT application::concat('This is my IP: ', sourceip) FROM events LIMIT 20</code></pre>
+        </section>
+
+        <section class="section" role="region" aria-labelledby="d8514e141"><h2 class="sectiontitle" id="d8514e141">Example: Simple addition </h2>
+            
+            <ol>
+                <li>Create the following <span class="ph">QRadar</span>
+                    extension:<pre class="codeblock"><code>&lt;content&gt;
+    &lt;custom_function&gt;
+        &lt;namespace&gt;application&lt;/namespace&gt;
+        &lt;name&gt;add&lt;/name&gt;
+        &lt;return_type&gt;number&lt;/return_type&gt;
+        &lt;parameter_types&gt;number number&lt;/parameter_types&gt;
+        &lt;execute_function_name&gt;execute&lt;/execute_function_name&gt;
+        &lt;script_engine&gt;javascript&lt;/script_engine&gt;
+        &lt;script&gt;
+                function execute(input1, input2)
+                {
+                   return input1 + input2;
+                }
+        &lt;/script&gt;
+        &lt;username&gt;user1&lt;/username&gt;
+    &lt;/custom_function&gt;
+&lt;/content&gt;</code></pre></li>
+
+                <li>Use the <span class="ph">QRadar</span> Extensions Management to upload
+the extension to your <span class="ph">QRadar
+Console</span>. For
+more information about the <span class="ph">QRadar</span> Extensions Management, see
+<a href="c_appframework_mngExts.html#concept_rpf_jl4_pt" title="Use the Extensions Management tool on the IBM QRadar Console Admin tab to manage your extensions in your deployment.">Extensions management</a>.<p>If you have multiple hosts, wait up
+to 60 seconds for the function to propagate across your deployment.</p>
+</li>
+
+            </ol>
+
+            <p>You can use this function in AQL statements as follows:</p>
+
+            <pre class="codeblock"><code>SELECT application::add(eventcount, 5) FROM events</code></pre>
+        </section>
+
+        <section class="section" role="region" aria-labelledby="d8514e204"><h2 class="sectiontitle" id="d8514e204">Example: Variable argument concatenation</h2>
+            
+            <ol>
+                <li>Create the following <span class="ph">QRadar</span>
+                    extension:<pre class="codeblock"><code>&lt;content&gt;
+    &lt;custom_function&gt;
+        &lt;namespace&gt;application&lt;/namespace&gt;
+        &lt;name&gt;concat&lt;/name&gt;
+        &lt;return_type&gt;string&lt;/return_type&gt;
+        &lt;parameter_types&gt;string&lt;/parameter_types&gt;
+        &lt;varargs&gt;true&lt;/varargs&gt;
+        &lt;execute_function_name&gt;execute&lt;/execute_function_name&gt;
+        &lt;script_engine&gt;javascript&lt;/script_engine&gt;
+        &lt;script&gt;
+                function execute()
+                {
+                   var result = "";
+                   for(var i=0; i&amp;lt;arguments.length; i++)
+                      result = result + arguments[i];
+                   return result;
+                }
+        &lt;/script&gt;
+        &lt;username&gt;user1&lt;/username&gt;
+    &lt;/custom_function&gt;
+&lt;/content&gt;</code></pre></li>
+
+                <li>Use the <span class="ph">QRadar</span> Extension Manager to upload
+the extension to your <span class="ph">QRadar
+Console</span>. For
+more information about the <span class="ph">QRadar</span> Extension Manager, see
+<a href="c_appframework_mngExts.html#concept_rpf_jl4_pt" title="Use the Extensions Management tool on the IBM QRadar Console Admin tab to manage your extensions in your deployment.">Extensions management</a>.<p>If you have multiple hosts, wait up
+to 60 seconds for the function to propagate across your deployment.</p>
+</li>
+
+            </ol>
+
+            <p>You can use this function in AQL statements:</p>
+
+            <pre class="codeblock"><code>SELECT application::concat(sourceip, ':', sourceport) FROM events</code></pre>
+        </section>
+
+        <section class="section" role="region" aria-labelledby="d8514e266"><h2 class="sectiontitle" id="d8514e266">Example: Complex initialization that uses a remote API</h2>
+            
+            <ol>
+                <li>Create the following <span class="ph">QRadar</span>
+extension:<pre class="codeblock"><code>&lt;content&gt;
+  &lt;custom_function&gt;
+    &lt;namespace&gt;application&lt;/namespace&gt;
+    &lt;name&gt;isFlaggedIP&lt;/name&gt;
+    &lt;return_type&gt;boolean&lt;/return_type&gt;
+    &lt;parameter_types&gt;host&lt;/parameter_types&gt;
+    &lt;execute_function_name&gt;isFlaggedIP&lt;/execute_function_name&gt;
+    &lt;init_function_name&gt;onInit&lt;/init_function_name&gt;
+    &lt;script_engine&gt;javascript&lt;/script_engine&gt;
+    &lt;script&gt;
+      var flaggedIPs;
+      function onInit()
+      {
+       var properties = Utils.config.readNamespacePropertiesFile('my_api.properties');
+       var ip = properties.get('ip');
+       var url = 'https://' + ip + '/my_api/flagged_ips';
+       var username = properties.get('username');
+       var token = properties.get('token');
+       var headers = {'SecurityToken': token};
+       var jsonResponse = JSON.parse(Utils.http.invokeHTTP("GET", url, 200, headers, null, null));
+       flaggedIPs = [];
+       for(var i in jsonResponse)
+         {
+            flaggedIPs.push(jsonResponse[i]);
+         }
+       }
+       function isFlaggedIP(ip)
+       {
+         return (flaggedIPs.indexOf(ip) &gt;= 0);
+       }
+      &lt;/script&gt;
+      &lt;username&gt;user1&lt;/username&gt;
+   &lt;/custom_function&gt;
+&lt;/content&gt;</code></pre></li>
+
+                <li>Use the <span class="ph">QRadar</span> Extension Manager on the
+<span class="ph uicontrol">Admin</span> tab to upload the extension to your <span class="ph">QRadar
+Console</span>. For more information about
+the <span class="ph">QRadar</span> Extension Manager,
+see <a href="c_appframework_mngExts.html#concept_rpf_jl4_pt" title="Use the Extensions Management tool on the IBM QRadar Console Admin tab to manage your extensions in your deployment.">Extensions management</a>.<p>If you have multiple hosts,
+wait up to 60 seconds for the function to propagate across your deployment.</p>
+</li>
+
+                <li>Create a properties file with the following content in the
+<span class="ph filepath">/store/custom_functions/namespaces/application/my_api.properties</span>
+file.<pre class="codeblock"><code>ip=&lt;ip for remote API server&gt;
+username=&lt;your username for remote API server&gt;
+token=&lt;your token for remote API server&gt;</code></pre></li>
+
+            </ol>
+
+            <p>You can use this function in AQL statements:</p>
+
+            <pre class="codeblock"><code>SELECT application::isFlaggedIP(sourceip) 
+AS is_flagged_qradar_ip, sourceip FROM events</code></pre>
+        </section>
+
+    </div>
+
+<aside role="complementary" aria-labelledby="d8514e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_AQLfields.html">Custom AQL function fields</a></strong><br>
+Multiple fields are available to custom AQL functions.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_AQLutilities.html">Custom AQL function utilities</a></strong><br>
+Use custom AQL function utilities.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

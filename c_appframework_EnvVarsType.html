@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use the environment variables object type to define environment variables for your apps in your app's manifest file.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>Environment variables type</title>
+</head>
+<body id="c_appframework_EnvVarsType"><main role="main"><article role="article" aria-labelledby="d30902e10">
+<h1 class="topictitle1" id="d30902e10">Environment variables type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use the environment variables object type to define environment variables for your apps
+in your app's manifest file.</p>
+
+<p>The environment variables object is not an <span class="ph">IBM®
+QRadar®</span> application type. The
+following four environment variables are set automatically by <span class="ph">QRadar</span> and are available to use in
+your app.</p>
+
+<dl>
+
+<dt class="dlterm">QRADAR_CONSOLE_HOST_NAME</dt>
+
+<dd class="dlentry">The host name of the console where the app is installed.</dd>
+
+
+
+<dt class="dlterm">QRADAR_CONSOLE_IP</dt>
+
+<dd class="dlentry">The IP address of where the app is installed.</dd>
+
+
+
+<dt class="dlterm">QRADAR_APPLICATION_BASE_URL</dt>
+
+<dd class="dlentry">The web URL for the app.</dd>
+
+
+
+<dt class="dlterm">LANG</dt>
+
+<dd class="dlentry">The language code and character encoding that is used by the <span class="ph">QRadar
+Console</span> UI when the app is
+installed.</dd>
+
+
+
+<dt class="dlterm">HTTP_PROXY / HTTPS_PROXY</dt>
+
+<dd class="dlentry">If a proxy is configured, this environment variable is the IP address/hostname of the proxy
+server that <span class="ph">QRadar</span> uses.</dd>
+
+
+
+<dt class="dlterm">PROXY_USERNAME</dt>
+
+<dd class="dlentry">If a proxy is configured, this environment variable is the username of the HTTPS proxy server
+that <span class="ph">QRadar</span> uses. </dd>
+
+
+
+<dt class="dlterm">PROXY_PASSWORD_DECRYPTED</dt>
+
+<dd class="dlentry">If a proxy is configured, this environment variable is the decrypted password of the HTTPS proxy
+server that <span class="ph">QRadar</span> uses. </dd>
+
+
+
+<dt class="dlterm">PROXY_URL</dt>
+
+<dd class="dlentry">If a proxy is configured, this environment variable is the IP address/hostname of the proxy
+server that <span class="ph">QRadar</span> uses. </dd>
+
+
+
+<dt class="dlterm">PROXY_PORT</dt>
+
+<dd class="dlentry">If a proxy is configured, this environment variable is the port number of the proxy server that
+<span class="ph">QRadar</span> uses. </dd>
+
+
+</dl>
+
+<p>Environment variables that you define in an app's manifest file are specific to that app and
+haven no effect outside the app container.</p>
+
+<p>The following code sample shows how to configure the <span class="keyword parmname">environment_variables</span>
+block in the manifest file.</p>
+
+<pre class="codeblock"><code>{
+...
+"environment_variables":[
+		{
+               "name":"ENV_VAR1",
+               "value":"1"
+		},
+		{ 
+               "name":"ENV_VAR2",
+               "value":"2"
+		},
+		{
+                "name":"ENV_VAR3",
+                "value":"3"
+		}
+	],
+
+...
+}</code></pre>
+<p>The following table explains the manifest fields for the
+<span class="keyword parmname">environment_variables</span> block.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_EnvVarsType__table_t2v_tqc_2s" class="defaultstyle"><colgroup><col style="width:28.571428571428577%"><col style="width:14.285714285714288%"><col style="width:40.85714285714286%"><col style="width:16.28571428571429%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d30902e177"> Field </th>
+
+<th id="d30902e180"> Type </th>
+
+<th id="d30902e183"> Description </th>
+
+<th id="d30902e186"> Required </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d30902e177 "><span class="keyword parmname">name</span></td>
+
+<td headers="d30902e180 "> String </td>
+
+<td headers="d30902e183 ">The name of the environment variable.<p>Environment variable names cannot begin with a
+number, or contain an equals (=) sign.</p>
+</td>
+
+<td headers="d30902e186 ">Yes</td>
+
+</tr>
+
+<tr>
+<td headers="d30902e177 "><span class="keyword parmname">value</span></td>
+
+<td headers="d30902e180 "> String </td>
+
+<td headers="d30902e183 ">The value of the environment variable.</td>
+
+<td headers="d30902e186 ">Yes</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d30902e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You must install Python 2.7.9 to run IBM QRadar Application Framework SDK on the OSX operating system.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="t_appframework_createDevEnv.html">
+<title>Installing Python 2.7.9 on OSX</title>
+</head>
+<body id="t_appframework_pyverOSX"><main role="main"><article role="article" aria-labelledby="d25845e10">
+<h1 class="topictitle1" id="d25845e10">Installing Python 2.7.9 on OSX</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">You must install Python 2.7.9 to run <span class="ph">IBM®
+QRadar®</span> Application Framework SDK
+on the OSX operating system.</p>
+
+<section class="section context" role="region" aria-labelledby="taskd25845e25"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd25845e25">About this task</h2></div>
+<p>OSX usually comes with Python 2.7.x. The <span class="ph">QRadar</span> app framework SDK requires
+Python 2.7.9. </p>
+
+</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd25845e35">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">To install the <span class="keyword apiname">HomeBrew</span> package manager, type this command:</span> 
+<div class="itemgroup stepxmp">
+<p><kbd class="ph userinput">ruby -e "$(curl -fsSL
+https://raw.githubusercontent.com/Homebrew/install/master/install)"</kbd></p>
+
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">To install the Python version manager, <span class="keyword apiname">pyenv</span>, type this command:</span> 
+<div class="itemgroup stepxmp">
+<p><kbd class="ph userinput">brew install pyenv</kbd></p>
+
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">To use <span class="keyword apiname">pyenv</span> to install Python 2.7.9, type this command:</span> 
+<div class="itemgroup stepxmp">
+<p><kbd class="ph userinput">pyenv install 2.7.9</kbd></p>
+
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">To check that Python 2.7.9 was installed correctly, type this command:</span> 
+<div class="itemgroup stepxmp">
+<p><kbd class="ph userinput">pyenv versions</kbd></p>
+
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">To use Python 2.7.9 locally, type this command:</span> 
+<div class="itemgroup stepxmp">
+<p><kbd class="ph userinput">pyenv global 2.7.9</kbd></p>
+
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">To check your Python version, type this command:</span> 
+<div class="itemgroup stepxmp">
+<p><kbd class="ph userinput">python --version</kbd></p>
+
+</div>
+<div class="itemgroup info">
+<p>If this command returns <samp class="ph systemoutput">2.7.9</samp>, the installation was successful. </p>
+
+<p>If this command returns <samp class="ph systemoutput">2.7.x</samp>, it might indicate an issue with
+<span class="keyword apiname">pyenv</span>. To solve this problem, open or create the
+<span class="ph filepath">~/.bash_profile</span> file in a text editor and add the following lines:</p>
+
+<pre class="codeblock"><code>export PATH=/usr/local/bin:$PATH
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"</code></pre>
+<p>Type the <kbd class="ph userinput">python --version</kbd> command to check that Python 2.7.9 was
+installed.</p>
+
+</div>
+</li>
+</ol>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d25845e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="t_appframework_createDevEnv.html" title="Use the QRadar GUI Application Framework SDK (Software Development Kit) to create a basic development environment for your app.">Creating your development environment</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The custom fragments feature allows an app to inject its own content into QRadar tabs and pages. The application determines what the content is and how it is rendered. The injection points are fixed, predetermined locations within the QRadar page set.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<title>Custom fragments example</title>
+</head>
+<body id="c_appfw_samples_CustFrags"><main role="main"><article role="article" aria-labelledby="d14121e10">
+<h1 class="topictitle1" id="d14121e10">Custom fragments example</h1>
+
+
+<div class="body conbody"><p class="shortdesc">The custom fragments feature allows an app to inject its own content into <span class="ph">QRadar®</span> tabs and pages. The
+application determines what the content is and how it is rendered. The injection points are fixed,
+predetermined locations within the <span class="ph">QRadar</span> page set.</p>
+
+<p>The sample app that is presented here injects an HTML table that contains data for an offense on
+the <span class="keyword wintitle">Offense Summary</span> page. This example uses
+<span class="ph filepath">app/qpylib/offense_qpylib.py</span> library functions to retrieve offense details in
+JSON format.</p>
+
+<p>The following image shows custom content at the top of the <span class="keyword wintitle">Offense Summary</span>
+page:</p>
+
+<figure class="fignone" id="c_appfw_samples_CustFrags__fig_bg2_dvz_vw"><figcaption>Figure 1. Custom content injection</figcaption>
+
+<div class="image"><img src="customfrag_HTML.png" alt="custom content injection"></div>
+</figure>
+
+<p>The following sections describe the <span class="ph filepath">manifest.json</span> and
+<span class="ph filepath">app/views.py</span> code that is used to inject offense data into the
+<span class="keyword wintitle">Offense Summary</span> page header.</p>
+
+<section class="section" role="region" aria-labelledby="d14121e62"><h2 class="sectiontitle" id="d14121e62"><span class="ph filepath">manifest.json</span></h2><p>Use the <code class="ph codeph">fragments</code>
+block in the application manifest file to define the location where you want to inject the content.
+You also define the REST endpoint that is used to retrieve the content in the
+<code class="ph codeph">fragments</code>.
+</p>
+<pre class="codeblock"><code>{
+	"name":"Offense Fragment New",
+	"description":"Render offense using custom python",
+	"version":"1.0",
+	"uuid":"a4095969-1c88-4e35-aecb-4eea7b061ab4",
+
+"fragments": [
+    {
+        "app_name": "SEM",<span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+        "page_id": "OffenseSummary",
+        "rest_endpoint": "fragoffense"<span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+    }
+  ]
+}</code></pre>The
+following list describes the contents in the code snippet from the <span class="keyword parmname">fragments</span> block.<ol>
+<li>The <span class="keyword parmname">app_name</span> and <span class="keyword parmname">page_id</span> fields define the tab and
+page where the content is injected. As content can be injected into the header of the
+<span class="keyword wintitle">Offense Summary</span> page only, no <span class="keyword parmname">location</span> field is
+required.</li>
+
+<li>The <code class="ph codeph">fragoffense</code> rest endpoint is defined in the
+<span class="ph filepath">app/views.py</span> file.</li>
+
+</ol>
+</section>
+
+<section class="section" role="region" aria-labelledby="d14121e114"><h2 class="sectiontitle" id="d14121e114"><span class="ph filepath">app/views.py</span></h2><p></p>
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import Response
+from app import app
+from qpylib.qpylib import log
+from qpylib.offense_qpylib import get_offense_json_html<span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+
+@app.route('/fragoffense/&lt;offense_id&gt;', methods=['GET'])<span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+def get_offense(offense_id):
+  try:
+   offense_json = get_offense_json_html(offense_id, custom_html_generator)
+   return Response(response=offense_json, status=200, mimetype='application/json')
+  except Exception as e:
+   log('Error ' + str(e))
+   raise
+
+def custom_html_generator(offense_json):<span class="keyword calloutlabel">&nbsp;3&nbsp;</span>
+    return ('&lt;table&gt;&lt;tbody&gt;' +
+            '&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Offense ID&lt;/strong&gt;&lt;/td&gt;
+                 &lt;td&gt;' + str(offense_json['id']) + '&lt;/td&gt;&lt;/tr&gt;' +
+            '&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Source IP&lt;/strong&gt;&lt;/td&gt;
+                 &lt;td&gt;' + offense_json['offense_source'] + '&lt;/td&gt;&lt;/tr&gt;' +
+            '&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Severity&lt;/strong&gt;&lt;/td&gt;
+                 &lt;td&gt;' + str(offense_json['severity']) + '&lt;/td&gt;&lt;/tr&gt;' +
+            '&lt;/tbody&gt;&lt;/table&gt;')</code></pre>The
+following list describes the contents in the code snippet from the <span class="ph filepath">views.py</span> scipt.<ol>
+<li> The <span class="keyword apiname">get_offense_json_html</span> function that is imported from the
+<span class="ph filepath">app/qpylib/offense_qpylib.py</span> library retrieves the details of the offense ID in
+JSON format.</li>
+
+<li>The <span class="keyword apiname">get_offense</span> function has an <span class="keyword apiname">@app.route</span> annotation that
+defines the endpoint's route. Its value is composed of the manifest's
+<span class="keyword parmname">rest_endpoint</span> field value <code class="ph codeph">/fragoffense</code>, and the context
+information. In this case, the context information is the offense ID for the current offense on the
+<span class="keyword wintitle">Offense Summary</span> page.</li>
+
+<li>The <span class="keyword apiname">custom_html_generator</span> function formats the offense JSON that was
+retrieved into an HTML table.</li>
+
+</ol>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d14121e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+</nav></aside></article></main></body></html>

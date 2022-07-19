@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The QRadar Python helper library (qpylib) contains several useful functions that you can use to add logging, make REST API calls, and convert JSON objects to Python dictionaries.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>QRadar Python helper library functions</title>
+</head>
+<body id="concept_cyw_gj2_cz"><main role="main"><article role="article" aria-labelledby="d8931e10">
+<h1 class="topictitle1" id="d8931e10"><span class="ph">QRadar</span> Python helper
+library functions</h1>
+
+
+<div class="body conbody"><p class="shortdesc">The <span class="ph">QRadar®</span> Python
+helper library (<span class="keyword apiname">qpylib</span>) contains several useful functions that you can use to add
+logging, make REST API calls, and convert JSON objects to Python dictionaries.</p>
+
+<p>All functions that you import into your app's <span class="ph filepath">views.py</span> file can be called
+globally. </p>
+
+<p>The following table describes functions that you can import into your app's
+<span class="ph filepath">views.py</span> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_cyw_gj2_cz__table_igq_kym_rt" class="defaultstyle"><caption><span class="tablecap">Table 1. Functions that you can import into your app</span></caption><colgroup><col style="width:16.666666666666664%"><col style="width:50%"><col style="width:33.33333333333333%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d8931e57">Function</th>
+
+<th id="d8931e60">Format</th>
+
+<th id="d8931e63">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d8931e57 "><span class="keyword apiname">log()</span></td>
+
+<td headers="d8931e60 ">
+<pre class="codeblock"><code>def log(message, level='info'):</code></pre>
+<p>Here's an example:</p>
+
+<pre class="codeblock"><code>from qpylib import qpylib
+
+..
+
+#in precedence order from lowest level to highest
+
+log('debug message' ,'debug')
+
+log('info message' ,'info')
+
+log('warning message' ,'warning')
+
+log('error message' ,'error')
+
+log('critical message' ,'critical')</code></pre>
+</td>
+
+<td headers="d8931e63 ">Import the <span class="keyword apiname">qpylib</span> helper library into your app's
+<span class="ph filepath">views.py</span> to use the <span class="keyword apiname">log()</span> function. This function writes
+messages at your chosen log level to the <span class="ph filepath">/store/log/app.log</span> file.<p>By default,
+logging is turned on and set to INFO level. Lower level logging messages are ignored. Use the
+<span class="keyword apiname">POST /log_level</span> endpoint to change</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d8931e57 "><span class="keyword apiname">set_log_level( log_level )</span></td>
+
+<td headers="d8931e60 ">
+<pre class="codeblock"><code>def set_log_level(log_level='info'):</code></pre>
+</td>
+
+<td headers="d8931e63 ">Set the current log level. Used by the <span class="keyword apiname">POST /log_level</span> endpoint but can
+also be called programmatically.</td>
+
+</tr>
+
+<tr>
+<td headers="d8931e57 "><span class="keyword apiname">REST()</span></td>
+
+<td headers="d8931e60 ">
+<pre class="codeblock"><code>def REST( RESTtype, requestURL, headers={}, 
+data=None, params=None, json=None, version=None ):</code></pre>
+<p>For example:</p>
+
+<pre class="codeblock"><code>try:
+  headers = {'content-type' : 'text/plain'}
+  arielOptions = qpylib.REST( 'get',
+                 '/api/ariel/databases', headers = headers )
+except Exception as e:
+  qpylib.log( "Error "  + str(e) )
+  raise</code></pre>
+</td>
+
+<td headers="d8931e63 ">Import the <span class="keyword apiname">qpylib</span> library to use this function to make calls to the <span class="ph">QRadar</span> REST API endpoints. The
+endpoint takes care of authentication and authorization by reusing the security tokens that are
+passed on the request from <span class="ph">QRadar</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d8931e57 "><span class="keyword apiname">to_json_dict( JSON )</span></td>
+
+<td headers="d8931e60 ">
+<pre class="codeblock"><code>def to_json_dict(python_obj):</code></pre>
+</td>
+
+<td headers="d8931e63 ">Converts a JSON object in to a Python dictionary.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d8931e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

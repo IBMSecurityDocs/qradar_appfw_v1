@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The IBM QRadar GUI Application Framework comes with several built-in routes, custom Jinja2 Flask functions, and other helper utilities that support app development.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Support functions</title>
+</head>
+<body id="concept_d2p_3qm_rt"><main role="main"><article role="article" aria-labelledby="d11049e10">
+<h1 class="topictitle1" id="d11049e10">Support functions</h1>
+
+
+<div class="body conbody"><p class="shortdesc">The <span class="ph">IBM®
+QRadar®</span> GUI
+Application Framework comes with several built-in routes, custom Jinja2 Flask functions, and other
+helper utilities that support app development.</p>
+
+<section class="section" role="region" aria-labelledby="d11049e27"><h2 class="sectiontitle" id="d11049e27">Overview</h2>
+
+<p>All HTTP requests from client-side browsers that go to an app use the following format:</p>
+
+<pre class="codeblock"><code>https://&lt;console_ip&gt;/console/plugins/{application_id}/app_proxy/{my_route}</code></pre>
+<p>The <var class="keyword varname">application_id</var> is the integer value that is assigned during the process of
+using the installation RESTful endpoints for GUI app creation. The <var class="keyword varname">application_id</var>
+value is recorded in the <span class="keyword parmname">Application Creation Task state</span> output that is
+returned when you run the <span class="keyword cmdname">qradar_app_creator deploy</span> command.</p>
+
+<p>In the following example, the application ID is <samp class="ph systemoutput">1023</samp>.</p>
+
+<pre class="codeblock"><code><samp class="ph systemoutput">Application Creation Task state: 
+{'status': 'COMPLETED', 'application_id': '1023', 'error_messages': '[]'}&nbsp;</samp></code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d11049e65" id="concept_d2p_3qm_rt__section_a1s_4sq_st"><h2 class="sectiontitle" id="d11049e65">Routes</h2>
+
+<p> You can create your own targeted web requests to the app for the routes in the following
+table:</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_d2p_3qm_rt__table_yt1_rsm_rt" class="defaultstyle"><caption><span class="tablecap">Table 1. Request routes</span></caption><colgroup><col style="width:16.666666666666664%"><col style="width:41.66666666666667%"><col style="width:41.66666666666667%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d11049e88">Route</th>
+
+<th id="d11049e91">Format</th>
+
+<th id="d11049e94">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d11049e88 "><span class="keyword apiname">GET /debug</span></td>
+
+<td headers="d11049e91 ">
+<pre class="codeblock"><code>GET https://&lt;console_ip&gt;/console/plugins/
+{application_id}/app_proxy/debug</code></pre>
+</td>
+
+<td headers="d11049e94 ">Download your <span class="ph filepath">/store/log/app.log</span> file from inside the container for
+inspection.</td>
+
+</tr>
+
+<tr>
+<td headers="d11049e88 "><span class="keyword apiname">GET /debug_view</span></td>
+
+<td headers="d11049e91 ">
+<pre class="codeblock"><code>GET https://&lt;console_ip&gt;/console/plugins/
+{application_id}/app_proxy/debug_view</code></pre>
+</td>
+
+<td headers="d11049e94 ">Display the contents of the <span class="ph filepath">/store/log/app.log</span> file inside your browser
+window.</td>
+
+</tr>
+
+<tr>
+<td headers="d11049e88 "><span class="keyword apiname">POST /log_level</span></td>
+
+<td headers="d11049e91 ">
+<pre class="codeblock"><code>POST https://&lt;console_ip&gt;/console/plugins/
+{application_id}/app_proxy/log_level
+form body: level = 'INFO'
+                   'DEBUG'
+                   'ERROR'
+                   'WARNING'
+                   'CRITICAL'</code></pre>
+</td>
+
+<td headers="d11049e94 ">Dynamically define the level of logging that you want your app to capture. Post a form, with
+an attribute level that is set to one of the log level values to this endpoint. <span class="ph">QRadar</span> dynamically reset the log
+collection levels in your <span class="ph filepath">/store/log/app.log</span> file.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d11049e168"><h2 class="sectiontitle" id="d11049e168">Accessing your Flask endpoints in <span class="ph filepath">views.py</span></h2>
+
+<p>You must use relative paths for your endpoints. Do not use the utility methods
+<span class="keyword apiname">q_url_for</span> and <span class="keyword apiname">get_console_ip</span> to create URLs to access your
+Flask endpoints. If a console uses a web URL instead of an IP address, all the Flask requests are
+denied because the request is cross-domain. In that case, your app might not work. If you want to
+access an endpoint from the main app template level, for an AJAX call, for example, to return some
+JSON data, use the following URL format:</p>
+
+<pre class="codeblock"><code>url_cpu_data = 'cpu_data'</code></pre>
+<p>This format routes the method in <span class="ph filepath">views.py</span>:</p>
+
+<pre class="codeblock"><code>@app.route('/cpu_data', methods=['GET'])</code></pre>
+<p>If you are working from a folder at a deeper level, for example, use
+<span class="ph filepath">../cpu_data</span> to go back a level to reach this endpoint.</p>
+
+<p>Do not use the following format to create a URL to access your endpoint: </p>
+
+<pre class="codeblock"><code>url_cpu_data = "{{ q_url_for('cpu_data') }}"</code></pre>
+<p>As before, if you go from a web URL to an IP address, this request might be denied because the
+request is cross-domain and so your app might not work.</p>
+
+<p>If you begin the URL with a slash, it starts the URL from this root:
+<code class="ph codeph">https://consoleIPaddress/</code></p>
+
+<p>Here's an example to open a page with the offense ID:</p>
+
+<pre class="codeblock"><code>console/qradar/jsp/QRadar.jsp?appName=Sem&amp;pageId=OffenseSummary&amp;summaryId="
+ + encodeURIComponent(offense_id)</code></pre>
+<p>Here's an example to open a page by running the AQL search query:</p>
+
+<pre class="codeblock"><code>/console/do/ariel/arielSearch?appName=EventViewer&amp;pageId=EventList&amp;dispatch=performSearch&amp;value(searchMode)
+=AQL&amp;value(timeRangeType)=aqlTime" + "&amp;value(aql)=" + encodeURIComponent(aql_query</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d11049e231"><h2 class="sectiontitle" id="d11049e231">Custom Flask methods</h2>
+
+<p>The following table describes the Flask custom methods that you can use:</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_d2p_3qm_rt__table_y2d_bwm_rt" class="defaultstyle"><caption><span class="tablecap">Table 2. Custom Flask methods</span></caption><colgroup><col style="width:19.35483870967742%"><col style="width:32.25806451612903%"><col style="width:48.387096774193544%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d11049e254">Method</th>
+
+<th id="d11049e257">Format</th>
+
+<th id="d11049e260">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d11049e254 "><span class="keyword apiname">q_url_for()</span></td>
+
+<td headers="d11049e257 ">
+<pre class="codeblock"><code>def q_url_for(endpoint, **values):</code></pre>
+</td>
+
+<td headers="d11049e260 ">Use this Python method inside your routes in your app's <span class="ph filepath">views.py</span> or your
+Jinja2 templates. It hides and abstracts the <span class="ph">QRadar</span> proxy addresses that are
+needed to link together endpoints (routes) or resources (static files and images, for example).
+<p>The method is essentially a wrapper around the Flask <span class="keyword apiname">url_for(..)</span> method. It
+applies a prefix that pertains to the correct application-specific proxy path URL portion to get to
+your app's endpoint.</p>
+<p>The following snippet shows how to use the method in a Jinja2 template to
+hide the <span class="ph">QRadar</span> proxy address
+of an image
+resource.</p>
+<pre class="codeblock"><code>&lt;img src="{{ q_url_for('static', 
+filename = 'images/come_image.png') }}"
+ width="256" height="256" alt="previous" 
+title="Previous" border="0"&gt;</code></pre><p>For
+more information about the Flask <span class="keyword apiname">url_for(..)</span> method, go to the Flask
+website.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d11049e254 "><span class="keyword apiname">getAppBaseURL()</span></td>
+
+<td headers="d11049e257 ">
+<pre class="codeblock"><code>def getAppBaseUrl():</code></pre>
+</td>
+
+<td headers="d11049e260 ">Function to get the full URL through <span class="ph">QRadar</span>, that will proxy any
+request to the appropriate application plug-in servlet. This routine returns a URL string that can
+be appended to create a URL to reference resources in the application. Typically, the
+<span class="keyword apiname">q_url_for()</span> function is used for this purpose but
+<span class="keyword apiname">getAppBaseURL()</span> is also supplied for convenience.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d11049e340"><h2 class="sectiontitle" id="d11049e340"><span class="ph">QRadar</span> CSRF
+token</h2>
+
+<p>The <span class="ph">QRadar</span> CSRF (cross-site
+request forgery) token is generated by <span class="ph">QRadar</span> to prevent cross-site
+scripting attempts. For applications that are developed by using <span class="ph">QRadar</span> support libraries such as
+<span class="ph filepath">qpylib</span> the use of the CSRF token is seamless.</p>
+
+<p>If you create an app that does not use <span class="ph">QRadar</span>
+<span class="ph filepath">qpylib</span> support, you must harvest the token from any application endpoints, or
+routes, and place it in your own HTTP headers before a REST or exported method call is made in <span class="ph">QRadar</span>.</p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d11049e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+
+<div class="linklist relinfo" lang="en-us"><h2 class="linkheading">Related information</h2>
+<ul><li><img src="sout.gif" alt=""><a href="https://flask.palletsprojects.com/en/2.0.x/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">https://flask.palletsprojects.com/en/2.0.x/</a></li>
+</ul></div>
+</nav></aside>
+</article></main></body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="An IBM QRadar app that you create is distributed within a compressed file.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>App file structure</title>
+</head>
+<body id="c_appframework_structure"><main role="main"><article role="article" aria-labelledby="d10009e10">
+<h1 class="topictitle1" id="d10009e10">App file structure</h1>
+
+
+<div class="body conbody"><p class="shortdesc">An <span class="ph">IBM®
+QRadar®</span> app
+that you create is distributed within a compressed file.</p>
+
+<p>The Hello World sample app that is created when you set up your development environment is a
+basic template that you can use for your application. However, the application file structure can be
+more complex. </p>
+
+<p>The following list outlines the layout of files and sub directories that you can add to the root
+directory of your app. It also outlines the required nomenclature for app files and sub
+directories:</p>
+
+<dl>
+
+<dt class="dlterm">&lt;App Root Folder&gt;</dt>
+
+<dd class="dlentry">This is main directory for application files</dd>
+
+<dd class="ddexpand"><span class="ph filepath">app/views.py</span><p>The main entry point into the web app. </p>
+</dd>
+
+<dd class="ddexpand"><span class="ph filepath">app/templates</span><p>An optional subdirectory that contains any Python Flask of
+Jinja templates that are required by the app.</p>
+</dd>
+
+<dd class="ddexpand"><span class="ph filepath">app/static</span><p>An optional subdirectory that contains CSS, JavaScript,
+globalization, and other resource files. </p>
+<ul>
+<li><span class="ph filepath">css</span></li>
+
+<li><span class="ph filepath">js</span></li>
+
+<li><span class="ph filepath">resources</span><p>The <span class="ph filepath">application_&lt;LANG&gt;.properties</span> file
+is a Globalization resource bundle for the specified language code. Text strings for globalization
+are stored as key/value pairs in Java format properties files. If you configured text strings for
+globalization, they appear in <span class="ph">QRadar</span> when the user sets their
+preferences for the relevant locale.</p>
+</li>
+
+</ul>
+</dd>
+
+<dd class="ddexpand"><span class="ph filepath">manifest.json</span><p>The application manifest description file. </p>
+</dd>
+
+<dd class="ddexpand"><span class="ph filepath">src_deps</span><p>An optional directory that contains source dependencies.</p>
+<ul>
+<li><span class="ph filepath">pip</span><p>Optional subdirectory that contains any extra Python libraries that
+the app requires.</p>
+</li>
+
+<li><span class="ph filepath">rpms</span><p>Optional subdirectory that contains any RPM dependencies that the
+app requires. RPMs must be CentOS 6.7 x86_64 compatible.</p>
+</li>
+
+<li><span class="ph filepath">init</span><p>Optional subdirectory that contains any dependencies that the app
+requires that are not RPMs or Python libraries.</p>
+</li>
+
+</ul>
+</dd>
+
+
+</dl>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d10009e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_manifestStructure.html">Application manifest structure</a></strong><br>
+The manifest is a JSON file that describes to <span class="ph">IBM QRadar</span> the capabilities that the app provides.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_dependencies.html">Source dependencies</a></strong><br>
+If your app requires dependencies, such as RPMs or Python libraries, you can add them in the <span class="ph filepath">src_deps</span> sub directory of the <span class="ph filepath">app</span> folder.</li>
+<li class="ulchildlink"><strong><a href="t_appfw_installNodeJS.html">Installing Node.js as a source dependency</a></strong><br>
+You can install Node.js as a web application framework to replace the Flask framework that is included with the <span class="ph">QRadar</span> GUI Application Framework SDK.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

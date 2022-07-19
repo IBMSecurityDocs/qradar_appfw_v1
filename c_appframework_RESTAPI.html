@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="GUI Application Framework endpoints are available in the latest version of the IBM QRadar API that you can use to develop apps.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>GUI Application Framework REST API endpoints</title>
+</head>
+<body id="c_appframework_RESTAPI"><main role="main"><article role="article" aria-labelledby="d30000e10">
+<h1 class="topictitle1" id="d30000e10">GUI Application Framework REST API endpoints</h1>
+
+
+<div class="body conbody"><p class="shortdesc">GUI Application Framework endpoints are available in the latest version of the <span class="ph">IBM®
+QRadar®</span> API that you can use to
+develop apps.</p>
+
+<p>Apps are packaged as compressed archives (.zip), within the extension archive. Extensions can be
+installed or uninstalled by using RESTful endpoints. Apps within an extension (.zip) file use extra
+RESTful endpoints to control the lifecycle of an App with <span class="ph">QRadar</span> (install, delete, start,
+stop).</p>
+
+<p>The following table lists the GUI Application Framework REST API endpoints:</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_RESTAPI__table_jtn_zyz_jt" class="defaultstyle"><caption><span class="tablecap">Table 1. GUI Application Framework REST API endpoints</span></caption><colgroup><col style="width:33.33333333333333%"><col style="width:33.33333333333333%"><col style="width:33.33333333333333%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d30000e52">Endpoint</th>
+
+<th id="d30000e55">Parameters</th>
+
+<th id="d30000e58">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">GET /gui_app_framework/application_creation_task</span></td>
+
+<td headers="d30000e55 ">Application ID</td>
+
+<td headers="d30000e58 ">Retrieves a list of status details for all asynchronous requests to create apps.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">GET /gui_app_framework/application_creation_task/{application_id}</span></td>
+
+<td headers="d30000e55 ">Application ID</td>
+
+<td headers="d30000e58 ">Retrieves a list of status details of an asynchronous request to create apps.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">POST /gui_app_framework/application_creation_task</span></td>
+
+<td headers="d30000e55 ">Application (.zip) bundle file</td>
+
+<td headers="d30000e58 ">Creates an app within the application framework, and registers it with <span class="ph">QRadar</span>. The app is created
+asynchronously. A reference to the <span class="keyword parmname">application_id</span> is returned and must be used
+in subsequent API calls to determine the status of the app installation.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">POST /gui_app_framework/application_creation_task/{application_id}</span></td>
+
+<td headers="d30000e55 ">Application ID, cancel status</td>
+
+<td headers="d30000e58 ">Updates a new app installation within the application framework The
+<span class="keyword parmname">application_id</span> and a <span class="keyword parmname">status</span> parameters are
+required.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">GET /gui_app_framework/applications</span></td>
+
+<td headers="d30000e55 ">&nbsp;</td>
+
+<td headers="d30000e58 ">Retrieves a list of apps that are installed on the <span class="ph">QRadar</span> console, and their manifest
+JSON structures and status.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">GET /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d30000e55 ">Application ID</td>
+
+<td headers="d30000e58 ">Retrieves a specific app that is installed on the console and its manifest JSON structure and
+status.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">POST /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d30000e55 ">Application ID, start/stop status</td>
+
+<td headers="d30000e58 ">Updates an app. Starts or stops an app by setting status to RUNNING or STOPPED
+respectively.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">PUT /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d30000e55 ">Application ID</td>
+
+<td headers="d30000e58 ">Upgrade an application.</td>
+
+</tr>
+
+<tr>
+<td headers="d30000e52 "><span class="keyword apiname">DELETE /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d30000e55 ">Application ID</td>
+
+<td headers="d30000e58 ">Deletes an application.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d30000e52 "><span class="keyword apiname">GET /gui_app_framework/named_services</span></td>
+
+<td headers="d30000e55 ">&nbsp;</td>
+
+<td headers="d30000e58 ">Retrieves a list of all named services registered with the Application Framework.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d30000e52 "><span class="keyword apiname">GET /gui_app_framework/named_services/{uuid}</span></td>
+
+<td headers="d30000e55 ">uuid</td>
+
+<td headers="d30000e58 ">Retrieves a named service registered with the Application Framework by using the supplied
+uuid.</td>
+
+</tr>
+
+
+</tbody>
+</table>
+</div>
+
+<p>For more information, see the <span class="keyword wintitle">API documentation</span> page on your <span class="ph">QRadar
+Console</span>:
+<span class="ph filepath">https://&lt;Console_IP&gt;/api_doc</span>. Alternatively, see the <cite>IBM
+QRadar API Guide</cite>.</p>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d30000e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

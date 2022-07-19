@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can add your own script that runs as a part of a custom action when a custom rules engine (CRE) rule is triggered.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Custom actions for CRE responses</title>
+</head>
+<body id="c_appframework_CREResp"><main role="main"><article role="article" aria-labelledby="d16372e10">
+<h1 class="topictitle1" id="d16372e10">Custom actions for CRE responses</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You can add your own script that runs as a part of a custom action when a custom rules
+engine (CRE) rule is triggered.</p>
+
+<p>The following scripting languages are supported:</p>
+
+<ul>
+<li>Bash version 4.1.2</li>
+
+<li>Perl version 5.10.1</li>
+
+<li>Python version 2.7.9</li>
+
+</ul>
+
+<p>You can use base libraries in these languages to do custom operations that use data that is
+passed directly from the event that triggered the rule.</p>
+
+<p>Create custom actions by using the <span class="keyword wintitle">Define Actions</span> window on the
+<span class="ph uicontrol">Admin</span> tab. You can also create custom actions by using the
+<span class="keyword apiname">/api/analytics/custom_actions</span> REST endpoints. The following sample is an example
+of a custom action JSON file that the <span class="keyword apiname">GET /api/analytics/custom_actions/actions</span>
+endpoint returns.</p>
+
+<pre class="codeblock"><code>{
+           "id": 1004,
+           "interpreter": 1,
+           "description": "Custom action containing two parameters",
+           "name": "custom_action_1",
+           "script": 43,
+           "parameters": [
+              {
+                "encrypted": false,
+                "name": "fixedParam",
+                "value": "Hello World!",
+                "parameter_type": "fixed"
+              },
+              {
+               "encrypted": false,
+               "name": "dynamicParam",
+               "value": "sourceip",
+               "parameter_type": "dynamic"
+               }
+            ]
+}</code></pre>
+<p>The two JSON objects that are contained within the parameters field represent parameters, which
+are passed to your script when it is run. Two types of parameters are supported:</p>
+
+<ul>
+<li><dfn class="term">Fixed parameters</dfn> represent fixed values that are passed to your script as is. For
+example, if the <span class="keyword parmname">fixedParam</span> parameter has a value of "Hello World!" when
+accessed from your script, this parameter returns the value "Hello World!".</li>
+
+<li><dfn class="term">Dynamic parameters</dfn> and their corresponding <span class="keyword parmname">value</span> fields
+represent properties that are extracted from the event that triggered the CRE rule. For example, if
+the <span class="keyword parmname">dynamicParam</span> parameter has a value of "<span class="keyword option">sourceip</span>" when
+passed to your script, this value is replaced with the corresponding source IP address that is
+contained within the rule that triggers the event.</li>
+
+</ul>
+
+<p>Parameters are passed to scripts in the order that they are defined within the custom action.
+These parameters can then be accessed by using the supported methods for each language:</p>
+
+<section class="section" role="region" aria-labelledby="d16372e88"><h2 class="sectiontitle" id="d16372e88">Bash</h2>
+
+<pre class="codeblock"><code>param1=$1 # First parameter
+param2=$2 # Second parameter</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d16372e97"><h2 class="sectiontitle" id="d16372e97">Perl</h2>
+
+<pre class="codeblock"><code>$param1 = $ARGV [ 0 ]
+$param2 = $ARGV [ 1 ]</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d16372e106"><h2 class="sectiontitle" id="d16372e106">Python</h2>
+
+<pre class="codeblock"><code>import sys
+param1 = sys.argv[1]
+param2 = sys.argv[2]</code></pre>
+</section>
+
+<div class="example"><h2 class="sectiontitle" id="d16372e116">Example: Making a REST call to an external server</h2>
+
+<p>To write a script that makes a REST call to an external server when a rule is triggered, create a
+script that passes the IP address to the external server. The following JSON file is an example
+custom action: </p>
+
+<pre class="codeblock"><code>{"id": 1004,
+           "interpreter": 1,
+           "description": "Custom action containing two parameters",
+           "name": "custom_action_1",
+           "script": 43,
+           "parameters": [
+             {
+              "encrypted": false,
+              "name": "serverIP",
+              "value": "10.100.78.11",
+              "parameter_type": "fixed"
+             },
+             {
+              "encrypted": false,
+              "name": "username",
+              "value": "admin",
+              "parameter_type": "dynamic"
+             },
+             {"encrypted": true,
+              "name": "password",
+              "value": "ASDB231434DKSD#@SDA23SDD1",
+              "parameter_type": "dynamic"
+             },
+             {
+              "encrypted": false,
+              "name": "offendingIP",
+              "value": "sourceip",
+              "parameter_type": "dynamic"
+             }
+        ]
+}</code></pre>
+<p>The following Bash script uses these parameters to pass the IP address to an external server.</p>
+
+<pre class="codeblock"><code>#!/bin/bash
+# Assign parameters to variables.
+serverAddress=$1
+username=$2
+password=$3
+offendingIP=$4 
+# Call to an external server REST endpoint using the supplied parameters.
+curl -u $username: $password -i -H "Accept: application/json" -X POST
+     -d "ip= $offendingIP" "https://" $serverAddress/some_service</code></pre>
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d16372e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_defineCustActs.html">Defining custom actions</a></strong><br>
+You can attach scripts to custom rules that do custom actions in response to network events. Use the <span class="keyword wintitle">Custom Action</span> window to manage custom action scripts.</li>
+<li class="ulchildlink"><strong><a href="t_appframework_Tst_Custom_script.html">Testing your custom action</a></strong><br>
+Test whether your script runs successfully before you associate it with a rule.</li>
+<li class="ulchildlink"><strong><a href="t_appframework_addCustAct.html">Adding a custom action script to an event rule</a></strong><br>
+You use the Rule Wizard to add a custom action script that runs in response to a custom rule event.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_CustActAPI.html">Custom action REST API endpoints</a></strong><br>
+Custom action endpoints are available in the <span class="ph">IBM® QRadar</span> API that you can use to aid application development.</li>
+<li class="ulchildlink" data-hd-otherprops="731"><strong><a href="c_appframework_rule_name_id.html">Custom action and QRadar rules</a></strong><br>
+Use rule names and rule IDs as parameters in custom action scripts.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

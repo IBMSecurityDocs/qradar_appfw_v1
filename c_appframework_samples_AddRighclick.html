@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Add right-click functionality to a tab your app created in IBM QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<title>Add right-click functionality</title>
+</head>
+<body id="c_appframework_samples_AddRighclick"><main role="main"><article role="article" aria-labelledby="d2816e10">
+<h1 class="topictitle1" id="d2816e10">Add right-click functionality</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Add right-click functionality to a tab your app created in <span class="ph">IBM®
+QRadar®</span>.</p>
+
+<div class="p"><div class="note"><span class="notetitle">Note:</span> If you include the right-click GUI action in the manifest without adding an implementation
+of the action, the right-click menu fails to load. </div>
+This example shows how to use the
+right-click GUI Action to capture an IP address and pass the information to custom JavaScript. Use
+the right-click menu on the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Log Activity</span> tab to capture an IP address of an event. Pass the IP address to
+a custom tab. Use a button on the custom tab to initiate a search for events that contain the
+captured IP address.</div>
+
+<section class="section" role="region" aria-labelledby="d2816e39"><h2 class="sectiontitle" id="d2816e39"><span class="ph filepath">manifest.json</span></h2>
+
+<p></p>
+
+<pre class="codeblock"><code>...
+
+"areas": [<span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+    {
+      "url": "index",
+      "text": "RtClick",
+      "required_capabilities": ["ADMIN"],
+      "id": "QRtClick",
+      "description": "An app to POC Right Click"
+    }
+  ],
+
+"gui_actions" : [<span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+    {
+      "id" : "rtClickEventIP",
+      "text" : "Get row info from right click",
+      "description" : "Right click on a row, get all the info",
+      "icon": null,
+      "rest_method": "rtgetcontext",<span class="keyword calloutlabel">&nbsp;3&nbsp;</span>
+      "javascript" : "clickme(result)",
+      "groups" : ["ipPopup"],<span class="keyword calloutlabel">&nbsp;4&nbsp;</span>
+      "required_capabilities" : ["ADMIN"]
+    }
+  ],
+
+  "rest_methods" : [<span class="keyword calloutlabel">&nbsp;5&nbsp;</span>
+    {
+      "name":"rtgetcontext",
+      "url":"/getcontext",
+      "method":"GET",
+      "argument_names":["context"]
+    }
+  ],
+
+  "page_scripts" : [<span class="keyword calloutlabel">&nbsp;6&nbsp;</span>
+    {
+      "app_name":"EventViewer",
+      "page_id":"EventList",
+      "scripts" : ["static/clickme.js"]
+    }
+  ]
+
+...</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d2816e70"><h2 class="sectiontitle" id="d2816e70"><span class="ph filepath">app/views.py</span></h2>
+
+<p></p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from app import app
+from flask import jsonify, request, render_template
+import json
+from qpylib import qpylib
+
+
+@app.route('/')
+@app.route('/index')
+def index():
+    other_data = request.args.get("otherdata");
+    context = request.args.get("context");
+
+    if context is None:
+        context = ""
+
+    if other_data is None:
+        other_data = ""
+
+    qpylib.log("Displaying context" + str(context));
+
+    return render_template("index.html", context=context, other=other_data)
+
+@app.route('/getcontext', methods=['GET'])
+def get_context():
+    context = request.args.get("context")
+
+    qpylib.log("Setting the results to: " + context)
+
+    return json.dumps({"app_id":qpylib.get_app_id(),"context":context})</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d2816e82"><h2 class="sectiontitle" id="d2816e82"><span class="ph filepath">app/static/clickme.js</span></h2>
+
+<p></p>
+
+<pre class="codeblock"><code>function clickme(result) {
+
+  var app_id = ""
+  var context = ""
+
+  if (result) {
+    app_id = encodeURI(result.app_id)
+    context = encodeURI(result.context)
+  }
+
+  var d = new Date();
+  var n = d.getTime();
+
+  var otherData = "Something passed from Javascript"
+
+  console.log("Hey, you right clicked on me");
+  console.log(result)</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d2816e94"><h2 class="sectiontitle" id="d2816e94"><span class="ph filepath">app/templates/index.html</span></h2>
+
+<p></p>
+
+<pre class="codeblock"><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    var gotoTab = function() {
+      var url = "/console/do/ariel/arielSearch?appName=
+         EventViewer&amp;pageId=EventList&amp;dispatch=performSearch&amp;value(searchMode)=
+         AQL&amp;searchOrigin=SEARCH_RESULTS_AQL&amp;value(timeRangeType)=
+         aqlTime&amp;value(interval)=300000&amp;value(searchName)
+         =&amp;value(searchId)=null&amp;value(aql)
+         =select%20*%20from%20events%20where%20destinationip%20%3D%20%27" +
+        "{{context}}" + "%27%20LAST%2012%20HOURS&amp;value(aqlLines)
+        =%5B%22select%20*%20from%20events%20where%20destinationip%20%3D%20%27" +
+        "{{context}}" + "%27%20LAST%2012%20HOURS%22%5D&amp;value(recordsLimit)="
+      top.setActiveTab("EventViewer", url )
+    }
+  &lt;/script&gt;
+
+  &lt;div&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Received context data from QRadar: {{context}}&lt;/li&gt;
+      &lt;li&gt;Received other data from Javascript: {{other}}&lt;/li&gt;
+      &lt;li&gt;&lt;button onclick="gotoTab()"&gt;Search for events with 
+          sourceip of {{context}}&lt;/button&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d2816e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Jinja2 is a Python library that you can use to construct templates for various output formats from a core template text file. It can be used to create HTML templates for IBM QRadar applications.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Jinja2 templates</title>
+</head>
+<body id="concept_v2k_yqh_pt"><main role="main"><article role="article" aria-labelledby="d4255e10">
+<h1 class="topictitle1" id="d4255e10">Jinja2 templates</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Jinja2 is a Python library that you can use to construct templates for various output
+formats from a core template text file. It can be used to create HTML templates for <span class="ph">IBM®
+QRadar®</span> applications.</p>
+
+<p>Jinja2 has a rich API, and large array of syntactic directives (statements, expressions,
+variables, tags) that allow the dynamic injection of content into the templated file.</p>
+
+<p>Use the Flask <span class="keyword apiname">render_template()</span> method in the app's
+<span class="ph filepath">views.py</span> file to inject data from your Python method, served by the route, into
+a Jinja2 templated HTML file. For example:</p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import render_template
+from app import app
+
+@app.route('/')
+def hello_world():
+    return render_template("hello.html", title = "QRadar")</code></pre>
+<p>The <span class="ph filepath">hello.html</span> template must be stored in the
+<span class="ph filepath">/app/templates</span> folder. The <span class="ph filepath">hello.html</span> file is described in
+the following section: </p>
+
+<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;title&gt;Hello from Flask&lt;/title&gt;
+&lt;h1&gt;Hello {{ title }}!&lt;/h1&gt;</code></pre>
+<div class="p">The template produces the following
+output:<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;title&gt;Hello from Flask&lt;/title&gt;
+&lt;h1&gt;Hello QRadar!&lt;/h1&gt;</code></pre></div>
+
+<div class="note"><span class="notetitle">Note:</span> Do not use the Flask-Jinja2-mandated <span class="keyword apiname">url_for</span> functionality within your app
+Jinja2 template. The <span class="ph">QRadar</span>
+GUI Application Framework uses relative addressing for request paths. If you use
+<span class="keyword apiname">url_for</span>, it creates an absolute request path from the container itself.</div>
+
+<p>For more information about Jinja2 templates, see the <a href="http://jinja.pocoo.org/docs/dev/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Jinja2
+documentation</a>.</p>
+
+<section class="section" role="region" aria-labelledby="d4255e83"><h2 class="sectiontitle" id="d4255e83">Edit Jinja2 templates in Eclipse</h2>
+
+<p>You can use the Django template editor plug-in in Eclipse to develop Jinja2 templates.</p>
+
+<p>PyDev Eclipse does not come with a Jinja2 template editor by default. The Django template editor
+plug-in offers useful features that you can employ to develop Jinja2 templates for your app.</p>
+
+<p>Install the Django repository (<a href="http://pydev.org/updates" rel="noopener" target="_blank" title="(Opens in a new tab or window)">http://pydev.org/updates</a>) by clicking <span class="ph menucascade"><span class="ph uicontrol">Help</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Install New Software</span></span> on the main Eclipse <span class="ph uicontrol">Help</span> panel.</p>
+
+<p>This plug-in offers useful syntax-highlighting and auto-completion features for Jinja2 template
+development.</p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d4255e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_jsLibs.html">Integrate JavaScript libraries into your template</a></strong><br>
+Add CSS and JavaScript libraries to your HTML templates to style and enhance your apps user interface.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="When you add an app in the Application Development Manager window, a simple &#34;Hello World&#34; sample app is also created.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>The Hello World sample app</title>
+</head>
+<body id="c_appframework_HelloWorld"><main role="main"><article role="article" aria-labelledby="d20868e10">
+<h1 class="topictitle1" id="d20868e10">The Hello World sample app</h1>
+
+
+<div class="body conbody"><p class="shortdesc">When you add an app in the <span class="keyword wintitle">Application Development Manager</span> window, a
+simple "Hello World" sample app is also created. </p>
+
+<p>The Hello World sample app adds a <span class="ph uicontrol">Hello World</span> tab to <span class="ph">QRadar®</span>.</p>
+
+<p>The following image shows an example of the <span class="ph uicontrol">Hello World</span> tab that is added
+to <span class="ph">QRadar</span>. </p>
+
+<div class="fignone" id="c_appframework_HelloWorld__fig_eth_2zq_xs">
+<div class="image"><img src="appFramework_HelloWorld.svg" alt="Hello World app"></div>
+</div>
+
+<p> You can use this sample app as a simple template from which to build your own apps that require
+tabs. When you run the development environment script, the files that are described in the following
+table are added to your application development folder:</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_HelloWorld__table_twp_gcj_lt" class="defaultstyle"><caption><span class="tablecap">Table 1. Application development files</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d20868e68">Files/Folders</th>
+
+<th id="d20868e71">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d20868e68 "><span class="ph filepath">app</span></td>
+
+<td headers="d20868e71 ">The root directory contains the following files:<p><span class="ph filepath">qpylib</span> contains the
+Python library files that your app uses to connect to the <span class="ph">QRadar</span> API
+endpoints.</p>
+<p><span class="ph filepath">__init__.py</span> a sample initialization file that creates a Flask
+instance, imports views from the <span class="ph filepath">views.py</span> script and functions from the
+<span class="ph filepath">qpylib</span> library.</p>
+<p><span class="ph filepath">views.py</span> the main entry point into
+the web application. This file and the <span class="ph filepath">manifest.json</span> file are the only files
+that are required in every app. Contains sample code for the Hello World app.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d20868e68 "><span class="ph filepath">qradar_appfw_venv</span></td>
+
+<td headers="d20868e71 ">Contains the Python virtual environment where the dependencies are installed.</td>
+
+</tr>
+
+<tr>
+<td headers="d20868e68 "><span class="ph filepath">__init__.py</span></td>
+
+<td headers="d20868e71 ">Creates an instance of the Flask micro-framework that is used to serve content to <span class="ph">QRadar</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d20868e68 "><span class="ph filepath">manifest.json</span></td>
+
+<td headers="d20868e71 ">Describes to <span class="ph">QRadar</span>
+what the sample Hello World app does.</td>
+
+</tr>
+
+<tr>
+<td headers="d20868e68 "><span class="ph filepath">run.py</span></td>
+
+<td headers="d20868e71 ">Contains instructions to run the code that is stored in the <span class="ph filepath">app</span> sub
+directory.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<section class="section" role="region" aria-labelledby="d20868e170"><h2 class="sectiontitle" id="d20868e170"><span class="ph filepath">manifest.json</span></h2>
+
+<p>The <span class="ph filepath">manifest.json</span> file contains the following code:</p>
+
+<pre class="codeblock"><code>{
+    "name":"Hello World",
+    "description":"Application to display hello world",
+    "version":"1.0",
+    "uuid":"558d7935-f00b-42da-a278-c82abdb12b34",
+
+    "areas": [
+        {
+            "id":"QHelloWorld",
+            "text":"Hello World",
+            "description":"A Hello World app",
+            "url":"index",
+            "required_capabilities":["ADMIN"]
+        }
+    ],
+
+    "dev_opts": [
+        {   
+            "console_ip":""
+        }    
+    ]
+
+}</code></pre>
+<p>The first four objects, <span class="keyword parmname">name</span>, <span class="keyword parmname">description</span>,
+<span class="keyword parmname">version</span>, and <span class="keyword parmname">uuid</span> provide basic app information.</p>
+
+<p>The <code class="ph codeph">areas</code> object describes the capabilities of the Hello World app. The <span class="ph">QRadar</span> GUI Application Framework
+uses <code class="ph codeph">areas</code> objects to describe new complete pages of the app.
+<code class="ph codeph">Areas</code> objects are represented as tabs in the user interface.</p>
+
+<p>The <code class="ph codeph">areas</code> block contains the fields that are described in the following
+table:</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_HelloWorld__table_xc5_3p4_ps" class="defaultstyle"><caption><span class="tablecap">Table 2. Areas block</span></caption><colgroup><col style="width:27.27272727272727%"><col style="width:54.54545454545454%"><col style="width:18.181818181818183%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d20868e238">Name</th>
+
+<th id="d20868e241">Description</th>
+
+<th id="d20868e244">Value</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d20868e238 "><code class="ph codeph">id</code></td>
+
+<td headers="d20868e241 ">The ID of the new tab</td>
+
+<td headers="d20868e244 "><code class="ph codeph">QHelloWorld</code></td>
+
+</tr>
+
+<tr>
+<td headers="d20868e238 "><code class="ph codeph">text</code></td>
+
+<td headers="d20868e241 ">The name of the tab that is displayed in the user interface.</td>
+
+<td headers="d20868e244 "><code class="ph codeph">Hello World</code></td>
+
+</tr>
+
+<tr>
+<td headers="d20868e238 "><code class="ph codeph">description</code></td>
+
+<td headers="d20868e241 ">A description of the tab that is displayed. </td>
+
+<td headers="d20868e244 "><code class="ph codeph">A Hello World app</code></td>
+
+</tr>
+
+<tr>
+<td headers="d20868e238 "><code class="ph codeph">url</code></td>
+
+<td headers="d20868e241 ">Describes the route that is defined in the <span class="ph filepath">views.py</span> script that <span class="ph">QRadar</span> uses so it can display the
+"Hello, World!" text in the body of the new tab.</td>
+
+<td headers="d20868e244 "><code class="ph codeph">index</code></td>
+
+</tr>
+
+<tr>
+<td headers="d20868e238 "><code class="ph codeph">required_capabilities</code></td>
+
+<td headers="d20868e241 ">Instructs <span class="ph">QRadar</span> to
+display the <span class="ph uicontrol">Hello World</span> tab only to users with Administrator
+privileges.</td>
+
+<td headers="d20868e244 "><code class="ph codeph">["ADMIN"]</code></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The <code class="ph codeph">dev_opts</code> block is used to provide the IP address of networked instance of
+<span class="ph">QRadar
+Console</span> for testing purposes. This
+block is not required for this sample app.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d20868e352"><h2 class="sectiontitle" id="d20868e352"><span class="ph filepath">views.py</span></h2>
+
+<p> The <span class="ph filepath">views.py</span> file contains the following code:</p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from app import app
+ 
+@app.route('/')
+@app.route('/index')
+def index():
+    return "Hello, World!"
+</code></pre>
+<p>The code creates the default <code class="ph codeph">'/'</code> and <code class="ph codeph">'/index'</code> routes, both of
+which return a simple string. The index route is declared in the <span class="keyword parmname">url</span> field of
+the <span class="ph filepath">manifest.json</span> file.</p>
+
+<div class="note"><span class="notetitle">Note:</span> You do not have to include the <code class="ph codeph">__author__</code> tag, but it is considered good
+practice to use it.</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d20868e389"><h2 class="sectiontitle" id="d20868e389">App startup</h2>
+
+<p>When <span class="ph">QRadar</span> starts your
+app, it calls the <span class="ph filepath">run.py</span> and <span class="ph filepath">_init_.py</span> scripts. The
+<span class="ph filepath">_init_.py</span> file creates an instance of the Flask microframework environment that
+imports your views module. Your views modules define all the necessary endpoints and routes that
+serve content back to <span class="ph">QRadar</span>.</p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+ 
+from flask import Flask
+
+app = Flask(__name__)
+from app import views</code></pre>
+<p>The <span class="ph filepath">run.py</span> file creates a new Flask application (by starting the Flask web
+server), from the <span class="ph filepath">app</span> directory.</p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+ 
+from app import app
+app.run(debug = True, host='0.0.0.0')</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d20868e430"><h2 class="sectiontitle" id="d20868e430">What can you do with the Hello World sample app?</h2>
+
+<p>You can use the Hello World sample app to test the <span class="ph">QRadar</span> SDK in these ways: </p>
+
+<ul>
+<li>Run the Hello World app locally.</li>
+
+<li>If you have a test instance of <span class="ph">QRadar
+Console</span>, you use the SDK to package
+and upload the Hello World app to it. </li>
+
+</ul>
+
+<p>However, most importantly you can use the Hello World sample app files as a template to start
+developing your own <span class="ph">QRadar</span>
+apps.</p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d20868e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_HelloWorldtmplt.html">New tab example</a></strong><br>
+You can build on the Hello World sample app that the <span class="ph">IBM® QRadar</span> SDK installs in your app workspace to add a tab to <span class="ph">QRadar</span>.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

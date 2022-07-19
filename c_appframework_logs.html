@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="App logs are stored in the /store/log directory of your application's Docker container.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>App logs</title>
+</head>
+<body id="c_appframework_logs"><main role="main"><article role="article" aria-labelledby="d3232e10">
+    <h1 class="topictitle1" id="d3232e10">App logs</h1>
+
+    
+    <div class="body conbody"><p class="shortdesc">App logs are stored in the <span class="ph filepath">/store/log</span> directory of your
+application's Docker container.</p>
+
+        <p>The <span class="ph filepath">/store/log</span> directory contains 2 log files:</p>
+
+        <ul>
+            <li><span class="ph filepath">startup.log</span> is the initial start-up log for the application.
+This log is useful for checking the installation of dependencies added to your app's
+<span class="ph filepath">app/src_deps/</span> folder.</li>
+
+            <li><span class="ph filepath">app.log</span> is the log file that is created by the
+<span class="keyword apiname">qpylib</span> library. Logging calls to the <span class="keyword apiname">qpylib.log()</span> method are
+written in the <span class="ph filepath">app.log</span> file.</li>
+
+        </ul>
+
+    </div>
+
+<aside role="complementary" aria-labelledby="d3232e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_addLogging.html">Adding logging to your app</a></strong><br>
+The <span class="ph">IBM® QRadar</span> Python helper library (<span class="keyword apiname">qpylib</span>) contains two useful functions that you can use to add logging to your app.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_viewLogs.html">Viewing your app logs</a></strong><br>
+Use built-in routes to create HTTP requests download, view, and set log collection levels.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

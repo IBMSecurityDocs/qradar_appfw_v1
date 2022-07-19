@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use the Areas type to add a tab to the IBM QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>Areas type</title>
+</head>
+<body id="c_appframework_areaType"><main role="main"><article role="article" aria-labelledby="d3348e10">
+<h1 class="topictitle1" id="d3348e10">Areas type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use the Areas type to add a tab to the <span class="ph">IBM®
+QRadar®</span>.</p>
+
+<p>The following table describes the <code class="ph codeph">areas</code> block fields in the
+<code class="ph codeph">manifest.json</code> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_areaType__table_a3m_trc_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. <code class="ph codeph">Areas</code> block fields</span></caption><colgroup><col style="width:28.57142857142857%"><col style="width:14.285714285714285%"><col style="width:14.285714285714285%"><col style="width:42.857142857142854%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d3348e55"> Field </th>
+
+<th id="d3348e58"> Required </th>
+
+<th id="d3348e61"> Type </th>
+
+<th id="d3348e64"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d3348e55 "><span class="keyword parmname">id</span></td>
+
+<td headers="d3348e58 "> Yes </td>
+
+<td headers="d3348e61 "> String </td>
+
+<td headers="d3348e64 ">A unique ID.</td>
+
+</tr>
+
+<tr>
+<td headers="d3348e55 "><span class="keyword parmname">text</span></td>
+
+<td headers="d3348e58 "> Yes </td>
+
+<td headers="d3348e61 "> String </td>
+
+<td headers="d3348e64 ">Concise text to display that describes the area. This field can optionally point at a
+resource bundle key if the application is globalized. </td>
+
+</tr>
+
+<tr>
+<td headers="d3348e55 "><span class="keyword parmname">description</span></td>
+
+<td headers="d3348e58 "> No </td>
+
+<td headers="d3348e61 "> String </td>
+
+<td headers="d3348e64 ">Detailed text to display that describes the area. This field can optionally point at a
+resource bundle key if the application is globalized. </td>
+
+</tr>
+
+<tr>
+<td headers="d3348e55 "><span class="keyword parmname">url</span></td>
+
+<td headers="d3348e58 "> Yes </td>
+
+<td headers="d3348e61 "> String </td>
+
+<td headers="d3348e64 ">A URL to load, relative to the application root. Only URLs that live within the <span class="ph">QRadar</span> application can be
+referenced. </td>
+
+</tr>
+
+
+<tr>
+<td headers="d3348e55 "><span class="keyword parmname">required_capabilities</span></td>
+
+<td headers="d3348e58 "> No </td>
+
+<td headers="d3348e61 "> Array of String </td>
+
+<td headers="d3348e64 ">A set of capabilities that a user must affiliate with their user role to access this area.
+</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The following code is a sample <code class="ph codeph">areas</code> block from
+<span class="ph filepath">manifest.json</span>:</p>
+
+<pre class="codeblock"><code>...
+
+areas: [
+		{
+			"id":"QHelloWorld",
+			"text":"Hello World",
+			"description":"A Hello World app",
+			"url":"index",
+			"required_capabilities":["ADMIN"]
+		}
+	],
+
+...</code></pre>
+</div>
+
+<aside role="complementary" aria-labelledby="d3348e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+</nav></aside></article></main></body></html>

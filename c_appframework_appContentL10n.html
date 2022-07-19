@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Globalize application-specific content by using Python Babel, Flask Babel, and Jinja2 templates to .">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_GuiL10n.html">
+<title>Globalization of application-specific content</title>
+</head>
+<body id="c_appframework_appContentL10n"><main role="main"><article role="article" aria-labelledby="d1548e10">
+<h1 class="topictitle1" id="d1548e10">Globalization of application-specific content</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Globalize application-specific content by using Python Babel, Flask Babel, and Jinja2
+templates to .</p>
+
+<p>Use the links to the following technologies to help you globalize your application-specific
+content: </p>
+
+<ul>
+<li><a href="http://babel.pocoo.org/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Babel</a>
+(http://babel.pocoo.org/) is the standard globalization package for Python.</li>
+
+<li><a href="https://pythonhosted.org/Flask-Babel/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Flask-Babel</a> (https://pythonhosted.org/Flask-Babel/) is an extension to Flask.</li>
+
+<li><a href="http://jinja.pocoo.org/docs/dev/integration/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Jinja2/Babel integration</a> (http://jinja.pocoo.org/docs/dev/integration/) provides instructions on how to use Babel with Jinja2 templates.</li>
+
+</ul>
+
+<section class="section" role="region" aria-labelledby="d1548e44"><h2 class="sectiontitle" id="d1548e44">Key concepts</h2>
+
+<p>For this example, you install the Flask-Babel <dfn class="term">pip</dfn> package and its dependents into
+your app's <span class="ph filepath">src_deps/pip/</span> directory. The Flask-Babel package, provides the
+<dfn class="term">pybabel</dfn> tool, which you can use to create translation files for your Flask-based
+app.</p>
+
+<p><span class="ph">QRadar®</span> passes the user's
+preferred locale in the <span class="keyword parmname">Accept-Languages</span> header attribute through in the
+request header to your app.</p>
+
+<p>To use the <dfn class="term">Flask-Babel</dfn> package to create globalization text values that your app
+employs, use the following workflow:</p>
+
+<ol>
+<li>Use the <dfn class="term">pybabel</dfn> tool to extract out locale keys, typically to a
+<span class="ph filepath">.pot</span> file.</li>
+
+<li>Use the <dfn class="term">pybabel</dfn> tool to build templated <span class="ph filepath">.po</span> files for each
+language set you want to support.</li>
+
+<li>Edit and complete the <span class="ph filepath">.po</span> file. In other words, translate all the keys to
+the language-specific variant of the text value.</li>
+
+<li>Use the <dfn class="term">pybabel</dfn> tool to compile the completed <span class="ph filepath">.po</span> files into a
+binary set of <span class="ph filepath">.mo</span> files that can be employed by your Flask python code, or your
+Jinja2 templates.</li>
+
+</ol>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e116"><h2 class="sectiontitle" id="d1548e116">Pre-requisites</h2>
+
+<p>To work through this example, you must install the following Python packages into your app's
+<span class="ph filepath">src_deps/pip/</span> directory.</p>
+
+<ul>
+<li><span class="ph filepath">pytz-2015.6-py2.py3-none-any.whl</span></li>
+
+<li><span class="ph filepath">Babel-2.1.1-py2.py3-none-any.whl</span></li>
+
+<li><span class="ph filepath">speaklater-1.3.tar.gz</span></li>
+
+<li><span class="ph filepath">Flask-Babel-0.9.tar.gz</span></li>
+
+</ul>
+
+<p>You must also create an <span class="ph filepath">ordering.txt</span> file in the
+<span class="ph filepath">src_deps/pip/</span> directory that contains the following content:</p>
+
+<pre class="codeblock"><code>pytz-2015.6-py2.py3-none-any.whl
+Babel-2.1.1-py2.py3-none-any.whl
+speaklater-1.3.tar.gz
+Flask-Babel-0.9.tar.gz</code></pre>
+<div class="note"><span class="notetitle">Note:</span> Use the <span class="keyword cmdname">pip install -d src_deps/pip flask-babel</span> command from within the
+virtual environment that the SDK provides to download the dependencies for Flask-Babel.<p>Bundle
+python wheel (<dfn class="term">whl</dfn>) files instead of <span class="ph filepath">.tar</span> file
+(<span class="ph filepath">tar.gz</span>) source files wherever possible. Some raw python source package
+<span class="ph filepath">.tar</span> files need to use the <dfn class="term">gcc</dfn> compiler or other tools that the
+base docker container that hosts your app code might not have.</p>
+<p>Build python wheel files from
+package source tarballs on your local system. Here's an
+example:</p>
+<pre class="codeblock"><code>tar -xvzf some_package.tar.gz
+python setup.py sdist bdist_wheel</code></pre></div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e187"><h2 class="sectiontitle" id="d1548e187">Jinja2 template: <span class="ph filepath">app/templates/index.html</span></h2>
+
+<p>This example builds on the <a href="c_appframework_HelloWorldtmplt.html#c_appframework_HelloWorldtmplt" title="You can build on the Hello World sample app that the IBM QRadar SDK installs in your app workspace to add a tab to QRadar.">HelloWorld</a> sample
+app. The original HTML template was built with hardcoded English language-specific text values. The
+following example wraps the English locale strings values with Jinja2 directives that use the
+<span class="keyword apiname">gettext</span> functions from Flask-Babel. Here's an example:</p>
+
+<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;{{title}} - Main&lt;/title&gt;
+  &lt;link rel="stylesheet" href="static/css/style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div id="pageheader" class="pagebanner"&gt;
+&lt;p&gt;{{ _( 'IBM QRadar Application : Hello World' ) }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="contentpane"&gt;
+  &lt;p&gt;{{ _( 'Hello! and Welcome to the first Qradar app
+           served from the AppFramework/Docker instance on your console' ) }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="news-wrapper"&gt;
+    &lt;p class="quote"&gt;{{ _( 'Hello World' ) }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>This example uses the shorthand alias for <span class="keyword apiname">gettext</span> function. You can also use
+the full form. For example:</p>
+
+<pre class="codeblock"><code> {{ gettext( '...') }} </code></pre>
+<p>This method provides a useful mechanism to quickly build and prototype your app. You can return
+later to make it locale aware. By using the actual initial text as keys, you keep the template
+readable.</p>
+
+<div class="note"><span class="notetitle">Note:</span> Eliminate white space around the directive. For example, consider the use of an HTML
+<code class="ph codeph">&lt;span&gt;</code>, <code class="ph codeph">&lt;div&gt;</code> or other element. The
+<dfn class="term">pybabel</dfn> tool has some difficulties to extract all key values.</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e248"><h2 class="sectiontitle" id="d1548e248">Configure pybabel </h2>
+
+<p>You must configure the <dfn class="term">pybabel</dfn> tool so that it is aware of what source files to
+examine.</p>
+
+<pre class="codeblock"><code>[python: **.py]
+[jinja2: **/templates/**.html]
+extensions=jinja2.ext.autoescape,jinja2.ext.with_</code></pre>
+<p>In this example, <dfn class="term">pybabel</dfn> is configured to examine all Python source files in the
+<span class="ph filepath">app/</span> folder, and all HTML files in any sub directory of the
+<span class="ph filepath">app/templates/</span> folder.</p>
+
+<p>The <dfn class="term">pybabel</dfn> tool uses the <span class="ph filepath">babel.py</span>file to know which
+directories or files to examine within your app for potential translatable entries. It looks for
+<code class="ph codeph">gettext(..)</code> and <code class="ph codeph">_(..)</code> entries in your <span class="ph filepath">*.py</span>
+files and your Jinja2 templates to build into a local <span class="ph filepath">.pot</span> file.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e297"><h2 class="sectiontitle" id="d1548e297">Create the <span class="ph filepath">.pot</span> file</h2>
+
+<p>To create a <span class="ph filepath">.pot</span> file, open a command line and type the following command
+from within the <span class="ph filepath">app/</span> folder:</p>
+
+<p><kbd class="ph userinput">pybabel extract -F babel.cfg -o messages.pot</kbd></p>
+
+<p>A <span class="ph filepath">message.pot</span> file is created in the <span class="ph filepath">app/</span> folder. Its
+content is similar to the following file:</p>
+
+<pre class="codeblock"><code><samp class="ph systemoutput"># Translations template for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2015.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-10-07 21:27+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME &lt;EMAIL@ADDRESS&gt;\n"
+"Language-Team: LANGUAGE &lt;LL@li.org&gt;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: templates/index.html:11
+msgid "IBM QRadar Application : Hello World"
+msgstr ""
+
+#: templates/index.html:15
+msgid ""
+"Hello! and Welcome to the first Qradar app served from the "
+"AppFramework/Docker instance on your console"
+msgstr ""
+
+#: templates/index.html:19
+msgid "Hello World"
+msgstr ""</samp></code></pre>
+<p>You can use the <span class="keyword parmname">msgid</span> entries as your keys.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e339"><h2 class="sectiontitle" id="d1548e339">Create the <span class="ph filepath">.po</span> files</h2>
+
+<p>You create individual language-specific <span class="ph filepath">.po</span> files for Spanish, French, and
+English. From a command line, type the following commands from within the <span class="ph filepath">app/</span>
+folder:</p>
+
+<pre class="codeblock"><code><kbd class="ph userinput">pybabel init -i messages.pot -d translations -l es
+pybabel init -i messages.pot -d translations -l fr
+pybabel init -i messages.pot -d translations -l en
+pybabel init -i messages.pot -d translations -l ja</kbd></code></pre>
+<p>These commands are used to create the translation files in the following locations:</p>
+
+<ul>
+<li><span class="ph filepath">app/translations/es/LC_Messages/messages.po</span></li>
+
+<li><span class="ph filepath">app/translations/fr/LC_Messages/messages.po</span></li>
+
+<li><span class="ph filepath">app/translations/en/LC_Messages/messages.po</span></li>
+
+<li><span class="ph filepath">app/translations/ja/LC_Messages/messages.po</span></li>
+
+</ul>
+
+<p>The following example is the <span class="ph filepath">app/translations/es/LC_Messages/messages.po</span>
+file that is generated:</p>
+
+<pre class="codeblock"><code><samp class="ph systemoutput"># Spanish translations for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2015.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-10-07 16:02+0100\n"
+"PO-Revision-Date: 2015-10-07 16:04+0100\n"
+"Last-Translator: FULL NAME &lt;EMAIL@ADDRESS&gt;\n"
+"Language-Team: es &lt;LL@li.org&gt;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: templates/index.html:11
+msgid "IBM QRadar Application : Hello World"
+msgstr ""
+
+#: templates/index.html:15
+msgid "Hello! and Welcome to the first Qradar app served from the "
+"AppFramework/Docker instance on your console"
+msgstr ""
+
+#: templates/index.html:19
+msgid "Hello World"
+msgstr ""
+
+
+</samp></code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e394"><h2 class="sectiontitle" id="d1548e394">Edit the <span class="ph filepath">.po</span> files</h2>
+
+<p>You edit the <span class="ph filepath">.po</span> files to add the language-specific text strings that <span class="ph">QRadar</span> uses to translate your
+app's content. For each <span class="keyword parmname">msgid</span> in the <span class="ph filepath">.po</span> file, you must
+enter a corresponding <span class="keyword parmname">msgstr</span> value in the target language.</p>
+
+<p>The following example is a code snippet from the
+<span class="ph filepath">app/translations/es/LC_Messages/messages.po</span> file:</p>
+
+<pre class="codeblock"><code>#: templates/index.html:19
+msgid "Hello World"
+msgstr "<kbd class="ph userinput">Hola Mundo</kbd>"</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e434"><h2 class="sectiontitle" id="d1548e434">Create the <span class="ph filepath">.mo</span> files</h2>
+
+<p>To create the <span class="ph filepath">.mo</span> files, open a command line and type the following command
+from within the <span class="ph filepath">app/</span> folder:</p>
+
+<p><kbd class="ph userinput">pybabel compile -d translation</kbd></p>
+
+<p>This command compiles all your <span class="ph filepath">.po</span> files into <span class="ph filepath">.mo</span> files
+in the following locations:</p>
+
+<ul>
+<li><span class="ph filepath">app/translations/es/LC_Messages/messages.mo</span></li>
+
+<li><span class="ph filepath">app/translations/fr/LC_Messages/messages.mo</span></li>
+
+<li><span class="ph filepath">app/translations/en/LC_Messages/messages.mo</span></li>
+
+<li><span class="ph filepath">app/translations/ja/LC_Messages/messages.mo</span></li>
+
+</ul>
+
+<p>The <span class="ph">QRadar</span> GUI app
+framework provides a default Flask environment that looks for locale-specific files in the sub
+directories of the <span class="ph filepath">app/translations/</span> folder.</p>
+
+<p>To specify the UTF-8 encoded locales that your app supports, you can add a
+<span class="ph filepath">config.py</span> file to the <span class="ph filepath">app/</span> folder. The file contains
+content similar to the following example:</p>
+
+<pre class="codeblock"><code># -*- coding: utf-8 -*-
+# ...
+# available languages
+LANGUAGES = {
+    'en': 'English',
+    'es': 'Español',
+    'fr': 'Français',
+    'ja': '日本語'
+}</code></pre>
+<p>This globalization support file helps <span class="ph">QRadar</span> to find the
+<span class="ph filepath">.mo</span> file for each locale you specify.</p>
+
+<p>After you create the <span class="ph filepath">.mo</span> files, you can remove the <span class="ph filepath">.po</span>,
+<span class="ph filepath">.pot</span>, and <span class="ph filepath">babel.py</span> files if you do not want these
+resources to be packaged with your app.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d1548e532"><h2 class="sectiontitle" id="d1548e532"><span class="ph filepath">views.py</span></h2>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import render_template, send_from_directory, request
+from app import app
+from flask.ext.babel import gettext  <span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+from config import LANGUAGES
+from qpylib import qpylib
+
+from flask.ext.babel import Babel   
+babel = Babel(app)  <span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+
+@babel.localeselector  <span class="keyword calloutlabel">&nbsp;3&nbsp;</span>
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
+
+@app.route('/')
+@app.route('/index')
+def index():
+    qpylib.log(request.headers.get('Accept-Language', ''))
+    return render_template("index.html", title = "QApp1 : Hello World !")</code></pre>
+<p>The following list describes content from the <span class="ph filepath">views.py</span> code snippet:</p>
+
+<ol>
+<li> The <span class="keyword apiname">gettext</span> method is imported from the Babel package. This line is optional
+but it is useful if you want to use locale text away from the <span class="ph filepath">python tier</span>. In
+the Jinja2 template for this example, the <span class="keyword apiname">gettext</span> methods were used to extract
+key values.</li>
+
+<li>The Flask app is injected into a Babel context so that your app can render locale-specific
+text.</li>
+
+<li>This code applies the Babel <span class="keyword apiname">localeselector</span> decorator pattern across all your
+routes (in other words, any request that comes in from <span class="ph">QRadar</span>). The decorator uses the
+locales that are defined in the <span class="ph filepath">app/config.py</span> file to connect the best-fit
+language-specific keys file to the incoming request.</li>
+
+</ol>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d1548e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_GuiL10n.html" title="Globalization refers to implementing multi-language support for your app that is built into the application without the need for further engineering efforts.">Application globalization</a></div>
+</div>
+</nav></aside></article></main></body></html>

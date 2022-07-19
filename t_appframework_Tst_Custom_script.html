@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Test whether your script runs successfully before you associate it with a rule.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_CREResp.html">
+<title>Testing your custom action</title>
+</head>
+<body id="task_rsm_2s4_hy"><main role="main"><article role="article" aria-labelledby="d4710e10">
+<h1 class="topictitle1" id="d4710e10">Testing your custom action</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">Test whether your script runs successfully before you associate it with a
+rule.</p>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd4710e18">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">From the <span class="ph uicontrol">Admin</span> tab, click the <span class="ph uicontrol">Define Actions</span>
+icon.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Select a custom action.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Click <span class="ph menucascade"><span class="ph uicontrol">Test Execution</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Execute</span></span> to test your script.</span> 
+<div class="itemgroup info">
+<p>Custom action scripts are run inside a sandbox environment on your managed hosts. If you write to
+disk from a custom action script, you must use the <span class="ph filepath">/home/customactionuser</span>
+directory. Custom action scripts run on the managed host that runs the event processor that
+triggered the rule.</p>
+
+</div>
+</li>
+</ol>
+
+<section class="section postreq" role="region" aria-labelledby="taskd4710e63"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd4710e63">What to do next</h2></div>After you configure and test your custom action, use the <span class="ph uicontrol">Rule Wizard</span>
+to create a new event rule and associate the custom action with it.</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d4710e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_CREResp.html" title="You can add your own script that runs as a part of a custom action when a custom rules engine (CRE) rule is triggered.">Custom actions for CRE responses</a></div>
+</div>
+</nav></aside></article></main></body></html>

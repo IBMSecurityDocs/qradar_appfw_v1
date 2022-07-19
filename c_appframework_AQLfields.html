@@ -1,0 +1,469 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Multiple fields are available to custom AQL functions.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_AQLsamples.html">
+<title>Custom AQL function fields</title>
+</head>
+<body id="c_appframework_AQLFields"><main role="main"><article role="article" aria-labelledby="d7236e10">
+<h1 class="topictitle1" id="d7236e10">Custom AQL function fields</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Multiple fields are available to custom AQL functions.</p>
+
+<section class="section" role="region" aria-labelledby="d7236e20"><h2 class="sectiontitle" id="d7236e20"><span class="keyword apiname">namespace</span> and <span class="keyword apiname">name</span></h2>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: Yes</li>
+
+</ul>
+
+<p>The following table describes the namespace and name fields for custom AQL functions.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_AQLFields__table_ask_ycy_st" class="defaultstyle"><caption><span class="tablecap">Table 1. Namespace and name fields</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d7236e68">Field</th>
+
+<th id="d7236e71">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d7236e68 "><span class="keyword apiname">namespace</span></td>
+
+<td headers="d7236e71 ">The first component that makes up the identifier of a custom AQL function.</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e68 "><span class="keyword apiname">name</span></td>
+
+<td headers="d7236e71 ">The second component that makes up the identifier of a custom AQL function.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>Both values are case-insensitive and must be unique from all other custom functions. The Ariel
+database uses a concatenation of these fields to expose the custom function through AQL. For
+example:</p>
+
+<ul>
+<li><span class="keyword apiname">namespace</span>: :MyNamespace</li>
+
+<li><span class="keyword apiname">name</span>::MyFunction</li>
+
+<li>AQL: MyNamespace: MyFunction</li>
+
+</ul>
+
+<p>When you specify your custom function through AQL, you must employ double quotation marks when
+white space or special characters are used.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e127"><h2 class="sectiontitle" id="d7236e127"><span class="keyword apiname">return_type</span></h2>
+
+<p>You use the <code class="ph codeph">return_type</code> field to declare the script type that your custom
+function returns.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: String</li>
+
+</ul>
+
+<p>  The return value is automatically converted to the internal Java type that is interpreted by
+Ariel (<span class="ph">QRadar®</span>_type).</p>
+
+<p>The following table describes acceptable script types for the <code class="ph codeph">return_type</code>
+field.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_AQLFields__table_k51_yly_st" class="defaultstyle"><caption><span class="tablecap">Table 2. <code class="ph codeph">return_type</code> field acceptable script types</span></caption><colgroup><col style="width:20%"><col style="width:20%"><col style="width:60%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d7236e198">Type</th>
+
+<th id="d7236e201">Script type</th>
+
+<th id="d7236e204"><span class="ph">QRadar</span> type</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d7236e198 ">STRING</td>
+
+<td headers="d7236e201 "><span class="keyword parmname">String</span></td>
+
+<td headers="d7236e204 ">java.lang.String</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e198 ">NUMBER</td>
+
+<td headers="d7236e201 "><span class="keyword parmname">Number</span></td>
+
+<td headers="d7236e204 ">java.lang.Number</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e198 ">LONG</td>
+
+<td headers="d7236e201 "><span class="keyword parmname">Number</span></td>
+
+<td headers="d7236e204 ">java.lang.Long</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e198 ">HOST</td>
+
+<td headers="d7236e201 "><span class="keyword parmname">String</span></td>
+
+<td headers="d7236e204 ">com.q1labs.core.dao.util.Host</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e198 ">PORT</td>
+
+<td headers="d7236e201 "><span class="keyword parmname">Number</span></td>
+
+<td headers="d7236e204 ">com.q1labs.frameworks.nio.Port</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e198 ">BOOLEAN</td>
+
+<td headers="d7236e201 "><span class="keyword parmname">Boolean</span></td>
+
+<td headers="d7236e204 ">java.lang.Boolean</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e299"><h2 class="sectiontitle" id="d7236e299"><span class="keyword apiname">parameter_types</span></h2>
+
+<p>You use the <code class="ph codeph">parameter_types</code> field to declare the type of each parameter that
+your custom function accepts.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: String, Number, Boolean</li>
+
+</ul>
+
+<p>The incoming Java object is automatically converted to your declared script type.</p>
+
+<p>The following table describes acceptable script types for the <code class="ph codeph">parameter_types</code>
+field.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_AQLFields__table_awn_1ny_st" class="defaultstyle"><caption><span class="tablecap">Table 3. <code class="ph codeph">parameter_type</code> field acceptable script types</span></caption><colgroup><col style="width:20%"><col style="width:20%"><col style="width:60%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d7236e366">Type</th>
+
+<th id="d7236e369">Script type</th>
+
+<th id="d7236e372"><span class="ph">QRadar</span> type</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d7236e366 ">STRING</td>
+
+<td headers="d7236e369 "><span class="keyword parmname">String</span></td>
+
+<td headers="d7236e372 ">java.lang.String</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e366 ">NUMBER</td>
+
+<td headers="d7236e369 "><span class="keyword parmname">Number</span></td>
+
+<td headers="d7236e372 ">java.lang.Number</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e366 ">LONG</td>
+
+<td headers="d7236e369 "><span class="keyword parmname">Number</span></td>
+
+<td headers="d7236e372 ">java.lang.Long</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e366 ">HOST</td>
+
+<td headers="d7236e369 "><span class="keyword parmname">String</span></td>
+
+<td headers="d7236e372 ">com.q1labs.core.dao.util.Host</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e366 ">PORT</td>
+
+<td headers="d7236e369 "><span class="keyword parmname">Number</span></td>
+
+<td headers="d7236e372 ">com.q1labs.frameworks.nio.Port</td>
+
+</tr>
+
+<tr>
+<td headers="d7236e366 ">BOOLEAN</td>
+
+<td headers="d7236e369 "><span class="keyword parmname">Boolean</span></td>
+
+<td headers="d7236e372 ">java.lang.Boolean</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>Generally, when you pass parameters from AQL, most values are interoperable. If you find they are
+not, you can use AQL casting functions such as LONG and PORT. </p>
+
+<div class="note"><span class="notetitle">Note:</span> You can use an empty string if you accept no parameters.</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e473"><h2 class="sectiontitle" id="d7236e473"><span class="keyword apiname">varargs</span></h2>
+
+<p>If "true", variable arguments are used with your <code class="ph codeph">parameter_types</code> value. You can
+specify the last type in your <code class="ph codeph">parameter_types</code> string zero or more times.</p>
+
+<p>If your <code class="ph codeph">parameter_types</code> value is empty, this value has no meaning.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: false</li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: true</li>
+
+</ul>
+
+<p>The way that you  handle variable arguments depends on the script engine that you use. For
+JavaScript, you can use the built-in <var class="keyword varname">arguments</var> variable:</p>
+
+<pre class="codeblock"><code>function myFunction() {
+   for(var i=0; i&lt;arguments.length; i++)
+   {
+       //Do something with arguments[i]
+   }
+}</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e533"><h2 class="sectiontitle" id="d7236e533"><span class="keyword apiname">execute_function_name</span></h2>
+
+<p>The value of this field maps to the execution function in your custom function script. The Java
+programming language uses the parameters in your AQL string to call this function. It then uses the
+value that is returned in the calculations.</p>
+
+<p>The execution function is called concurrently. It must be thread-safe.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: calculate</li>
+
+</ul>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e575"><h2 class="sectiontitle" id="d7236e575"><span class="keyword apiname">init_function_name</span></h2>
+
+<p>The value of this optional field maps to the initialization function in your custom function
+script. The Java programming language must call this function only once for a search. Place your
+expensive initialization code in this function so that your execution function is faster. Because
+this function is called once, it does not need to be thread-safe.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: onInit</li>
+
+</ul>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e613"><h2 class="sectiontitle" id="d7236e613"><span class="keyword apiname">finish_function_name</span></h2>
+
+<p>The value of this optional field maps to the finish function in your custom function script. The
+Java programming language calls this function only once for a search. However, there might be some
+situations in which it is never called. Close any resources that you hold onto within your script to
+prevent resource leaks. Because this function is called only once, it does not need to be
+thread-safe.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: onFinish</li>
+
+</ul>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e651"><h2 class="sectiontitle" id="d7236e651"><span class="keyword apiname">script_engine</span></h2>
+
+<p>The value of this field indicates the script engine that is used to interpret and invoke your
+script. The only supported script engine is JavaScript.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: No</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: javascript</li>
+
+</ul>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e689"><h2 class="sectiontitle" id="d7236e689"><span class="keyword apiname">script</span></h2>
+
+<p>The value of this field is the code for your custom function. It is interpreted based on the
+<code class="ph codeph">script_engine</code> that you specified.</p>
+
+<p>You can place any code in here that you like, including other functions. However, the
+<code class="ph codeph">execute_function_name</code> must exist and must be a valid function.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: <code class="ph codeph">function addOne(value) {return value + 1;}</code></li>
+
+</ul>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d7236e738"><h2 class="sectiontitle" id="d7236e738"><span class="keyword apiname">username</span></h2>
+
+<p>The value of this field currently has no implementation. It makes reference to your <span class="ph">IBM®
+QRadar</span> user name.</p>
+
+<ul class="sl simple">
+<li class="sli"><span class="keyword parmname">Required</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Default</span>: </li>
+
+<li class="sli"><span class="keyword parmname">Case-sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Whitespace- sensitive</span>: Yes</li>
+
+<li class="sli"><span class="keyword parmname">Example</span>: administrator</li>
+
+</ul>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d7236e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_AQLsamples.html" title="You can create IBM QRadar apps that use custom Ariel Query Language (AQL) functions.">Custom AQL functions</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Globalization refers to implementing multi-language support for your app that is built into the application without the need for further engineering efforts.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Application globalization</title>
+</head>
+<body id="c_appframework_GuiL10N"><main role="main"><article role="article" aria-labelledby="d16222e10">
+<h1 class="topictitle1" id="d16222e10">Application globalization</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Globalization refers to implementing multi-language support for your app that is built
+into the application without the need for further engineering efforts.</p>
+
+<p>Consider two aspects when you globalize your app:</p>
+
+<ul>
+<li>Globalization of <span class="ph">IBM®
+QRadar®</span>
+specific elements such as tab labels, toolbar button text, and tooltip content.</li>
+
+<li>Globalization of application-specific content</li>
+
+</ul>
+
+<section class="section" role="region" aria-labelledby="d16222e39"><h2 class="sectiontitle" id="d16222e39">Globalization of <span class="ph">QRadar</span>
+specific elements</h2>
+
+<p><span class="ph">QRadar</span> elements are object
+types that can be defined in the application <span class="ph filepath">manifest.json</span> file. </p>
+
+<p>Globalization of <span class="ph">QRadar</span>
+elements includes the use of translated keys that are injected into your app's
+<span class="ph filepath">manifest.json</span>, and ingested into the <span class="ph">QRadar</span> globalization store.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d16222e72"><h2 class="sectiontitle" id="d16222e72">Globalization of application-specific content</h2>
+
+<p>The GUI Application Framework does not support any single pre-defined globalization approach nor
+does it provide an implementation stack for app developers to use for globalization. You can use
+common Flask and python packages and approaches to globalize your application-specific content.</p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d16222e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="c_appframework_GlobalizeApp.html">Globalization of QRadar elements</a></strong><br>
+Add language-specific text strings to your app to globalize <span class="ph">IBM QRadar</span> elements such as tab labels, toolbar button text, and tooltip content.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_appContentL10n.html">Globalization of application-specific content</a></strong><br>
+Globalize application-specific content by using Python Babel, Flask Babel, and Jinja2 templates to .</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

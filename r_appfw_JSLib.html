@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The App Framework JavaScript library provides helper functions for common QRadar calls that you can integrate into your own scripts.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>App Framework JavaScript library</title>
+</head>
+<body id="reference_xkj_cr5_yw"><main role="main"><article role="article" aria-labelledby="d5908e10">
+<h1 class="topictitle1" id="d5908e10">App Framework JavaScript library</h1>
+
+
+<div class="body refbody"><p class="shortdesc">The App Framework JavaScript library provides helper functions for common <span class="ph">QRadar®</span> calls that you can
+integrate into your own scripts.</p>
+
+<div class="section">
+<p>The helper functions that are included in the App Framework JavaScript library
+(<span class="ph filepath">app/static/qjslib/qappfw.js</span>) can be used to do the following tasks: </p>
+
+<ul>
+<li>Get information on the current application, user, item, or selected table rows.</li>
+
+<li>Open the <span class="keyword wintitle">Details</span> page for an asset.</li>
+
+<li>Search for an event or flow by using a specified AQL query.</li>
+
+<li>Open the <span class="keyword wintitle">Details</span> page for an offense.</li>
+
+<li>Call a REST method by using an <span class="keyword apiname">XMLHttpRequest</span>.</li>
+
+<li data-hd-otherprops="730">Retrieve named services and named service endpoints.</li>
+
+</ul>
+
+<p>You can view the HTML documentation for the JS library in the <span class="ph filepath">jsdoc</span>
+directory after you unzip the SDK (.zip) file.</p>
+
+<p>The helper functions in the App Framework JavaScript Library are described in the following
+table:</p>
+
+<div class="p">
+
+<div class="tablenoborder"><table summary="" id="reference_xkj_cr5_yw__table_gwy_ggc_bz" class="defaultstyle"><caption><span class="tablecap">Table 1. App Framework JavaScript Library helper functions</span></caption><colgroup><col style="width:44.052863436123346%"><col style="width:55.947136563876654%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d5908e87">Function</th>
+
+<th id="d5908e90">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">getApplicationBaseUrl(id)</span></td>
+
+<td headers="d5908e90 ">Returns the base URL of an application.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">getApplicationId()</span></td>
+
+<td headers="d5908e90 ">Returns the ID of the current application.<div class="note"><span class="notetitle">Note:</span> 
+<p>The functions <span class="ph filepath">getApplicationId()</span> and<span class="ph filepath"> getApplicationBaseUrl
+(id)</span> depend on a variable called <var class="keyword varname">CURRENT_SCOPE</var>, which is injected into
+the JavaScript context by the app framework when it imports a JavaScript file that is defined in the
+<span class="ph filepath">page_scripts</span> section of an app manifest file. The functions can only be used if
+you are using the <span class="ph filepath">page_scripts</span> mechanism to pull in your custom JavaScript. For
+example, if you use a script tag in a Jinja template the functions won't work.</p>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">getCurrentUser()</span></td>
+
+<td headers="d5908e90 ">Returns the current user.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">getItemId()</span></td>
+
+<td headers="d5908e90 ">Returns the ID of the item that is viewed (for example, an asset or offense).</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">getSelectedRows()</span></td>
+
+<td headers="d5908e90 ">Returns the IDs of selected rows on a list page, such as the offense or asset list.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">openAsset(assetId, openWindow)</span></td>
+
+<td headers="d5908e90 ">Opens the <span class="keyword wintitle">Details</span> page of an asset, either in a new window or in the
+<span class="ph uicontrol">Assets</span> tab.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">openAssetForIpAddress(ipAddress, openWindow)</span></td>
+
+<td headers="d5908e90 ">Opens the <span class="keyword wintitle">Details</span> page of an asset for an IP address, either in a new
+window or in the <span class="ph uicontrol">Assets</span> tab.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">openEventSearch(aql, openWindow)</span></td>
+
+<td headers="d5908e90 ">Runs an event search with the specified AQL string, either in a new window or the
+<span class="ph uicontrol">Event Viewer</span> tab.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">openFlowSearch(aql, openWindow)</span></td>
+
+<td headers="d5908e90 ">Runs a flow search with the specified AQL string, either in a new window or the
+<span class="ph uicontrol">Flow Viewer</span> tab.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">openOffense(offenseId, openWindow)</span></td>
+
+<td headers="d5908e90 ">Opens the <span class="keyword wintitle">Details</span> page of an offense, either in a new window or in the
+<span class="ph uicontrol">Offenses</span> tab.</td>
+
+</tr>
+
+<tr>
+<td headers="d5908e87 "><span class="ph filepath">rest(args)</span></td>
+
+<td headers="d5908e90 ">Calls a REST method by using an <span class="keyword apiname">XMLHttpRequest</span>.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d5908e87 "><span class="ph filepath">buildNamedServiceEndpointRestArgs (restArgs, endpoint, parameterValues,
+bodyValue)</span></td>
+
+<td headers="d5908e90 ">Populates an arguments object to be used in a <span class="keyword apiname">QRadar.rest</span> call to a named
+service endpoint.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d5908e87 "><span class="ph filepath">callNamedServiceEndpoint (serviceName, serviceVersion,  endpointName, restArgs,
+parameterValues, bodyValue)</span></td>
+
+<td headers="d5908e90 ">A wrapper function that calls the <span class="ph filepath">/gui_app_framework/named_services</span> REST
+API, selects the specified service endpoint, and invokes it by using the supplied parameters and
+values.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d5908e87 "><span class="ph filepath">getNamedService (services, serviceName, serviceVersion)</span></td>
+
+<td headers="d5908e90 ">Selects and returns a service from a list that is retrieved by a
+<span class="ph filepath">/gui_app_framework/named_services</span></td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d5908e87 "><span class="ph filepath">getNamedServiceEndpoint (service, endpointName)</span></td>
+
+<td headers="d5908e90 ">Selects and returns a service endpoint.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d5908e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

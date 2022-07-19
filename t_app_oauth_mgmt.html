@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The App Authorization Manager helps to enhance the security of your app authorization by providing the capability to edit or delete existing authorization tokens.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_oauth.html">
+<title>Enhancing security in app authorization by using the App Authorization Manager</title>
+</head>
+<body id="task_myw_vbx_k1b"><main role="main"><article role="article" aria-labelledby="d34895e10">
+<h1 class="topictitle1" id="d34895e10">Enhancing security in app authorization by using the App Authorization Manager</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">The App Authorization Manager helps to enhance the security of your app authorization by
+providing the capability to edit or delete existing authorization tokens.</p>
+
+<section class="section context" role="region" aria-labelledby="taskd34895e18"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd34895e18">About this task</h2></div>
+<p>When you install an app that requests an OAuth authorization token to access QRadar resources, an
+OAuth authorization token is created and a record that represents the token is added to the
+<span class="ph uicontrol">App Authorization Manager</span>. The record is identified by the <span class="ph uicontrol">App
+Name</span> and <span class="ph uicontrol">App ID</span> and includes the assigned user access level that
+is assigned to the app to access QRadar resources.</p>
+
+</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd34895e33">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Click <span class="ph menucascade"><span class="ph uicontrol">Main Menu</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Admin</span></span> tab.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Click the <span class="ph uicontrol">App Authorization Manager</span> app icon to open the app.</span> 
+
+</li>
+<li class="step stepexpand">
+<span class="cmd">To change assigned users for the OAuth authorization token, click <span class="ph uicontrol">Edit</span>,
+and then select any users that are available in the list. For example, if you don't want to use the
+Admin user and another user is available in the list, you can change to a user with the requested
+capabilities that are defined in the app manifest file.</span> 
+<div class="itemgroup info">
+<p>Any users that appear in the list have the capability that the app requires to run.</p>
+
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">To delete an OAuth authorization token, click <span class="ph uicontrol">Delete</span> to remove a record.
+You might want to delete a token that is no longer in use or you might want to remove the app
+authorization.</span>
+</li>
+</ol>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d34895e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a data-hd-otherprops="731" href="c_appframework_oauth.html" title="Apps use the OAuth authorization protocol to authorize the app to access QRadar resources.">OAuth app authorization with QRadar</a></div>
+</div>
+</nav></aside></article></main></body></html>

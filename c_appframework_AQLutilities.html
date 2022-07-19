@@ -1,0 +1,804 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use custom AQL function utilities.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_AQLsamples.html">
+<title>Custom AQL function utilities</title>
+</head>
+<body id="c_appframework_AQLUtilities"><main role="main"><article role="article" aria-labelledby="d31712e10">
+<h1 class="topictitle1" id="d31712e10">Custom AQL function utilities</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use custom AQL function utilities.</p>
+
+<section class="section" role="region" aria-labelledby="d31712e20"><h2 class="sectiontitle" id="d31712e20"><span class="keyword apiname">Utils.concurrency.readLock</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Acquire a read lock against the global lock.
+ *
+ * If the write lock is not held by another thread, this returns immediately.
+ * If the write lock is held by another thread then the current thread becomes
+ * disabled for thread scheduling purposes and lies dormant until
+ * the read lock has been acquired.
+ */
+void readLock()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.concurrency.readLock();
+try { /*Do something*/ }
+finally { Utils.concurrency.readUnlock(); }</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e36"><h2 class="sectiontitle" id="d31712e36"><span class="keyword apiname">Utils.concurrency.readLock(String name)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Acquire a read lock against the given name.
+ * If a lock by the given name does not exist yet, it will be created.
+ *
+ * If the write lock is not held by another thread, this returns immediately.
+ * If the write lock is held by another thread then the current thread becomes
+ * disabled for threadscheduling purposes and lies dormant until
+ * the read lock has been acquired.
+ *
+ * @param name The name of the lock to acquire a read lock against.
+ * If null, global lock is used.
+ */
+void readLock(String name)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.concurrency.readLock("my_lock");
+try { /*Do something*/ }
+finally { Utils.concurrency.readUnlock("my_lock"); }</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e52"><h2 class="sectiontitle" id="d31712e52"><span class="keyword apiname">Utils.concurrency.tryReadLock(long timeoutMsec)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Attempts to acquire a read lock against the global lock.
+ *
+ * If the write lock is not held by another thread, this returns immediately.
+ * If the write lock is held by another thread, this will wait
+ * a maximum of timeoutMsec millisecondsto acquire the read lock.
+ *
+ * @param timeoutMsec The maximum time to wait (in milliseconds) to acquire the lock
+ * &lt;= 0 can be used to return immediately if the read lock can not be acquired.
+ * @return True if the read lock has been acquired, false otherwise.
+ */
+boolean tryReadLock(long timeoutMsec)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>if(Utils.concurrency.tryReadLock(1000))
+{
+   try { /* Lock acquired */ }
+   finally { Utils.concurrency.readUnlock(); }
+}
+else
+   throw "Failed to acquire lock in reasonable time";</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e68"><h2 class="sectiontitle" id="d31712e68"><span class="keyword apiname">Utils.concurrency.tryReadLock(String name, long timeoutMsec)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Attempts to acquire a read lock against the given name.
+ *
+ * If the write lock is not held by another thread, this returns immediately.
+ * If the write lock is held by another thread, this will
+ * wait a maximum of timeoutMsec millisecondsto acquire the read lock.
+ *
+ * @param name The name of the lock to acquire a read lock against.
+ *  If null, global lock is used.
+ *
+ * @param timeoutMsec The maximum time to wait (in milliseconds)
+ * to acquire the lock.
+ * &lt;= 0 can be used to return immediately if the read lock can not be acquired.
+ *
+ * @return True if the read lock has been acquired, false otherwise.
+ */
+boolean tryReadLock(String name, long timeoutMsec)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>if(Utils.concurrency.tryReadLock("my_lock", 1000))
+{
+   try { /* Lock acquired */ }
+   finally { Utils.concurrency.readUnlock("my_lock"); }
+}
+else
+   throw "Failed to acquire lock in reasonable time";</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e84"><h2 class="sectiontitle" id="d31712e84"><span class="keyword apiname">Utils.concurrency.readUnlock()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Releases the global read lock held by the current thread.
+ * You must currently be holding the global read lock,
+ * or an exception occurs.
+ * If the number of read locks held by all threads is now 0,
+ * then the lock is made available for write lock attempts.
+ */
+void readUnlock()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.concurrency.readLock();
+try { /*Do something*/ }
+finally { Utils.concurrency.readUnlock(); }</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e101"><h2 class="sectiontitle" id="d31712e101"><span class="keyword apiname">Utils.concurrency.readUnlock(String name)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Releases the read lock against the given name held by the current thread.
+ * You must currently be holding the read lock by the given name,
+ * or an exception occurs.
+ * If the number of read locks held by all threads is now 0,
+ * then the lock is made available for write lock attempts.
+ *
+ * @param name The name of the lock to acquire a read lock against.
+ * If null, global lock is used.
+ */
+void readUnlock(String name)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.concurrency.readLock("my_lock");
+try { /*Do something*/ }
+finally { Utils.concurrency.readUnlock("my_lock"); }</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e117"><h2 class="sectiontitle" id="d31712e117"><span class="keyword apiname">Utils.concurrency.writeLock()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Acquire a write lock against the global lock.
+ *
+ * If neither the read nor write lock are held by another thread,
+ * this returns immediately.
+ *
+ * If the write lock is held by another thread,
+ * then the current thread becomes disabled for thread
+ * scheduling purposes and lies dormant until
+ * the read lock has been acquired.
+ */
+void writeLock()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.concurrency.writeLock();
+try { /*Do something*/ }
+finally { Utils.concurrency.writeUnlock(); }</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e133"><h2 class="sectiontitle" id="d31712e133"><span class="keyword apiname">Utils.concurrency.writeLock(String name)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Acquire a write lock against the given name.
+ *
+ * If neither the read nor write lock are held by another thread,
+ * this returns immediately.
+ * If the write lock is held by another thread then the current thread
+ * becomes disabled for threadscheduling purposes and lies dormant
+ * until the read lock has been acquired.
+ *
+ * @param name The name of the lock to acquire a write lock against.
+ * If null, global lock is used.
+ */
+void writeLock(String name)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.concurrency.writeLock("my_lock");
+try { /*Do something*/ }
+finally { Utils.concurrency.writeUnlock("my_lock"); }</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e149"><h2 class="sectiontitle" id="d31712e149"><span class="keyword apiname">Utils.concurrency.tryWriteLock(long timeoutMsec)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Attempts to acquire a write lock against the global lock.
+ *
+ * If neither the read nor write lock are held by another thread,
+ * this returns immediately.
+ * If either the read or write lock is held by another thread,
+ * this will wait a maximum of timeoutMsec milliseconds
+ * to acquire the write lock.
+ *
+ * @param timeoutMsec The maximum time to wait (in milliseconds)
+ * to acquire the lock
+ * &lt;= 0 can be used to return immediately,
+ * if the write lock can not be acquired.
+
+ * @return True if the write lock has been acquired, false otherwise.
+ */
+boolean tryWriteLock(long timeoutMsec)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>if(Utils.concurrency.tryWriteLock(1000))
+{
+   try { /* Lock acquired */ }
+   finally { Utils.concurrency.writeUnlock(); }
+}
+else
+   throw "Failed to acquire lock in reasonable time";</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e165"><h2 class="sectiontitle" id="d31712e165"><span class="keyword apiname">Utils.concurrency.tryWriteLock(String name, long timeoutMsec)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Attempts to acquire a write lock against the given name.
+ *
+ * If neither the read nor write lock are held by another thread
+ * this returns immediately.
+ * If either the read or write lock is held by another thread,
+ * this will wait a maximum of timeoutMsec milliseconds
+ * to acquire the write lock.
+ *
+ * @param timeoutMsec The maximum time to wait (in milliseconds)
+ * to acquire the lock.
+ * &lt;= 0 can be used to return immediately if the write lock can not be acquired.
+ *
+ * @param name The name of the lock to acquire a write lock against.
+ * If null, global lock is used.
+ *
+ * @return True if the write lock has been acquired, false otherwise.
+ */
+boolean tryWriteLock(String name, long timeoutMsec)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>if(Utils.concurrency.tryWriteLock("my_lock", 1000))
+{
+   try { /* Lock acquired */ }
+   finally { Utils.concurrency.writeUnlock("my_lock"); }
+}
+else
+   throw "Failed to acquire lock in reasonable time";</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e181"><h2 class="sectiontitle" id="d31712e181"><span class="keyword apiname">Utils.concurrency.writeUnlock()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Releases the global write lock held by the current thread.
+ * You must currently be holding the global write lock, or an exception occurs.
+ * If the number of write locks held by all threads is now 0,
+ * then the lock is made available for write lock attempts.
+ */
+void writeUnlock()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.concurrency.writeLock("my_lock");
+try { /*Do something*/ }
+finally { Utils.concurrency.writeUnlock("my_lock"); </code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e198"><h2 class="sectiontitle" id="d31712e198"><span class="keyword apiname">Utils.concurrency.createAtomicBoolean()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @return A new instance of java.util.concurrent.atomic.AtomicBoolean
+ */
+java.util.concurrent.atomic.AtomicBoolean createAtomicBoolean()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var atomicBoolean = Utils.concurrency.createAtomicBoolean();
+if(atomicBoolean.getAndSet(true))
+   return "Value has not changed";</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e214"><h2 class="sectiontitle" id="d31712e214"><span class="keyword apiname">Utils.concurrency.createAtomicInteger()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @return A new instance of java.util.concurrent.atomic.AtomicInteger
+ */
+java.util.concurrent.atomic.AtomicInteger createAtomicInteger()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var atomicInt =
+          Utils.concurrency.createAtomicInteger();atomicInt.set(5);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e230"><h2 class="sectiontitle" id="d31712e230"><span class="keyword apiname">Utils.concurrency.createAtomicLong()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @return A new instance of java.util.concurrent.atomic.AtomicLong
+ */
+java.util.concurrent.atomic.AtomicLong createAtomicLong()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var atomicLong =
+        Utils.concurrency.createAtomicLong();atomicLong.set(5)</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e246"><h2 class="sectiontitle" id="d31712e246"><span class="keyword apiname">Utils.concurrency.createAtomicDouble()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @return A new instance of java.util.concurrent.atomic.AtomicDouble
+ */
+java.util.concurrent.atomic.AtomicDouble createAtomicDouble()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var atomicDouble = Utils.concurrency.createAtomicDouble();
+atomicDouble.set(5);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e262"><h2 class="sectiontitle" id="d31712e262"><span class="keyword apiname">Utils.concurrency.createAtomicIntegerArray(int size)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @param Size of the array. Must be &gt;= 0
+ * @return A new instance of java.util.concurrent.atomic.AtomicIntegerArray
+ * with the given size
+ */
+java.util.concurrent.atomic.AtomicIntegerArray createAtomicIntegerArray(int size)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var atomicIntArray = Utils.concurrency.createAtomicIntegerArray(5);
+atomicIntArray.set(0, 25);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e278"><h2 class="sectiontitle" id="d31712e278"><span class="keyword apiname">Utils.concurrency.createAtomicLongArray(int size)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @param Size of the array. Must be &gt;= 0
+ * @return A new instance of java.util.concurrent.atomic.AtomicIntegerArray
+ * with the given size
+ */
+java.util.concurrent.atomic.AtomicIntegerArray createAtomicIntegerArray(int size)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var atomicLongArray = Utils.concurrency.createAtomicLongArray(5);
+atomicLongArray.set(0, 25);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e295"><h2 class="sectiontitle" id="d31712e295"><span class="keyword apiname">Utils.concurrency.createAtomicDoubleArray(int size)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @param Size of the array. Must be &gt;= 0
+ * @return A new instance of java.util.concurrent.atomic.AtomicDoubleArray
+ * with the given size
+ */
+java.util.concurrent.atomic.AtomicDoubleArray createAtomicDoubleArray(int size)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var atomicDoubleArray = Utils.concurrency.createAtomicDoubleArray(5);
+atomicDoubleArray.set(0, 25);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e311"><h2 class="sectiontitle" id="d31712e311"><span class="keyword apiname">Utils.concurrency.createConcurrentMap()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @return Returns a new instance of
+ * java.util.concurrent.ConcurrentHashMap.ConcurrentHashMap,
+ * which is a thread safe map that accepts any key or value
+ */
+java.util.concurrent.ConcurrentHashMap.ConcurrentHashMap createConcurrentMap()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myMap = Utils.concurrency.createConcurrentMap();
+myMap.put("some_key", "some_value");
+myMap.put("some_other_key", 25);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e327"><h2 class="sectiontitle" id="d31712e327"><span class="keyword apiname">Utils.concurrency.createConcurrentSet()</span></h2>
+
+<pre class="codeblock"><code>/**
+ * @return Returns a new thread safe set that accepts any value,
+ * backed by java.util.concurrent.ConcurrentHashMap.ConcurrentHashMap
+ */
+java.util.concurrent.ConcurrentHashMap.ConcurrentHashMap createConcurrentSet()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var mySet = Utils.concurrency.createConcurrentSet();
+mySet.add("something");
+mySet.add(25);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e343"><h2 class="sectiontitle" id="d31712e343"><span class="keyword apiname">Utils.crypto.aesEncrypt(String data)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given a String, the frameworks AES encryption protocol will be invoked
+ * to return an encrypted String.
+ *
+ * @param data The String that will be encrypted.
+ * @return The encrypted String. Null if null data was provided.
+ */
+String aesEncrypt(String data)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myEncryptedData = Utils.crypto.aesEncrypt
+                               ("my plaintext data,
+                                 preferably not stored here as a string");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e359"><h2 class="sectiontitle" id="d31712e359"><span class="keyword apiname">Utils.crypto.aesDecrypt(String data)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given an String that is encrypted by the frameworks AES encryption protocol,
+ * return the decrypted value.
+ *
+ * @param data The String that was encrypted by the framework's
+ * AES encryption protocol.
+ * @return The decrypted String. Null if null data was provided.
+ */
+String aesDecrypt(String data)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myData = Utils.crypto.aesDecrypt("my encrypted data");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e375"><h2 class="sectiontitle" id="d31712e375"><span class="keyword apiname">Utils.general.base64Decode(String value)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given a String encoded as base64, return the original value
+ * @param value The base64 value to decode
+ * @return The decoded value. Null if value was null
+ */
+String base64Decode(String value)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myAuth = Utils.general.base64Decode("my base64 encoded auth</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e392"><h2 class="sectiontitle" id="d31712e392"><span class="keyword apiname">Utils.config.readNamespaceFile(String relPath)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given the path to a file relative to the namespace configuration
+ * directory for the function assigned to this utility,
+ * read it and return a String representation,
+ * decoded using default character set of this JVM (typically UTF-8).
+ * The file must exist, or an exception is thrown.
+ * The file must be readable, or an exception is thrown.
+ * If the relative path leads to a file that is not a child
+ *  of the proper configuration directory, an exception is thrown.
+ *
+ * The full path structure is:
+ * /${CUSTOM_FUNCTION_CONFIG_DIR}/namespaces/${namespace}/${relPath}
+ *
+ * @param relPath The path to the file, relative to the namespace configuration 
+ * directory for the function assigned to this utility
+ * @return A String representing the file's content in the default character set.
+ */
+String readNamespaceFile(String relPath)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myFileContent = Utils.config.readNamespaceFile("test.txt");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e408"><h2 class="sectiontitle" id="d31712e408"><span class="keyword apiname">Utils.config.readNamespaceFile(String relPath, boolean forceExist)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given the path to a file relative to the namespace configuration
+ * directory for the function assigned to this utility,
+ * read it and return a String representation,
+ * decoded using default character setof this JVM (typically UTF-8).
+ * The file must be readable, or an exception is thrown.
+ * If the relative path leads to a file that is not a child 
+ * of the proper configuration directory, an exception is thrown.
+ *
+ * The full path structure is:
+ * /${CUSTOM_FUNCTION_CONFIG_DIR}/namespaces/${namespace}/${relPath}
+ *
+ * @param relPath The path to the file, relative to the namespace configuration
+ * directory for the function assigned to this utility
+ *
+ * @param forceExist If true, and the file does not exist, an exception if thrown.
+ * If false, and the file does not exist, an empty Map is returned.
+ * @return A String representing the file's content in the default character set.
+ * An empty String if forceExist was false and the file does not exist.
+ */
+String readNamespaceFile(String relPath, boolean forceExist)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myFileContent = Utils.config.readNamespaceFile("test.txt", false);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e424"><h2 class="sectiontitle" id="d31712e424"><span class="keyword apiname">Utils.config.readNamespaceFile(String relPath, boolean forceExist, String
+charset)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given the path to a file relative to the namespace configuration
+ * directory for the function assigned to this utility,
+ * read it and return a String representation,
+ * decoded using the given character set.
+ * The file must be readable, or an exception is thrown.
+ * If the relative path leads to a file that is not a child
+ * of the proper configuration directory, an exception is thrown.
+ *
+ * The full path structure is:
+ * /${CUSTOM_FUNCTION_CONFIG_DIR}/namespaces/${namespace}/${relPath}
+ *
+ * @param relPath The path to the file, relative to the 
+ * namespace configuration directory for the function assigned to this utility
+ * 
+ * @param forceExist If true, and the file does not exist, an exception if thrown.
+ * If false, and the filedoes not exist, an empty Map is returned.
+ *
+ * @param charset The character set (encoding) to use when reading the file.
+ * If null, the JVM default is used, usually UTF-8.
+ *
+ * @return A String representing the files content in the given character set.
+ * An empty String if forceExist was false and the file does not exist.
+ */
+String readNamespaceFile(String relPath, boolean forceExist, String charset)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myFileContent = Utils.config.readNamespaceFile("test.txt", false, "UTF-8");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e440"><h2 class="sectiontitle" id="d31712e440"><span class="keyword apiname">Utils.config.readNamespacePropertiesFile(String relPath)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given the path to a file relative to the namespace configuration
+ * directory for the function assigned to this utility,
+ * read it and return a Map of properties.
+ * The format is assumed to be the Java compatible key/value pair format.
+ * The file must exist, or an exception is thrown.
+ * The file must be readable, or an exception is thrown.
+ * If the relative path leads to a file that is not a child
+ * of the proper configuration directory, an exception is thrown.
+ *
+ * The full path structure is:
+ * /${CUSTOM_FUNCTION_CONFIG_DIR}/namespaces/${namespace}/${relPath}
+ *
+ * @param relPath The path to the file, relative to the namespace configuration
+ * directory for the function assigned to this utility.
+ *
+ * @param forceExist If true, and the file does not exist, an exception if thrown.
+ * If false, and the file does not exist, an empty Map is returned.
+ *
+ * @return A map of properties read from the file
+ */
+Map&lt;String, String&gt; readNamespacePropertiesFile(String relPath)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myProperties = Utils.config.readNamespacePropertiesFile("test.properties");
+var myValue = myProperties.get("my_key");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e456"><h2 class="sectiontitle" id="d31712e456"><span class="keyword apiname">Utils.config.readNamespacePropertiesFile(String relPath, boolean
+forceExist)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given the path to a file relative to the namespace configuration
+ * directory for the function assigned to this utility,
+ * read it and return a Map of properties.
+ * The format is assumed to be the Java compatible key/value pair format.
+ * The file must be readable, or an exception is thrown.
+ * If the relative path leads to a file that is not a chil
+ * d of the proper configuration directory, an exception is thrown.
+ *
+ * The full path structure is:
+ * /${CUSTOM_FUNCTION_CONFIG_DIR}/namespaces/${namespace}/${relPath}
+ *
+ * Charset used will be the default charset in this JVM
+ *
+ * @param relPath The path to the file, relative to the namespace configuration 
+ * directory for the function assigned to this utility.
+ *
+ * @param forceExist If true, and the file does not exist, an exception if thrown.
+ * If false, and the file does not exist, an empty Map is returned.
+ *
+ * @return A map of properties read from the file.
+ * An empty map if forceExist was false and the file does not exist.
+ */
+Map&lt;String, String&gt; readNamespacePropertiesFile(String relPath, boolean forceExist)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myProperties =
+          Utils.config.readNamespacePropertiesFile("test.properties", false);
+          var myValue = myProperties.get("my_key");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e472"><h2 class="sectiontitle" id="d31712e472"><span class="keyword apiname">Utils.config.readNamespacePropertiesFile(String relPath, boolean forceExist, String
+charset)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * Given the path to a file relative to the namespace configuration
+ * directory for the function assigned to this utility,
+ *  read it using the given character set and return a Map of properties.
+ * The format is assumed to be the Java compatible key/value pair format.
+ * The file must be readable, or an exception is thrown.
+ * If the relative path leads to a file that is not a child 
+ * of the proper configuration directory, an exception is thrown.
+ *
+ * The full path structure is:
+ * /${CUSTOM_FUNCTION_CONFIG_DIR}/namespaces/${namespace}/${relPath}
+ *
+ * @param relPath The path to the file, relative to the namespace configuration 
+ * directory for the function assigned to this utility.
+ *
+ * @param forceExist If true, and the file does not exist, an exception if thrown.
+ * If false, and the file does not exist, an empty Map is returned.
+ *
+ * @param charset The character set (encoding) to use when reading the file.
+ * If null, the JVM default is used, usually UTF-8.
+ *
+ * @return A map of properties read from the file. 
+ * An empty map if forceExist was false and the file does not exist.
+ */
+Map&lt;String, String&gt; 
+readNamespacePropertiesFile(String relPath, boolean forceExist, String charset)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myProperties = 
+           Utils.config.readNamespacePropertiesFile
+             ("test.properties", false, "UTF-8");
+          var myValue = myProperties.get("my_key");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e489"><h2 class="sectiontitle" id="d31712e489"><span class="keyword apiname">Utils.http.urlEncode(String value)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * URL encodes the given value
+ * @param value The value to encode. Null returns null
+ * @return The URL encoded value
+ */
+String urlEncode(String value)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var myEncodedPathParam = Utils.http.urlEncode("my Path parameter");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e505"><h2 class="sectiontitle" id="d31712e505"><span class="keyword apiname">Utils.http.invokeHTTP(String method, String uriStr, Integer expectedResponseCode,
+Map&lt;String, String&gt; headers, Map&lt;String, Object&gt; parameters, String body)</span></h2>
+
+<pre class="codeblock"><code>/**
+ * This method is purposely monolithic. It will be deprecated when we provide
+ * a proper (and reliable) HttpClient implementation directly
+ *
+ * Perform an HTTP request with the given parameters
+ * and return the response body as a String.
+*
+ * IMPORTANT: All request content (parameters, and body)
+ * is assumed to be UTF-8.
+ * 
+ * @param method The HTTP method to use:
+ * [GET, PUT, POST, DELETE, OPTIONS, TRACE, HEAD, PATCH].
+ * If null or empty, GET is used.
+ * If not recognized, RuntimeException is thrown.
+ *
+ * @param uri The address, which is not already escaped.
+ * Query parameters should only be provided as part of this address
+ * if the parameters parameter is not specified.
+ *
+ * @param expectedResponseCode The response code you expect,
+ * or null if you don't care.
+ * Throws RuntimeException if response code does not match.
+ *
+ * @param headers A map of headers. Note that they are case
+ * and whitespace insensitive.
+ *
+ * @param parameters A map of parameters.
+ * If the request method does not supporta request body,
+ * they will be included in the URI.
+ * If the request method does support a request body, 
+ * they will be translated to URLFormEncoded,
+ * and use the application/x-www-form-urlencoded
+ * content type; the payload will also be ignored.
+ *
+ * @param body The raw request body as a String. 
+ * Will only be used if the request supports a request body.
+ * A Content-Type header should always be provided,
+ * but Content-Length is automatically calculated.
+ * IMPORTANT: This is not compatible with extremely large data sets.
+ * No streaming implementation is provided either.
+ *
+ * @return Content The response body as a string.
+ * The character encoding used to construct it will be that which was
+ * specified by the response Content-Type header. 
+ * If none is available, it will default to UTF-8
+ */
+String invokeHTTP(String method, String uriStr, Integer expectedResponseCode,
+                  Map&lt;String, String&gt; headers, Map&lt;String, Object&gt;
+                  parameters, String body)
+</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>var responseBody = Utils.http.invokeHTTP
+                            ("GET", "https://myServer/api/my_endpoint",
+                              200, {"Token":"MyToken"}, {}, null);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e521"><h2 class="sectiontitle" id="d31712e521"><span class="keyword apiname">Utils.concurrency.createConcurrentList()</span></h2>
+
+<pre class="codeblock"><code>  /**
+    * @return Returns a new thread safe list implemented by
+    * java.util.concurrent.CopyOnWriteArrayList
+    */
+    java.util.concurrent.CopyOnWriteArrayList createConcurrentList()</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>   var myList
+        = Utils.concurrency.createConcurrentList();   myList.add("something");  
+        myList.add(25);</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e537"><h2 class="sectiontitle" id="d31712e537"><span class="keyword apiname">Utils.log.info()</span></h2>
+
+<pre class="codeblock"><code>  /**
+       * Log the given message through QRadar using a log level of INFO.
+       * @param msg The message to log.
+       * Will be prefixed with relevant state and script information.
+       */
+   void info(String msg)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.log.info("My message");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e553"><h2 class="sectiontitle" id="d31712e553"><span class="keyword apiname">Utils.log.warn()</span></h2>
+
+<pre class="codeblock"><code>  /**
+    * Log the given message through QRadar using a log level of WARN.
+    * @param msg The message to log.
+    * Will be prefixed with relevant state and script information.
+    */
+   void warn(String msg)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.log.warn("My message");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e569"><h2 class="sectiontitle" id="d31712e569"><span class="keyword apiname">Utils.log.error()</span></h2>
+
+<pre class="codeblock"><code>  /**
+    * Log the given message through QRadar using a log level of ERROR.
+    * @param msg The message to log.
+    * Will be prefixed with relevant state and script information.
+    */
+   void error(String msg)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.log.error("My message");</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d31712e586"><h2 class="sectiontitle" id="d31712e586"><span class="keyword apiname">Utils.log.debug()</span></h2>
+
+<pre class="codeblock"><code>  /**
+    * Log the given message through QRadar using a log level of DEBUG.
+    * Typically this log will be ignored unless enabled
+    * through QRadar logging configuration.
+    * @param msg The message to log.
+    * Will be prefixed with relevant state and script information.
+    */
+   void debug(String msg)</code></pre>
+<p>JavaScript example:</p>
+
+<pre class="codeblock"><code>Utils.log.debug("My message");</code></pre>
+</section>
+
+<div class="section">
+<div class="note"><span class="notetitle">Note:</span> 
+<p>When you use JavaScript, you also have access to standard ECMA utilities such as "JSON". For more
+information, see the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Mozilla Developer Network</a>
+(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d31712e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_AQLsamples.html" title="You can create IBM QRadar apps that use custom Ariel Query Language (AQL) functions.">Custom AQL functions</a></div>
+</div>
+</nav></aside></article></main></body></html>

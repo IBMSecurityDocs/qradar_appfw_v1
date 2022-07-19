@@ -1,0 +1,1013 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="App names, GUI action groups, and page IDs are identifiers that IBM QRadar uses for QRadar products, GUI actions, and UI pages.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>App names, GUI action groups, and page IDs</title>
+</head>
+<body id="r_appframework_pageIDs"><main role="main"><article role="article" aria-labelledby="d18554e10">
+<h1 class="topictitle1" id="d18554e10">App names, GUI action groups, and page IDs</h1>
+
+
+<div class="body refbody"><p class="shortdesc">App names, GUI action groups, and page IDs are identifiers that <span class="ph">IBM®
+QRadar®</span> uses for <span class="ph">QRadar</span> products, GUI actions, and
+UI pages. </p>
+
+<div class="section"><p>The following manifest blocks use these identifiers.</p>
+
+<p>The groups field of the <code class="ph codeph">gui_actions</code> block uses GUI action group identifiers to
+specify the toolbar or right-click menu where the GUI action is added:</p>
+
+<pre class="codeblock"><code>...
+
+  "gui_actions": [
+    {
+	"id":"sampleToolbarButton",
+	"text":"Sample Toolbar Button",
+	"description":"Sample toolbar button that 
+        calls a REST method, passing an offense ID along",
+	"icon":null,
+	"rest_method":"sampleToolbarMethod",
+	"javascript":"alert(result)",
+	"groups":[ "OffenseListToolbar" ],
+	"required_capabilities":[ "ADMIN" ]
+     }
+],
+
+..</code></pre>
+<p>The <span class="keyword parmname">app_name</span> and <span class="keyword parmname">page_id</span> fields of the
+<code class="ph codeph">page_scripts</code> block use the app name and page ID identifiers to specify the <span class="ph">QRadar</span> application tab and sub
+page into which the page script is added. </p>
+
+<pre class="codeblock"><code>...
+
+	"page_scripts": [
+		{
+			"app_name":"SEM",
+			" page_id":"OffenseList",
+			"scripts":["/static/sampleScriptInclude.js"]
+		}
+	],
+
+...</code></pre>
+</div>
+
+<section class="section" role="region" aria-labelledby="d18554e63"><h2 class="sectiontitle" id="d18554e63">Supported app names</h2>The following table shows a list of supported app names
+with descriptions.
+<div class="tablenoborder"><table summary="" id="r_appframework_pageIDs__table_p2n_f34_rt" class="defaultstyle"><caption><span class="tablecap">Table 1. Supported app names</span></caption><colgroup><col style="width:33.33333333333333%"><col style="width:66.66666666666666%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d18554e81">App Name</th>
+
+<th id="d18554e84">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d18554e81 ">assetprofile</td>
+
+<td headers="d18554e84 ">Asset Profile (for example, Vulnerabilities: Manage Vulnerabilities, search)</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">Assets</td>
+
+<td headers="d18554e84 ">Assets Manager</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">EventViewer</td>
+
+<td headers="d18554e84 ">Event Viewer (for example, syslogdestination)</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">Forensics</td>
+
+<td headers="d18554e84 ">Incident Forensics</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">QRadar</td>
+
+<td headers="d18554e84 ">QRadar (for example, Reference Data)</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">QVM</td>
+
+<td headers="d18554e84 ">QRadar Vulnerability Manager</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">Reports</td>
+
+<td headers="d18554e84 ">Reports</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">Sem</td>
+
+<td headers="d18554e84 ">Offense Management</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">SRM</td>
+
+<td headers="d18554e84 ">QRadar Risk Manager</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e81 ">Surveillance</td>
+
+<td headers="d18554e84 ">Network Surveillance (Flows)</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="section" role="region" aria-labelledby="d18554e187"><h2 class="sectiontitle" id="d18554e187">Supported GUI Actions and corresponding page IDs</h2>
+
+<p>The following table describes the supported GUI Actions and corresponding page IDs.</p>
+
+
+<div class="tablenoborder"><table summary="" id="r_appframework_pageIDs__r_appframework_pageIDs__table_hsp_m34_rt" class="defaultstyle"><caption><span class="tablecap">Table 2. Supported GUI Actions and Page IDs</span></caption><colgroup><col style="width:31.818181818181817%"><col style="width:13.636363636363635%"><col style="width:27.27272727272727%"><col style="width:27.27272727272727%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d18554e212">GUI Action group</th>
+
+<th id="d18554e215">App name</th>
+
+<th id="d18554e218">Page ID</th>
+
+<th id="d18554e221">Location</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d18554e212 ">AssetDetailsToolbar</td>
+
+<td headers="d18554e215 ">Assets</td>
+
+<td headers="d18554e218 ">AssetDetailsVulnList</td>
+
+<td headers="d18554e221 ">Assets - click on IP Address/ Vulnerabilities - Manage Vulnerabilities - By Asset - click on
+IP Address</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">AssetListToolbar</td>
+
+<td headers="d18554e215 ">Assets</td>
+
+<td headers="d18554e218 ">AssetList</td>
+
+<td headers="d18554e221 ">Asset tab list</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">AssetOwnerToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">AssetOwner</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - left panel - Vulnerability Assignment</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">AttackerList</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseSummary</td>
+
+<td headers="d18554e221 ">Offense Tab - All Offenses - double-click offense row - right-click row in Top 5 Source IPs
+section</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">AttackerListSmallToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseAttackerList</td>
+
+<td headers="d18554e221 ">Offenses tab - All Offenses - double-click offense row - click Sources button on Top 5 Source
+IPs toolbar </td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">NetworkAttackerList</td>
+
+<td headers="d18554e221 ">Offenses tab - By Network - select row - click Sources button on toolbar to view List of
+Sources</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">TargetAttackerList</td>
+
+<td headers="d18554e221 ">Offenses tab - By Destination IP - select row, click Sources button on toolbar to view List
+of Sources</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">AttackerListToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">AttackerList</td>
+
+<td headers="d18554e221 ">Offenses tab - By Source IP</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ByAssetListFormToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ByAssetListForm</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Manage vulnerabilities - by Asset</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ByNetworkListToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ByNetworkList</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Manage vulnerabilities - by Network</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ByOpenServiceListToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ByOpenServiceList</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Manage vulnerabilities - by Open Service</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ByVulnerabilityInstanceListToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ByVulnerabilityInstanceList</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Manage vulnerabilities - By vulnerability instance - main
+screen</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ByVulnerabilityListToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ByVulnerabilityList</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Manage vulnerabilities - By vulnerability</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">CategoryList</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseSummary</td>
+
+<td headers="d18554e221 ">Offenses tab - All Offenses, - double-click row -Top 5 Categories table - right-click a
+row</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">CategoryListToolbar</td>
+
+<td headers="d18554e215 ">SEM </td>
+
+<td headers="d18554e218 ">OffenseCategoryList</td>
+
+<td headers="d18554e221 ">Offenses Tab - All offenses - double-click row - click Display &gt; Categories in toolbar - List
+of Event Categories table toolbar</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">DomainListToolbar</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">DomainList</td>
+
+<td headers="d18554e221 ">Admin tab - Domain Management</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">EventDetailsToolbar</td>
+
+<td headers="d18554e215 ">Event Viewer</td>
+
+<td headers="d18554e218 ">EventDetails</td>
+
+<td headers="d18554e221 ">Log Activity tab - pause - click row - Events detail toolbar</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ExceptionRulesListToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ExceptionRulesList</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Vulnerability exception</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">FlowDetailsToolbar</td>
+
+<td headers="d18554e215 ">Surveillance</td>
+
+<td headers="d18554e218 ">FlowDetails</td>
+
+<td headers="d18554e221 ">Network Activity - double-click on a flow.</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">FlowsourceListToolbar</td>
+
+<td headers="d18554e215 ">Surveillance</td>
+
+<td headers="d18554e218 ">FlowsourceList</td>
+
+<td headers="d18554e221 ">Admin tab - Flow Sources</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">MyAssignedVulnerabilitiesListToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">MyAssignedVulnerabilitiesList</td>
+
+<td headers="d18554e221 ">Vulnerability tab - My assigned vulnerabilities</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">NetworkHierarchyListToolbar</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">NetworkHierarchyList</td>
+
+<td headers="d18554e221 ">Admin tab - Network Hierarchy</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">NetworkListSmallToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseNetworkList</td>
+
+<td headers="d18554e221 ">Offenses tab - All Offenses - double-click row - click Display in toolbar, Networks,
+Destination Networks table, toolbar, and right click</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">NetworkListToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">NetworkList</td>
+
+<td headers="d18554e221 ">Offenses -By Network</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">NetworkSummaryToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">NetworkOffenseList</td>
+
+<td headers="d18554e221 ">Offenses Tab - By Network - double-click an offense.</td>
+
+</tr>
+
+<tr data-hd-otherprops="732">
+<td headers="d18554e212 ">ObfuscationProfileContextMenu</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">ObfuscationProfiles</td>
+
+<td headers="d18554e221 ">Admin - Data Obfuscation Management </td>
+
+</tr>
+
+<tr data-hd-otherprops="732">
+<td headers="d18554e212 ">ObfuscationRightClick</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">&nbsp;</td>
+
+<td headers="d18554e221 ">Deprecated</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">OffenseListSmallToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">AttackerOffenseList</td>
+
+<td headers="d18554e221 ">Offenses - double-click a row in Offenses - double-click row in Top 5 SourceIPs - select a
+row and right click</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">TargetOffenseList</td>
+
+<td headers="d18554e221 ">Offenses - double-click a row in Offenses - double-click row in Top 5 SourceIPs -
+double-click a row - select a row and right click</td>
+
+</tr>
+
+
+
+<tr>
+<td headers="d18554e212 ">OffenseListToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseList</td>
+
+<td headers="d18554e221 ">Offenses tab main page</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">OffenseSummaryToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseSummary</td>
+
+<td headers="d18554e221 ">Offenses tab, double-click Offense - toolbar</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">OffenseDeviceList</td>
+
+<td headers="d18554e221 ">Click Display &gt; Log Sources</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">OffenseUserList</td>
+
+<td headers="d18554e221 ">Click Display &gt; Users</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">OffenseRuleList</td>
+
+<td headers="d18554e221 ">Click Display &gt; Rules</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">OffenseSummaryToolbar</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">OffenseAttackerList <p>Added in QRadar V.7.3.0</p>
+</td>
+
+<td headers="d18554e221 ">Offenses tab, double-click Offense - on toolbar, Click Display &gt; Sources</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">OffenseCategoryList <p>Added in QRadar V.7.3.0</p>
+</td>
+
+<td headers="d18554e221 ">Offenses tab, double-click Offense - on toolbar, Click Display &gt; Categories</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">&nbsp;</td>
+
+<td headers="d18554e215 ">&nbsp;</td>
+
+<td headers="d18554e218 ">OffenseNetworkList <p>Added in QRadar V.7.3.0</p>
+</td>
+
+<td headers="d18554e221 ">Offenses tab, double-click Offense - on toolbar, Click Display &gt; Networks</td>
+
+</tr>
+
+<tr data-hd-otherprops="732">
+<td headers="d18554e212 ">OffenseSummaryToolbar </td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseAnnotationList <p>Added in QRadar V.7.3.2</p>
+</td>
+
+<td headers="d18554e221 ">Click Display &gt; Annotations</td>
+
+</tr>
+
+<tr data-hd-otherprops="732">
+<td headers="d18554e212 ">OffenseSummaryToolbar </td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseTargetList <p>Added in QRadar V.7.3.2</p>
+</td>
+
+<td headers="d18554e221 ">Click Display &gt; Destinations</td>
+
+</tr>
+
+<tr data-hd-otherprops="732">
+<td headers="d18554e212 ">OffenseSummaryToolbar </td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">NotesList <p>Added in QRadar V.7.3.2</p>
+</td>
+
+<td headers="d18554e221 ">Click Display &gt; Notes</td>
+
+</tr>
+
+
+<tr data-hd-otherprops="all">
+<td headers="d18554e212 ">ReferenceSetElemsContextMenu</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">ReferenceSetElems</td>
+
+<td headers="d18554e221 ">Admin tab- Reference Set Management - View a reference set - Content tab, right-click
+row</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ReferenceSetElemsToolbar</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">ReferenceSetElems</td>
+
+<td headers="d18554e221 ">Admin tab- Reference Set Management - View a reference set - Content tab</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ReferenceSetRulesContextMenu</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">ReferenceSetRules</td>
+
+<td headers="d18554e221 ">Admin tab - Reference Set Management - View a reference set - References tab, right-click
+row</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ReferenceSetRulesToolbar</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">ReferenceSetRules</td>
+
+<td headers="d18554e221 ">Admin tab - Reference Set Management - View a reference set - References tab, click row,
+click toolbar button</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ReferenceSetsContextMenu</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">ReferenceSets</td>
+
+<td headers="d18554e221 ">Admin tab - Reference Set Management - right-click a reference set.</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ReferenceSetsToolbar</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">ReferenceSets</td>
+
+<td headers="d18554e221 ">Admin tab -Reference Set Management</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ReportTemplateListToolbar</td>
+
+<td headers="d18554e215 ">Reports</td>
+
+<td headers="d18554e218 ">ReportTemplateListAll</td>
+
+<td headers="d18554e221 ">Reports tab toolbar</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ScanPolicyVulnerabilityListToolbar</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ScanPolicyVulnerabilityList</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Left panel - Administrative - Scan Policies - Add - Scan Type Patch -
+Vulnerabilities Tab - Add. GUI action appears in toolbar</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ScanResultsListToolbar</td>
+
+<td headers="d18554e215 ">QVM</td>
+
+<td headers="d18554e218 ">ScanResultsList</td>
+
+<td headers="d18554e221 ">Vulnerabilities Tab - Scan Results</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">SensorDeviceListToolbar</td>
+
+<td headers="d18554e215 ">EventViewer</td>
+
+<td headers="d18554e218 ">SensorDeviceList</td>
+
+<td headers="d18554e221 ">Admin tab - Log Sources</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">TargetList</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseSummary</td>
+
+<td headers="d18554e221 ">Offenses tab - double-click offense, Top 5 Destination IPs table, right-click row.</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">TargetListToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">TargetList</td>
+
+<td headers="d18554e221 ">Offenses tab - By Destination IP.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td rowspan="3" headers="d18554e212 ">TargetSummaryToolbar</td>
+
+<td rowspan="3" headers="d18554e215 ">
+<p>SEM</p>
+
+</td>
+
+<td headers="d18554e218 ">TargetOffenseList</td>
+
+<td headers="d18554e221 ">
+<p>Offenses tab - By Destination IP - double-click offense</p>
+
+<p> </p>
+
+</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e218 ">TargetNotesList</td>
+
+<td headers="d18554e221 ">Offenses tab - By Destination IP - double click offense - click Notes on toolbar</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e218 ">TargetAttackerList </td>
+
+<td headers="d18554e221 ">Offenses tab - By Destination IP - double click offense - click Sources on toolbar </td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">TenantListToolbar</td>
+
+<td headers="d18554e215 ">QRadar</td>
+
+<td headers="d18554e218 ">TenantList</td>
+
+<td headers="d18554e221 ">Admin tab - Tenant Management</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">VaScannerSchedulesListToolbar</td>
+
+<td headers="d18554e215 ">Assets</td>
+
+<td headers="d18554e218 ">VaScannerSchedulesList</td>
+
+<td headers="d18554e221 ">Admin tab - Schedule VA Scanners</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">VaScannersListToolbar</td>
+
+<td headers="d18554e215 ">Assets</td>
+
+<td headers="d18554e218 ">VaScannersList</td>
+
+<td headers="d18554e221 ">Admin tab - VA Scanners</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">ViewNotesToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseSummary</td>
+
+<td headers="d18554e221 ">Offenses tab - double-click Offense, Last 5 Notes table toolbar</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">ViewOffenseDevicesToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseSummary</td>
+
+<td headers="d18554e221 ">Offenses tab - double-click Offense - Top 5 Log Sources table toolbar</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d18554e212 ">ViewoffenseusersToolbar</td>
+
+<td headers="d18554e215 ">SEM</td>
+
+<td headers="d18554e218 ">OffenseSummary</td>
+
+<td headers="d18554e221 ">Offenses tab - double-click Offense, Top 5 Users table toolbar</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">VulnerabilityManagementListPopup</td>
+
+<td headers="d18554e215 ">assetprofile</td>
+
+<td headers="d18554e218 ">ByAssetListForm, ByNetworkList, ByOpenServiceList, ByVulnerabilityList,
+MyAssignedVulnerabilitiesList, ByVulnerabilityInstanceList</td>
+
+<td headers="d18554e221 ">Vulnerabilities tab - Manage Vulnerabilities<p>- By Network</p>
+<p>- By Asset</p>
+<p>- By
+Vulnerability</p>
+<p>- By Open Service</p>
+<p>- My Assigned Vulnerabilities</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">arielListToolbar</td>
+
+<td headers="d18554e215 ">Surveillance</td>
+
+<td headers="d18554e218 ">FlowList</td>
+
+<td headers="d18554e221 ">Network Activity tab </td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">customEventListToolbar</td>
+
+<td headers="d18554e215 ">EventViewer</td>
+
+<td headers="d18554e218 ">EventList</td>
+
+<td headers="d18554e221 ">Log Activity tab </td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">ipPopup</td>
+
+<td headers="d18554e215 ">
+<p>Assets</p>
+
+<p>assetprofile</p>
+
+<p>assetprofile</p>
+
+<p>assetprofile</p>
+
+<p>assetprofile</p>
+
+</td>
+
+<td headers="d18554e218 ">
+<p>AssetList</p>
+
+<p>MyAssignedVulnerabilitiesList</p>
+
+<p>ByVulnerabilityInstanceList</p>
+
+<p>ByAssetListForm</p>
+
+<p>ExceptionRulesList</p>
+
+</td>
+
+<td headers="d18554e221 ">Right-click IP address on Assets tab, Vulnerability tab - Manage Vulnerabilities -
+Vulnerability Exception</td>
+
+</tr>
+
+<tr>
+<td headers="d18554e212 ">userNamePopup</td>
+
+<td headers="d18554e215 ">Assets</td>
+
+<td headers="d18554e218 ">AssetDetailsVulnList</td>
+
+<td headers="d18554e221 ">
+<p>For example, Assets Tab, click IP Address to View Asset Details, select a row in Vulnerabilities
+table, right-click Technical User, see right-click View Assets /View Events</p>
+
+<p>Also used in Offenses, Log Activity.</p>
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d18554e1274"><h2 class="sectiontitle" id="d18554e1274">Deprecated GUI actions</h2>
+
+<div class="p" data-hd-otherprops="730">In <span class="ph">QRadar</span>
+<span class="ph">V7.3.0</span> and later, the following GUI
+actions are deprecated:<ul>
+<li>OffenseList</li>
+
+<li>NetworkList</li>
+
+<li>HistoricalCorrelationToolbar</li>
+
+<li>OffenseRuleList</li>
+
+<li>OffenseDeviceList</li>
+
+<li>OffenseUserList</li>
+
+<li>NotesList</li>
+
+<li>ByAssetListForm</li>
+
+</ul>
+</div>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d18554e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

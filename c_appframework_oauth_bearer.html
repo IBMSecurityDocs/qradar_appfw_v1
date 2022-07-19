@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="The OAuth bearer token is an access token that allows an app to access specific QRadar resources.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_oauth.html">
+<title>OAuth bearer token</title>
+</head>
+<body id="concept_qrf_2wc_b1b"><main role="main"><article role="article" aria-labelledby="d4441e10">
+<h1 class="topictitle1" id="d4441e10">OAuth bearer token</h1>
+
+
+<div class="body conbody"><p class="shortdesc">The OAuth bearer token is an access token that allows an app to access specific QRadar
+resources.</p>
+
+<p>A QRadar OAuth app can make QRadar REST API calls by using an OAuth bearer token. </p>
+
+<div class="p">The following diagram shows the folder and file structure for the OAuth app that is used in the
+example.<figure class="fignone" id="concept_qrf_2wc_b1b__fig_aqg_hslsd_fw"><figcaption>Figure 1. OAuth bearer token app</figcaption>
+
+<div class="image"><img src="oauth.svg" alt="Oauth bearer token files"></div>
+</figure>
+ The following example shows how an app that is a background service gets and uses the bearer
+token for authorization to make QRadar REST API calls: <ol>
+<li>The <span class="ph filepath">manifest.json</span> file includes an authentication entry to identify and
+configure the app as an OAuth app, and instructs the Flask web server not to load.<div class="p">
+<pre class="codeblock"><code>{ 
+  "name": "OAuth background process", 
+  "version": "1.0", 
+  "description": "Simple background process app that calls QRadar REST API using OAuth", 
+  "uuid": "a7e67388-95e1-436e-bdbd-df9c53230728", 
+  "load_flask": "false",  "authentication": { 
+    "oauth2": { 
+      "authorisation_flow": "CLIENT_CREDENTIALS", 
+      "requested_capabilities": ["ADMIN"] 
+  } 
+ } 
+}</code></pre>
+</div>
+</li>
+
+<li>The <span class="ph filepath">src_deps/init/launch_background_process.sh</span> script is run.
+<pre class="codeblock"><code>#!/bin/bash
+nohup python /app/background_process.py &gt;/store/log/background_process.log 2&gt;&amp;1 &amp;</code></pre></li>
+
+<li>The <span class="ph filepath">src_deps/init/launch_background_process.sh</span> script calls the
+<span class="ph filepath">app/background_process.py</span> Python
+module.<br><pre class="codeblock"><code>#!/usr/bin/python
+from qpylib import qpylib
+from qpylib import oauth_qpylib
+import requests
+import json
+import time
+qpylib.create_log()
+
+rest_url = 'https://' + qpylib.get_console_address() + '/api/ariel/databases'
+request_headers = {}
+oauth_qpylib.add_oauth_header(request_headers)
+
+while True:
+    time.sleep(30)
+    try:
+        response = requests.get(rest_url, headers=request_headers, verify=False)
+        qpylib.log('response=' + json.dumps(response.json()))
+    except Exception as e:
+        qpylib.log('Error: ' + str(e))</code></pre><p>The
+<span class="ph filepath">background_process.py</span> module runs a continuous loop where it calls a QRadar
+REST API endpoint, and then logs the result. </p>
+</li>
+
+</ol>
+</div>
+
+<dl>
+
+<dt class="dlterm">How the OAuth bearer token is retrieved</dt>
+
+<dd class="dlentry">
+<p>The <code class="ph codeph">add_oauth_header</code> function takes a Python requests-ready headers object and
+adds an Authorization header that contains the application’s OAuth bearer token. </p>
+
+</dd>
+
+<dd class="ddexpand">To retrieve the token, <code class="ph codeph">add_oauth_header</code> sends a GET token request to the QRadar
+OAuth service, which runs on a specific port at
+<span class="ph filepath">https://qoauth.service.consul</span>.</dd>
+
+<dd class="ddexpand">The GET token request looks for the following details:<ul>
+<li>The QRadar OAuth service port<p>The service port is identified by a call to the Python module
+<code class="ph codeph">service_port_locator.py</code>, which is in the root directory of the Docker
+container.</p>
+<div class="p">Here's an example of the call to the Python
+module:<pre class="codeblock"><code>def get_qoauth_port():
+    p = subprocess.Popen(['/service_port_locator.py', 
+    'qoauth.service.consul'], stdout=subprocess.PIPE)
+    return str(p.communicate()[0]).strip()</code></pre></div>
+</li>
+
+<li>The application's OAuth client ID and client secret. <p>The client ID and secret are available
+to the Python code as the <span class="ph filepath">CLIENT_ID</span> and <span class="ph filepath">CLIENT_SECRET</span>
+environment variables.</p>
+</li>
+
+</ul>
+</dd>
+
+
+</dl>
+
+<p>The following URL is an example of the GET token request to the OAuth service:</p>
+
+<div class="p">
+<pre class="codeblock"><code> http://qoauth.service.consul:&lt;<var class="keyword varname">Port_number</var>&gt;/token?grant_type=client_credentials&amp;client_id=&lt;<var class="keyword varname">Client_ID</var>&gt;&amp;client_secret=&lt;<var class="keyword varname">Client_secret</var>&gt;</code></pre>
+</div>
+
+<dl>
+
+<dt class="dlterm"></dt>
+
+<dd class="dlentry">
+<div class="p">The JSON response holds the bearer token in its <code class="ph codeph">access_token</code> field, which is
+similar to the following
+example:<pre class="codeblock"><code>{"access_token": "example_token_34j3fdde", "token_type": "Bearer", "scope": "ADMIN"}</code></pre></div>
+
+</dd>
+
+<dd class="ddexpand">When the token is retrieved, it can be used to make multiple QRadar REST API calls. The token is
+sent in a request header and the following format:<div class="p">
+<pre class="codeblock"><code>"Authorization" : "Bearer example_token_34j3fdde"</code></pre>
+</div>
+</dd>
+
+
+</dl>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d4441e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a data-hd-otherprops="731" href="c_appframework_oauth.html" title="Apps use the OAuth authorization protocol to authorize the app to access QRadar resources.">OAuth app authorization with QRadar</a></div>
+</div>
+</nav></aside></article></main></body></html>

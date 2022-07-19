@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Add language-specific text strings to your app to globalize IBM QRadar elements such as tab labels, toolbar button text, and tooltip content.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_GuiL10n.html">
+<title>Globalization of QRadar elements</title>
+</head>
+<body id="c_appframework_GlobalizeApp"><main role="main"><article role="article" aria-labelledby="d35035e10">
+<h1 class="topictitle1" id="d35035e10">Globalization of <span class="ph">QRadar</span>
+		elements</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Add language-specific text strings to your app to globalize <span class="ph">IBM®
+QRadar®</span> elements such as tab
+labels, toolbar button text, and tooltip content.</p>
+
+		<p>To globalize you app, you must create locale-specific properties files for the locales you want
+to use. </p>
+
+<p>In the <span class="ph filepath">manifest.json</span> file, you must configure the
+<code class="ph codeph">resource_bundles</code> block to define the locales and the location of properties files
+that contains locale-specific text strings your app uses. </p>
+
+<p>Globalization resource bundle properties files for the specified language code are stored in the
+app's <span class="ph filepath">app/static/resources</span> folder. The string elements are displayed in the
+current <span class="ph">IBM
+QRadar</span> user's
+preferred locale, as defined within the <span class="ph">QRadar</span> GUI itself.</p>
+
+<p>In the following example, the "Hello World" app includes locale-specific text.</p>
+
+<section class="section" role="region" aria-labelledby="d35035e63"><h2 class="sectiontitle" id="d35035e63"><span class="ph filepath">manifest.json</span></h2>
+
+<pre class="codeblock"><code>{
+	"name":"com.ibm.hellog11n.name",
+	"description":"Application to display QHelloWorld",
+	"version":"1.0.2",
+
+	"areas": [
+		{
+			"id":"<var class="keyword varname">com.ibm.hellog11n.name</var>",
+			"text":"<var class="keyword varname">com.ibm.hellog11n.name</var>",
+			"description":"<var class="keyword varname">com.ibm.hellog11n.desc</var>",
+			"url":"index",
+			"required_capabilities":["ADMIN"]
+		}
+	],
+
+	"resource_bundles": [
+		{
+			"locale": "en_US",
+			"bundle": "resources/hello_en_US.properties"
+		},
+		{
+			"locale": "es",
+			"bundle": "resources/hello_es.properties"
+		},
+		{
+			"locale": "fr",
+			"bundle": "resources/hello_fr.properties"
+		},
+		{
+			"locale": "en",
+			"bundle": "resources/hello_en.properties"
+		},
+              {
+			"locale": "ja",
+			"bundle": "resources/hello_ja.properties"
+		}
+	]
+
+
+}</code></pre>
+			<p>Three globalization keys are referenced by the app manifest metadata definition file:</p>
+
+			<ul>
+				<li><code class="ph codeph">com.ibm.hellog11n.id</code></li>
+
+				<li><code class="ph codeph">com.ibm.hellog11n.name</code></li>
+
+				<li><code class="ph codeph">com.ibm.hellog11n.desc</code></li>
+
+			</ul>
+
+			<p>The <code class="ph codeph">resource_bundles</code> block defines locales for standard English, American
+English, French, and Spanish. The <span class="keyword parmname">bundle</span> field points to the properties file
+for each language locale.</p>
+
+</section>
+
+		<section class="section" role="region" aria-labelledby="d35035e110"><h2 class="sectiontitle" id="d35035e110">Globalization key naming conventions</h2>
+			
+			<p>Use a consistent naming format for any globalization keys that are made available by resources
+files within your app code. One useful approach is to employ a fully qualified company-app prefix to
+all your keys. This strategy prevents the replication of existing <span class="ph">QRadar</span> globalization store keys or
+keys made available by other apps. </p>
+
+<p>Here's an example:</p>
+
+			<ul>
+				<li><code class="ph codeph">com.ibm.myapp.key1=value1</code></li>
+
+				<li><code class="ph codeph">com.ibm.myapp.key2=value2</code></li>
+
+			</ul>
+
+		</section>
+
+		<section class="section" role="region" aria-labelledby="d35035e137"><h2 class="sectiontitle" id="d35035e137">Properties files</h2>
+			
+			<p>The <code class="ph codeph">resource_bundles</code> block defines locales for standard English, American
+English, French, Spanish and Japanese. The <span class="keyword parmname">bundle</span> field points to the
+properties file for each language locale. </p>
+
+<p>The properties files are stored in the <span class="ph filepath">app/static/resources</span> folder.</p>
+
+			<p>The <span class="keyword parmname">id</span>, <span class="keyword parmname">text</span>, and <span class="keyword parmname">description</span>
+fields in the <span class="keyword parmname">areas</span> block use the key that is defined in the properties files.
+The key contains the value that is used for the app's user interface tab name in each language.</p>
+
+			<p>Text strings for globalization are stored as key/value pairs in Java format properties files. </p>
+
+<p>Language locale properties file must use the following naming convention:
+<span class="ph filepath">application_&lt;LANG&gt;.properties</span>. For the purposes of this example, four
+properties files were created.</p>
+
+			<p>These properties files are consumed by the main <span class="ph">QRadar</span> SIEM codebase, within a
+Java virtual machine (JVM). It must adhere to Java processing support for properties files.
+Currently, Latin-1 font characters, and Unicode characters are supported. Language sets that contain
+non-Latin-1 font characters must be represented by their Unicode equivalents. Install the Java 7
+Java Development Kit (JDK)  and use the Java Native-To-ASCII converter
+(<span class="ph filepath">native2ascii</span>) to convert your content.</p>
+
+			<p><span class="ph filepath">static/resources/hello_en.properties</span>:</p>
+
+			<pre class="codeblock"><code><span class="keyword parmname">com.ibm.hellog11n.name</span>=Hello World
+<span class="keyword parmname">com.ibm.hellog11n..id</span>=Hello_World_G11n
+<span class="keyword parmname">com.ibm.hellog11n.desc</span>=A fully globalized Hello World App</code></pre>
+			<p><span class="ph filepath">static/resources/hello_en_US.properties</span>:</p>
+
+			<pre class="codeblock"><code><span class="keyword parmname">com.ibm.hellog11n.name</span>=Hello World
+<span class="keyword parmname">com.ibm.hellog11n.id</span>=Hello_World_G11n
+<span class="keyword parmname">com.ibm.hellog11n.desc</span>=A fully globalized Hello World App</code></pre>
+			<p><span class="ph filepath">static/resources/hello_es.properties</span>:</p>
+
+			<pre class="codeblock"><code><span class="keyword parmname">com.ibm.hellog11n.name</span>=Hola Mundo
+<span class="keyword parmname">com.ibm.hellog11n.id</span>=Hello_World_G11n
+<span class="keyword parmname">com.ibm.hellog11n.desc</span>=Un totalmente globalizado Hello World App</code></pre>
+			<p><span class="ph filepath">static/resources/hello_fr.properties</span>:</p>
+
+			<pre class="codeblock"><code><span class="keyword parmname">com.ibm.hellog11n.name</span>=Bonjour Le Monde
+<span class="keyword parmname">com.ibm.hellog11n.id</span>=Hello_World_G11n
+<span class="keyword parmname">com.ibm.hellog11n.desc</span>=Un App World Bonjour totalement globalisé</code></pre>
+			<p><span class="ph filepath">static/resources/hello_ja.properties</span>:</p>
+
+			<pre class="codeblock"><code><span class="keyword parmname">com.ibm.hellog11n.name</span>=\u3053\u3093\u306b\u3061\u306f\u4e16\u754c 
+<span class="keyword parmname">com.ibm.hellog11n.id</span>=Hello_World_G11n
+<span class="keyword parmname">com.ibm.hellog11n.desc</span>=\u5b8c\u5168\u306b\u30b0\u30ed\u30fc\u30d0\u30eb\u306aHello
+      World\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3</code></pre>
+		</section>
+
+<section class="section" role="region" aria-labelledby="d35035e274"><h2 class="sectiontitle" id="d35035e274">Your Flask endpoint/services code: <span class="ph filepath">views.py</span></h2>
+
+			<p>The <span class="ph filepath">views.py</span> file defines a flask route, or service endpoint, that uses a
+Jinja2 template HTML page to build an HTML string that is to be returned from the service
+endpoint.</p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import render_template, send_from_directory
+from app import app
+from qpylib import qpylib
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template("index.html", title = "QApp1 : Hello World !")</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d35035e291"><h2 class="sectiontitle" id="d35035e291">The rendered views: <span class="ph filepath">app/templates/index.html</span></h2>
+
+<p>The following Jinja2 template is a simple web page, a static HTML string that is returned by the
+endpoint. No globalization occurs within your view with the following example. </p>
+
+<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;{{title}} - Main&lt;/title&gt;
+  &lt;link rel="stylesheet" href="static/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="pageheader" class="pagebanner"&gt;
+    IBM QRadar Application : Hello World !...
+&lt;/div&gt;
+
+&lt;div id="contentpane"&gt;
+  Hello! Welcome to the first Qradar app served from the AppFramework
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section>
+
+		<div class="example"><h2 class="sectiontitle" id="d35035e305"><span class="ph">QRadar</span> user
+				locale preferences</h2>
+			
+			<p>To view the locale-specific content in <span class="ph">QRadar</span>, you must set your locale
+preferences.</p>
+
+<p>Click <span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">User Preferences</span></span> on the upper left of the <span class="ph">QRadar</span> user interface, and then
+select your locale from the <span class="ph uicontrol">Locale</span> menu.</p>
+
+<p>The following image shows the user locale preferences dialog.</p>
+
+<div class="fignone" id="c_appframework_GlobalizeApp__fig_d12_bmr_qt">
+<div class="image"><img src="appframework_chooseLocale.svg" alt="user locale preferences"></div>
+</div>
+
+			<p>For the current example, if you choose any of the English language locales, you
+				see:</p>
+
+			<div class="fignone" id="c_appframework_GlobalizeApp__fig_u2q_zmr_qt">
+				<div class="image"><img src="appframework_ENLocale.svg" alt="Current example: English locales"></div>
+			</div>
+
+			<p>For the current example, if you choose any of the Spanish language locales, you
+				see:</p>
+
+<p>You see the following image, if you choose any of the English language locales.</p>
+
+<div class="fignone" id="c_appframework_GlobalizeApp__fig_u2q_zmr_qtd">
+<div class="image"><img src="appframework_ENLocale.svg" alt="English locale"></div>
+</div>
+
+<p>You see the following image, if you choose any of the Spanish language locales.</p>
+
+<div class="fignone" id="c_appframework_GlobalizeApp__fig_plm_cnr_qt">
+<div class="image"><img src="appframework_ESLocale.svg" alt="Spanish locale"></div>
+</div>
+
+<p>You see the following image, if you choose any of the Japanese language locales.</p>
+
+<div class="fignone" id="c_appframework_GlobalizeApp__fig_kvh_jt4_wt">
+<div class="image"><img src="appframework_JALocale.svg" alt="Japanese locale"></div>
+</div>
+
+			<p>You can determine the following information from these globalized examples:</p>
+
+			<ul>
+				<li>The new tab uses the value in the <span class="ph filepath">manifest.json</span>
+					<var class="keyword varname">name</var> field as the text value for the tab.</li>
+
+				<li>The tab tooltip the value in the <span class="ph filepath">manifest.json</span>
+<var class="keyword varname">description</var> field as the text value for its content.</li>
+
+				<li>Globalization resource files that are bundled with the app are ingested by the
+						<span class="ph">QRadar</span>
+					globalization store.</li>
+
+				<li><span class="ph">QRadar</span>
+					user session preferences for each locale use key look-ups to reflect the
+					language-specific text you want to display.</li>
+
+			</ul>
+
+		</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d35035e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_GuiL10n.html" title="Globalization refers to implementing multi-language support for your app that is built into the application without the need for further engineering efforts.">Application globalization</a></div>
+</div>
+</nav></aside></article></main></body></html>

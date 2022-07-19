@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="If your app requires dependencies, such as RPMs or Python libraries, you can add them in the src_deps sub directory of the app folder.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_structure.html">
+<title>Source dependencies</title>
+</head>
+<body id="c_appframework_dependencies"><main role="main"><article role="article" aria-labelledby="d6883e10">
+<h1 class="topictitle1" id="d6883e10">Source dependencies</h1>
+
+
+<div class="body conbody"><p class="shortdesc">If your app requires dependencies, such as RPMs or Python libraries, you can add them in
+the <span class="ph filepath">src_deps</span> sub directory of the <span class="ph filepath">app</span> folder.</p>
+
+<p>The <span class="ph filepath">src_deps</span> directory can contain these optional sub directories:</p>
+
+<section class="section" role="region" aria-labelledby="d6883e32"><h2 class="sectiontitle" id="d6883e32"><span class="ph filepath">pip</span></h2>
+
+<p>Use the <span class="ph filepath">pip</span> folder to install extra Python libraries. For example, if your
+application requires the <span class="ph filepath">observable-0.01.00</span> Python library, add the
+<span class="ph filepath">observable-0.01.00.tar.gz</span> file to the <span class="ph filepath">pip</span> folder.</p>
+
+<p>Don't use .tar files for Python libraries that include extra C-based extensions. Instead, add
+libraries as Python wheel files (<code class="ph codeph">.whl</code>), which have C-based extensions
+pre-compiled.</p>
+
+<p>You must install Python wheel files on the same system architecture they were compiled upon. To
+work with <span class="ph">IBM®
+QRadar®</span> application
+framework, wheel files must be compiled on Centos 6.7 x86_64. If it uses compatible architecture,
+you can use the Python <span class="keyword cmdname">bdist_wheel</span> command to create wheel files from a library's
+source code on your own system. The command <code class="ph codeph">python setup.py sdist bdist_wheel</code>
+creates the wheel file when you run it from within the root directory of the Python library's source
+folder.</p>
+
+<p>A useful alternative to manually downloading Python packages for your app is the
+<span class="ph filepath">pip2pi</span> Python package. It requires <span class="ph filepath">pip</span> and you can install
+it on your development computer by using the <code class="ph codeph">pip install pip2pi</code> command. After you
+install this package, you run the following command:</p>
+
+<pre class="codeblock"><code>pip2tgz &lt;target-directory&gt; &lt;Python package&gt;</code></pre>
+<p>For example, the following command downloads the package's wheel, along with its dependencies,
+into the specified folder.</p>
+
+<pre class="codeblock"><code>pip2tgz python_packages/pytest/ pytest==2.8.2</code></pre>
+<p>The <span class="keyword parmname">pytest</span> parameter is optional and you can use it to download specific
+versions of a package. </p>
+
+<p>For Python libraries that have dependencies, you can include an optional
+<span class="ph filepath">ordering.txt</span> file in the <span class="ph filepath">pip</span> folder to specify the order
+in which Python libraries are installed. This text file must include the names of files that are in
+the <span class="ph filepath">/pip</span> folder. File names must be separated with a new line (UNIX line
+endings) in the order that you want them installed.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d6883e116"><h2 class="sectiontitle" id="d6883e116"><span class="ph filepath">rpms</span></h2>
+
+<p>Use the <span class="ph filepath">rpms</span> folder to install extra Red Hat Enterprise Linus (RHEL) RPMs.
+The RPMs must be CentOs 6.7 x86_64 compatible.</p>
+
+<p>For RPMs that have dependencies, you can include an optional <span class="ph filepath">ordering.txt</span>
+file in the <span class="ph filepath">rpms</span> folder to specify the order in which RPMs are installed. This
+text file must include the names of files that are in the <span class="ph filepath">rpms</span> folder. File
+names must be separated with a new line (UNIX line endings) in the order you want them
+installed.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d6883e141"><h2 class="sectiontitle" id="d6883e141"><span class="ph filepath">init</span></h2>
+
+<p>Add dependencies files that do not fit into the <span class="ph filepath">pip</span> or
+<span class="ph filepath">rpms</span> folders to the <span class="ph filepath">init</span> folder. You must also include an
+<span class="ph filepath">ordering.txt</span> file in the <span class="ph filepath">init</span> folder. The lines in this
+text file (UNIX line endings) are run as shell commands during the installation of the app. </p>
+
+<p>For example, you might want to install a collection of RPMs that has a complex dependency chain
+that is not explicitly known. In this use case, you add a <span class="ph filepath">.tar</span> file that is
+called <span class="ph filepath">dependant_rpms.tar.gz </span> to the <span class="ph filepath">init</span> folder. You add
+the following commands to the <span class="ph filepath">ordering.txt</span> file:</p>
+
+<pre class="codeblock"><code>mkdir /src_deps/init/dependant_rpms</code></pre>
+<pre class="codeblock"><code>cd /src_deps/init</code></pre>
+<pre class="codeblock"><code>tar -xzvf dependant_rpms.tar.gz</code></pre>
+<pre class="codeblock"><code>yum -y localinstall --disablerepo=* dependant_rpms/*rpm</code></pre>
+<pre class="codeblock"><code>rm -rf dependant_rpms</code></pre>
+<div class="note"><span class="notetitle">Note:</span> The <code class="ph codeph">--disablerepo=*</code> switch in this example is used to prevent the
+<span class="keyword cmdname">yum</span> from attempting to contact remote repositories on QRadar consoles that have
+no internet access.<p>This example uses <span class="keyword cmdname">yum</span>'s RPM auto-dependency resolution that
+installs a set of specified RPMs in the required order. If the RPMs are included in the
+<span class="ph filepath">rpms</span> folder, you must specify the installation order.</p>
+</div>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d6883e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_structure.html" title="An IBM QRadar app that you create is distributed within a compressed file.">App file structure</a></div>
+</div>
+</nav></aside></article></main></body></html>

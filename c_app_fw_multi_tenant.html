@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="QRadar V7.4.0 and later includes support for multi-tenanted apps. A number of out of the box apps, such as Pulse, Assistant, and Log source manager, can now be used in a multitenant environment.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Multitenancy support for apps</title>
+</head>
+<body id="c_app_fw_whats_new_732"><main role="main"><article role="article" aria-labelledby="d26680e10">
+<h1 class="topictitle1" id="d26680e10">Multitenancy support for apps</h1>
+
+
+<div class="body conbody"><p class="shortdesc"><span class="ph">QRadar®</span> V7.4.0 and
+later includes support for multi-tenanted apps. A number of out of the box apps, such as Pulse,
+Assistant, and Log source manager, can now be used in a multitenant environment.</p>
+
+<div class="p">App developers are able to mark that their app is tested and works in a multi-tenanted
+environment. You can support multitenancy in your app in two ways:<ol>
+<li>The app is tested and works with multitenancy, but it is not multitenancy aware. When a user
+installs the app, they are presented with the option to create a default instance. Users can select
+this option if they only want a single instance of the app, or the app does not need to support
+multitenancy. If a user does not select the <span class="ph uicontrol">Default Instance</span> option, they
+must create a separate instance for each customer and associate each instance with a security
+profile to keep all client data separate.</li>
+
+<li>The app is tested and is multitenancy aware. In this case, only one instance of the app is
+necessary. This type of app is also beneficial if the app is used only by administrators. </li>
+
+</ol>
+</div>
+
+<div class="p">Use the following new manifest flags indicate support for multitenancy in an app. By default,
+these flags are set to false. 
+<div class="tablenoborder"><table summary="" id="c_app_fw_whats_new_732__table_xxj_2dd_vkb" class="defaultstyle"><colgroup><col><col></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d26680e49" class="thleft">Manifest key</th>
+
+<th id="d26680e52" class="thleft">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d26680e49 " class="tdleft"><code class="ph codeph">multitenancy_safe</code></td>
+
+<td headers="d26680e52 " class="tdleft">If set to true, this key indicates that your application can work in a multitenant
+environment. If not set to true, it indicates that only one instance of your app can be created, and
+any user who is a member of a tenant is not able to see it. </td>
+
+</tr>
+
+<tr>
+<td headers="d26680e49 " class="tdleft"><code class="ph codeph">single_instance_only</code></td>
+
+<td headers="d26680e52 " class="tdleft">
+<p>If this key is set to true, only one instance of this app can be created. Typically, this
+indicates that this application can either provide multitenancy support itself, or that use of this
+application is meant only for administrators.</p>
+
+<p>If the <code class="ph codeph">multitenacy_safe</code> key is not also set to true, then users who are a member
+of a tenant cannot see this app. If <code class="ph codeph">multitenacy_safe</code> is also set to true, then all
+users can see the app.</p>
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+<p>If the <code class="ph codeph">multitenancy_safe</code> key is not set to true, then <span class="ph">QRadar</span> assumes that it cannot
+trust the app to run in a multitenant environment. This key indicates that only one instance of the
+app runs, and that a limited set of users can access it. This setting ensures that users who are in
+a tenant can't access other tenants' data.</p>
+
+<p>The <code class="ph codeph">single_instance_only</code> defines how your app can operate in a multitenant
+environment.</p>
+
+<div class="p">If the key is not set to true, users can create multiple instances of the app. Set this key to
+true if the app stores data locally, or if the app uses an API or other means of accessing <span class="ph">QRadar</span> that allows access to more
+than one tenant's data, and the app cannot segregate the data itself. In this case, <span class="ph">QRadar</span> allows administrators to
+create a new instance of this application that is tied to a specific security. <div class="note note"><span class="notetitle">Example:</span> A customer who installs your app has a small number of users that use two
+different security profiles: <var class="keyword varname">Electricity Company</var> and <var class="keyword varname">Water
+Works</var>. When an administrator creates a new instance of your app, they must assign this
+instance to a security profile, such as <var class="keyword varname">Electricity Company</var>. Then, only users
+with the <var class="keyword varname">Electricity Company</var> security profile are able to access this instance of
+your app. </div>
+</div>
+
+<p>Associating instances with security profiles instead of tenants gives users more control over
+which users can access tenant data. A tenant is expected to have one or more security profiles
+associated with it to define what data different users can see. </p>
+
+<div class="note tip"><span class="tiptitle">Tip:</span> If your app uses an API key to autonomously access <span class="ph">QRadar</span> APIs, set up your
+application to request authentication through its manifest. You can then define the exact access
+capabilities that are required, and that key is delivered to your app securely as needed. For more
+information on app authentication, see <a href="c_appframework_oauth.html" title="Apps use the OAuth authorization protocol to authorize the app to access QRadar resources.">OAuth app authorization with QRadar</a>.</div>
+
+<p>For more information about managing multitenant apps with the <span class="ph">QRadar</span> Assistant app, see <a href="https://www.ibm.com/support/knowledgecenter/SS42VS_SHR/com.ibm.apps.doc/c_qradar_assistant_multitenancy.html?cp=SS42VS_7.4.0" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Managing multitenanted apps</a>.</p>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d26680e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="After you deploy and test your app, you must export it as an extension to deploy it in a production environment.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Creating an extension from your app</title>
+</head>
+<body id="t_appframework_createExt"><main role="main"><article role="article" aria-labelledby="d12672e10">
+<h1 class="topictitle1" id="d12672e10">Creating an extension from your app</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">After you deploy and test your app, you must export it as an extension to deploy it in a
+production environment.</p>
+
+<section class="section context" role="region" aria-labelledby="taskd12672e18"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd12672e18">About this task</h2></div>
+<p>The <span class="ph">IBM®
+QRadar®</span> GUI
+Application Framework SDK <span class="keyword cmdname">deploy</span> command is intended for use only in test
+environments. To create an extension that you can use in a production environment, you must use the
+<span class="ph">QRadar</span> Content Management Tool
+to export your application as an extension.</p>
+
+</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd12672e38">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Use the <span class="ph">QRadar</span> GUI
+Application Framework SDK to package and deploy your application to your <span class="ph">QRadar
+Console</span> test environment. Make sure
+that you obtain the application ID for your app from <span class="keyword parmname">Application Creation Task
+state</span> output that is returned when you issue the <span class="keyword cmdname">qradar_app_creator
+deploy</span> command.</span> 
+
+</li>
+<li class="step stepexpand">
+<span class="cmd">Use SSH to log in to <span class="ph">QRadar
+Console</span>
+where your app is running as root user.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Type the following command at the command line:</span> 
+<div class="itemgroup stepxmp"><p><kbd class="ph userinput">/opt/qradar/bin/contentManagement.pl --action export --content-type 100 --id
+&lt;<var class="keyword varname">application_ID</var>&gt; </kbd></p>
+ This example shows an app that has an ID of
+1023.<p><kbd class="ph userinput">/opt/qradar/bin/contentManagement.pl --action export --content-type 100 --id 1023
+</kbd></p>
+ &nbsp;</div>
+<div class="itemgroup stepresult">The extension is created as a <span class="ph filepath">.zip</span> file in the
+<span class="ph filepath">/opt/qradar/bin</span> folder. The file name has the following
+format:<pre class="codeblock"><code>installed_application-ContentExport-YYYYMMDDhhmmss.zip</code></pre><p>Here is an
+example:</p>
+<pre class="codeblock"><code>installed_application-ContentExport-20160911141607.zip</code></pre></div>
+</li>
+</ol>
+
+<section class="section postreq" role="region" aria-labelledby="taskd12672e110"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd12672e110">What to do next</h2></div>Download the <span class="ph filepath">.zip</span> file from the <span class="ph filepath">/opt/qradar/bin</span>
+folder on your <span class="ph">QRadar
+Console</span>. You can
+then use <span class="ph">QRadar</span>
+<span class="ph uicontrol">Extensions Management </span>on the <span class="ph uicontrol">Admin</span> tab to install your
+extension on your <span class="ph">QRadar
+Console</span>.<p>For
+more information about exporting apps and content in extensions, and Extensions Management, see the
+<span class="ph">QRadar</span>
+<cite>SIEM Administration Guide</cite>.</p>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d12672e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="t_appframework_create_ext_apps.html">Adding multiple apps in an extension</a></strong><br>
+Package and export multiple apps and other content in an extension so users can download related apps or content in one file. </li>
+<li class="ulchildlink"><strong><a href="c_appframework_extComponents.html">QRadar content extensions</a></strong><br>
+Use content extensions to update <span class="ph">IBM QRadar</span> security template information or add new content such as rules, reports, searches, logos, reference sets, custom properties.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_mngExts.html">Extensions management</a></strong><br>
+Use the <span class="ph uicontrol">Extensions Management</span> tool on the <span class="ph">IBM QRadar</span> Console <span class="ph uicontrol">Admin</span> tab to manage your extensions in your deployment.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

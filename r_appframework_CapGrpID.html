@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Capabilities are sets of permissions that are tied to user roles that are defined in the IBM QRadar Admin tab.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Available user role capabilities</title>
+</head>
+<body id="r_appframework_CapGrpID"><main role="main"><article role="article" aria-labelledby="d953e10">
+<h1 class="topictitle1" id="d953e10">Available user role capabilities</h1>
+
+
+<div class="body refbody"><p class="shortdesc">Capabilities are sets of permissions that are tied to user roles that are defined in the
+<span class="ph">IBM®
+QRadar®</span>
+<span class="ph uicontrol">Admin</span> tab.</p>
+
+<div class="section">
+<p>The following table lists the capabilities that are supported by the <span class="ph">QRadar</span> GUI Application Framework.
+Use the values in the <span class="ph uicontrol">Capability</span> column to define the user privileges for
+your app in the <code class="ph codeph">required_capabilities</code> field of the object type block in your
+application’s <span class="ph filepath">manifest.json</span> file.</p>
+
+<p>The following table describes supported user role capabilities.</p>
+
+
+<div class="tablenoborder"><table summary="" id="r_appframework_CapGrpID__table_ayp_m5v_kt" class="defaultstyle"><caption><span class="tablecap">Table 1. Supported user role capabilities</span></caption><colgroup><col style="width:54.54545454545454%"><col style="width:45.45454545454545%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d953e64"> Capability </th>
+
+<th id="d953e67"> Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d953e64 "> ADMIN </td>
+
+<td headers="d953e67 "> System administrator. Grants permission to access all areas of the user interface. Users who
+have this access cannot edit other administrator accounts.</td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> VIEWADMIN </td>
+
+<td headers="d953e67 "> Remote networks and services configuration. Grants permission to configure remote networks
+and services on the Admin tab. </td>
+
+</tr>
+
+
+<tr>
+<td headers="d953e64 "> SEM </td>
+
+<td headers="d953e67 "> Offense management </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SEM.VIEWRULES </td>
+
+<td headers="d953e67 "> View custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SEM.RULECREATION </td>
+
+<td headers="d953e67 "> Maintain custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SEM.ASSIGNOFFENSE </td>
+
+<td headers="d953e67 "> Assign offenses to users </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SEM.MANAGECLOSINGREASONS </td>
+
+<td headers="d953e67 "> Close offenses, manage offense closing reasons </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> EventViewer </td>
+
+<td headers="d953e67 "> Event viewer </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> EventViewer.VIEWRULES </td>
+
+<td headers="d953e67 "> View custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> EventViewer.RULECREATION </td>
+
+<td headers="d953e67 "> Maintain custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> EventViewer.CUSTOMARIELPROPERTY </td>
+
+<td headers="d953e67 "> User-defined event properties </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> EventViewer.MANAGETIMESERIES </td>
+
+<td headers="d953e67 "> Manage time series </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> ASSETS </td>
+
+<td headers="d953e67 "> Asset management </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> ASSETS.VADATA </td>
+
+<td headers="d953e67 "> View VA data </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> ASSETS.VASCAN </td>
+
+<td headers="d953e67 "> Perform VA scans </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> ASSETS.SERVERDISCOVERY </td>
+
+<td headers="d953e67 "> Server discovery </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> ASSETS.REMOVEVULNS </td>
+
+<td headers="d953e67 "> Remove vulnerabilities </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SURVEILLANCE </td>
+
+<td headers="d953e67 "> Network Surveillance </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SURVEILLANCE.VIEWRULES </td>
+
+<td headers="d953e67 "> View custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SURVEILLANCE.DATAMINECONTENT </td>
+
+<td headers="d953e67 "> View flow content </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SURVEILLANCE.CUSTOMFLOWPROPERTY </td>
+
+<td headers="d953e67 "> User-defined flow properties </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SURVEILLANCE.MANAGETIMESERIES </td>
+
+<td headers="d953e67 "> Manage time series </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> SURVEILLANCE.RULECREATION </td>
+
+<td headers="d953e67 "> Maintain custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> REPORTING </td>
+
+<td headers="d953e67 "> Reporting </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> REPORTING.MAINTAINTEMPLATES </td>
+
+<td headers="d953e67 "> Maintain templates </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> REPORTING.DISTRIBUTE </td>
+
+<td headers="d953e67 "> Distribute reports via email </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> FORENSICS </td>
+
+<td headers="d953e67 "> Incident Forensics </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> FORENSICS.CASECREATION </td>
+
+<td headers="d953e67 "> Create cases in Incident Forensics </td>
+
+</tr>
+
+
+<tr>
+<td headers="d953e64 ">QRM</td>
+
+<td headers="d953e67 "> QRM permission </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 ">QVM </td>
+
+<td headers="d953e67 "> QVM permissions </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> QVM.ASSIGNASSETOWNER </td>
+
+<td headers="d953e67 "> Assign asset owner </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> QVM.VULNERABILITY </td>
+
+<td headers="d953e67 "> Assign vulnerability permissions </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> QVM.EXCEPTION </td>
+
+<td headers="d953e67 "> Exception vulnerability permissions </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> QVM.SCANPOLICY </td>
+
+<td headers="d953e67 "> Scan policy permissions </td>
+
+</tr>
+
+<tr>
+<td headers="d953e64 "> QVM.SCANPROFILE </td>
+
+<td headers="d953e67 "> Scan profile permissions </td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>For more information about capabilities and user roles in <span class="ph">QRadar</span>, see the <cite>IBM
+QRadar Administration Guide</cite>.</p>
+
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d953e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

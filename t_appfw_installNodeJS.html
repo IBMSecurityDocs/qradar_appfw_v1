@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can install Node.js as a web application framework to replace the Flask framework that is included with the QRadar GUI Application Framework SDK.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_structure.html">
+<title>Installing Node.js as a source dependency</title>
+</head>
+<body id="t_appfw_installNodeJS"><main role="main"><article role="article" aria-labelledby="d34472e10">
+<h1 class="topictitle1" id="d34472e10">Installing Node.js as a source dependency</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">You can install Node.js as a web application framework to replace the Flask framework
+that is included with the <span class="ph">QRadar®</span> GUI Application Framework SDK.</p>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd34472e22">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Download the <span class="ph filepath">Node.js</span> archive (<span class="ph filepath">.tar</span>) that you want to
+use, and copy it to <span class="ph filepath">app/src_deps/init</span> directory.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Create an installation script that is similar to the following example in the same folder that
+references the archive <span class="ph filepath">node-v6.3.0-linux-x64.tar.gz</span> that you want to use (in
+this case):</span> 
+<div class="itemgroup stepxmp">
+<pre class="codeblock"><code>#!/bin/bash
+##
+## install node and npm from source tarball, and make available on the path
+##
+cd /usr/local
+tar --strip-components 1 -xzf /src_deps/init/node-v6.3.0-linux-x64.tar.gz</code></pre>
+</div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Create a file <span class="ph filepath">ordering.txt</span> in the same folder as the following
+content:</span> 
+<div class="itemgroup stepxmp">
+<pre class="codeblock"><code>/src_deps/init/install_nodejs_npm.sh</code></pre>
+</div>
+<div class="itemgroup info">The <span class="ph filepath">ordering.txt</span> notifies <span class="ph">QRadar</span> to run the Node.js
+installation script.</div>
+</li>
+</ol>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d34472e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_structure.html" title="An IBM QRadar app that you create is distributed within a compressed file.">App file structure</a></div>
+</div>
+</nav></aside></article></main></body></html>

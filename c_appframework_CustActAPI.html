@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Custom action endpoints are available in the IBM QRadar API that you can use to aid application development.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_CREResp.html">
+<title>Custom action REST API endpoints</title>
+</head>
+<body id="c_appframework_CustActAPI"><main role="main"><article role="article" aria-labelledby="d9671e10">
+<h1 class="topictitle1" id="d9671e10">Custom action REST API endpoints</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Custom action endpoints are available in the <span class="ph">IBM®
+QRadar®</span> API that you can use to
+aid application development.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_CustActAPI__table_jtn_zyz_jt" class="defaultstyle"><colgroup><col style="width:33.33333333333333%"><col style="width:33.33333333333333%"><col style="width:33.33333333333333%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d9671e39">Endpoint</th>
+
+<th id="d9671e42">Parameters</th>
+
+<th id="d9671e45">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">GET /analytics/custom_actions/actions</span></td>
+
+<td headers="d9671e42 ">fields, range, filter</td>
+
+<td headers="d9671e45 ">Retrieves a list of available custom actions.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">POST /analytics/custom_actions/actions</span></td>
+
+<td headers="d9671e42 ">fields, custom_action</td>
+
+<td headers="d9671e45 ">Creates a new custom action with the supplied fields.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">GET /analytics/custom_actions/actions/{action_id}</span></td>
+
+<td headers="d9671e42 ">action_id, fields</td>
+
+<td headers="d9671e45 ">Retrieves a custom action based on the supplied action_id.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">POST /analytics/custom_actions/actions/{action_id}</span></td>
+
+<td headers="d9671e42 ">action_id, fields, custom_action</td>
+
+<td headers="d9671e45 ">Updates an existing custom action.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">DELETE /analytics/custom_actions/actions/{action_id}</span></td>
+
+<td headers="d9671e42 ">action_id</td>
+
+<td headers="d9671e45 ">Deletes an existing custom action.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">GET /analytics/custom_actions/interpreters</span></td>
+
+<td headers="d9671e42 ">fields, Range, filter</td>
+
+<td headers="d9671e45 ">Retrieves a list of available custom action interpreters.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">GET /analytics/custom_actions/interpreters/{interpreter_id}</span></td>
+
+<td headers="d9671e42 ">interpreter_id, fields</td>
+
+<td headers="d9671e45 ">Retrieves a custom action interpreter based on the interpreter ID.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">GET /analytics/custom_actions/scripts</span></td>
+
+<td headers="d9671e42 ">application id</td>
+
+<td headers="d9671e45 ">Retrieves a list of meta-data for available custom action script files.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">POST /analytics/custom_actions/scripts</span></td>
+
+<td headers="d9671e42 ">fields, file</td>
+
+<td headers="d9671e45 ">Creates a new custom action script file.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">GET /analytics/custom_actions/scripts/{script_id}</span></td>
+
+<td headers="d9671e42 ">script_id, fields</td>
+
+<td headers="d9671e45 ">Retrieves meta-data of a custom action script file based on supplied script_id.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">POST /analytics/custom_actions/scripts/{script_id}</span></td>
+
+<td headers="d9671e42 ">script_id, fields, file</td>
+
+<td headers="d9671e45 ">Updates an existing custom action script file.</td>
+
+</tr>
+
+<tr>
+<td headers="d9671e39 "><span class="keyword apiname">DELETE /analytics/custom_actions/scripts/{script_id}</span></td>
+
+<td headers="d9671e42 ">script_id</td>
+
+<td headers="d9671e45 ">Deletes an existing custom action script file.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>For more information, see the API documentation page on your <span class="ph">QRadar
+Console</span>:
+<span class="ph filepath">https://&lt;Console_IP&gt;/api_doc</span>. Alternatively, see the <cite>IBM
+QRadar API Guide</cite>.</p>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d9671e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_CREResp.html" title="You can add your own script that runs as a part of a custom action when a custom rules engine (CRE) rule is triggered.">Custom actions for CRE responses</a></div>
+</div>
+</nav></aside></article></main></body></html>

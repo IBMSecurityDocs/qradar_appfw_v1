@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Describes the language locales and locations of the locale properties file locations that you use when you globalize your app.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>Resource bundles type</title>
+</head>
+<body id="c_appframework_ResBunType"><main role="main"><article role="article" aria-labelledby="d34604e10">
+<h1 class="topictitle1" id="d34604e10">Resource bundles type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Describes the language locales and locations of the locale properties file locations that
+you use when you globalize your app.</p>
+
+<p>The following table describes the <code class="ph codeph">Resource_bundles</code> block fields in the
+<code class="ph codeph">manifest.json</code> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_ResBunType__table_pr5_dwq_nt" class="defaultstyle"><caption><span class="tablecap">Table 1. <code class="ph codeph">Resource_bundles</code> block fields</span></caption><colgroup><col style="width:20%"><col style="width:20%"><col style="width:20%"><col style="width:40%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d34604e48"> Field </th>
+
+<th id="d34604e51"> Required </th>
+
+<th id="d34604e54"> Type </th>
+
+<th id="d34604e57"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d34604e48 "><span class="keyword parmname">locale</span></td>
+
+<td headers="d34604e51 ">Yes</td>
+
+<td headers="d34604e54 "> String </td>
+
+<td headers="d34604e57 ">Language locale code</td>
+
+</tr>
+
+<tr>
+<td headers="d34604e48 "><span class="keyword parmname">bundles</span></td>
+
+<td headers="d34604e51 ">Yes</td>
+
+<td headers="d34604e54 "> String </td>
+
+<td headers="d34604e57 ">Path to the globalization resource bundle properties files. Files are stored in the
+<span class="ph filepath">/app/static/resources/</span> folder. Properties files must use the following naming
+convention: <span class="ph filepath">application_&lt;LANG&gt;.properties</span>. </td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The following code is a sample <code class="ph codeph">resource_bundles</code> block from the
+<span class="ph filepath">manifest.json</span> file:</p>
+
+<pre class="codeblock"><code>...
+
+	"resource_bundles": [
+		{
+			"locale": "en_US",
+			"bundle": "resources/hello_en_US.properties"
+		},
+		{
+			"locale": "es",
+			"bundle": "resources/hello_es.properties"
+		},
+		{
+			"locale": "fr",
+			"bundle": "resources/hello_fr.properties"
+		},
+		{
+			"locale": "en",
+			"bundle": "resources/hello_en.properties"
+		}
+	],
+
+...</code></pre>
+<p>Text strings for globalization are stored as key/value pairs in Java format properties files. If
+you configured text strings for globalization, they appear in <span class="ph">IBM®
+QRadar®</span> when the user sets their
+preferences for the relevant locale.</p>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d34604e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+</nav></aside></article></main></body></html>

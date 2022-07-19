@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use the IBM QRadar GUI Application Framework to develop new application modules that integrate with QRadar and provide new capabilities.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>QRadar app development overview</title>
+</head>
+<body id="c_appframework_overview"><main role="main"><article role="article" aria-labelledby="d22524e10">
+<h1 class="topictitle1" id="d22524e10"><span class="ph">QRadar</span> app development
+overview </h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use the <span class="ph">IBM®
+QRadar®</span>
+GUI Application Framework to develop new application modules that integrate with <span class="ph">QRadar</span> and provide new
+capabilities.</p>
+
+<p>Applications or apps are small plug-in modules to the GUI Application Framework. Apps serve
+endpoints from within a secure container to inject the content directly into the <span class="ph">QRadar</span> web interface.</p>
+
+<p>Each app has its own dedicated memory allocation and a defined amount of CPU resources that are
+allocated to it.</p>
+
+<p>The main web language that is used to author an application is Python, and the Flask framework is
+integrated and available for use by the application. </p>
+
+<div class="note"><span class="notetitle">Note:</span> If an app is running in an IPV6 environment and the app sends log messages to the QRadar
+host's Syslog (e.g. via the qpylib.log function), then the app container must be configured to use
+Python 2.7 in order for the Python SysLogHandler to successfully send the messages. For more
+information, see <a href="c_appframework_py_2.7_not_2.6.html" title="Use environmental variables to make your app use Python 2.7 instead of Python 2.6.">Use Python 2.7 in your app</a>.</div>
+
+<section class="section" role="region" aria-labelledby="d22524e56"><h2 class="sectiontitle" id="d22524e56">How an application runs and interacts with  <span class="ph">QRadar</span></h2><p><span class="ph">QRadar</span> applications run
+inside an isolated Python Flask environment that is independent of the <span class="ph">QRadar</span> user interface.</p>
+<p>The application can also use static images, scripts, and HTML pages.</p>
+<p>All interaction with the application is proxied through the <span class="ph">QRadar</span> user interface. No direct
+access to network ports or web services is usually permitted.</p>
+
+<figure class="fignone" id="c_appframework_overview__fig_td4_v1m_vs"><figcaption>Figure 1. Application Framework</figcaption>
+
+<div class="image"><img src="appFramework_overview.svg" alt="Application Framework"></div>
+</figure>
+
+<div class="note"><span class="notetitle">Note:</span> The combined memory requirements of all the apps that are installed on a <span class="ph">QRadar
+Console</span> cannot exceed 10 per cent of
+the total available memory. If you install an app that causes the 10 per cent memory limit to be
+exceeded, the app does not work.<p>If your app requires a minimum memory allocation, you must
+provide information about it in your app's documentation.</p>
+</div>
+</section>
+
+<section class="section" role="region" aria-labelledby="d22524e104"><h2 class="sectiontitle" id="d22524e104">Apps that require internet access</h2>
+
+<p>If the app that you develop requires internet access, you must implement proxy support in your
+app. Apps can't use the proxy support that is built into <span class="ph">QRadar</span>.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d22524e117"><h2 class="sectiontitle" id="d22524e117">Types of app</h2>
+
+<p>The <span class="ph">QRadar</span> GUI Application
+Framework supports the following app types that are described in the following table. </p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_overview__table_sgw_w3z_qt" class="defaultstyle"><caption><span class="tablecap">Table 1. Types of app</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d22524e142">App Type</th>
+
+<th id="d22524e145">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d22524e142 ">Areas (or visualizations)</td>
+
+<td headers="d22524e145 ">New screen that is presented in a new tab.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Right-click menus</td>
+
+<td headers="d22524e145 ">New right click menu options available with the <span class="ph">QRadar</span> GUI.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Toolbar buttons</td>
+
+<td headers="d22524e145 ">New toolbar buttons, with the enabling code that runs from the confines of the app.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Dashboard/Dashboard widgets</td>
+
+<td headers="d22524e145 ">New dashboard widgets, with the HTML served from a particular app.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Administrative screens</td>
+
+<td headers="d22524e145 ">New <span class="ph uicontrol">Admin</span> tab, configuration, and setup screens.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Hover Over metadata</td>
+
+<td headers="d22524e145 ">Injection of hover over metadata into existing hover over areas.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">JavaScript page scripts</td>
+
+<td headers="d22524e145 ">Injected browser JavaScript functionality specific to an existing <span class="ph">QRadar</span> GUI screen area.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Resource Bundles</td>
+
+<td headers="d22524e145 ">Partial support of Java style key value pair properties files to provide some level of
+globalization support.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Custom fragments</td>
+
+<td headers="d22524e145 ">Inject custom HTML fragments into the <span class="ph">QRadar</span> UI.</td>
+
+</tr>
+
+<tr>
+<td headers="d22524e142 ">Custom columns</td>
+
+<td headers="d22524e145 ">Add columns with custom content to tables in the <span class="ph">QRadar</span></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The app type content is dynamically injected back into the GUI display.</p>
+
+<p>Apps are packaged as compressed archives (.zip), within the extension archive. You can install
+and uninstall apps by using RESTful endpoints. More RESTful endpoints exist to control the lifecycle
+of an app within <span class="ph">QRadar</span>.</p>
+
+<div class="note"><span class="notetitle">Note:</span> As a best practice, store your app configuration and data in <span class="ph filepath">/store</span>
+because data in this directory is protected during app upgrades.</div>
+
+<p>For more information about <span class="ph">QRadar</span> application framework REST
+API endpoints, see <a href="c_appframework_RESTAPI.html#c_appframework_RESTAPI" title="GUI Application Framework endpoints are available in the latest version of the IBM QRadar API that you can use to develop apps.">GUI Application Framework REST API endpoints</a>.</p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d22524e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

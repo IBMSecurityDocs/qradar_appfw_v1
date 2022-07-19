@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You use a GUI Action to pass information about offenses, assets, vulnerabilities from a QRadar table to a page script.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<title>Passing context-specific information to a page script</title>
+</head>
+<body id="c_appframework_PassingContext"><main role="main"><article role="article" aria-labelledby="d15728e10">
+<h1 class="topictitle1" id="d15728e10">Passing context-specific information to a page script</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You use a GUI Action to pass information about offenses, assets, vulnerabilities from a
+<span class="ph">QRadar®</span> table to a page
+script.</p>
+
+<p>For example, you can extract selected information from <span class="ph">QRadar</span> and pass it to a script for
+further processing. You can create a simple app that allows users to select offenses that are listed
+as rows in the table on the <span class="ph uicontrol">Offenses</span> tab and pass that information to a page
+script. By clicking a button on the <span class="ph uicontrol">Offenses</span> tab toolbar, a
+<span class="keyword wintitle">JavaScript alert</span> that contains the extracted information is displayed.</p>
+
+<p>You can also pass information about vulnerabilities, network activity, assets, and information
+from any table in most <span class="ph">QRadar</span>
+pages. </p>
+
+<p>The following <span class="ph filepath">manifest.json</span> file example shows details of entries that you
+make in this file:</p>
+
+<section class="section" role="region" aria-labelledby="d15728e52"><h2 class="sectiontitle" id="d15728e52"><span class="ph filepath">manifest.json</span></h2><p>In the app's
+<span class="ph filepath">manifest.json</span> file, the REST method that is used by the
+<span class="ph filepath">views.py</span> script is defined. The REST method also specifies that application
+name, page ID, and application context must be defined.</p>
+<dl>
+
+<dt class="dlterm"><span class="keyword apiname">appName</span></dt>
+
+<dd class="dlentry"> The application name is defined in the <span class="keyword parmname">page_scripts</span> block and indicates to
+<span class="ph">QRadar</span> which tab contains the
+data to be passed to the script.</dd>
+
+
+
+<dt class="dlterm"><span class="keyword apiname">pageId</span></dt>
+
+<dd class="dlentry"> The page ID is defined in the<span class="keyword parmname"> page_scripts</span> block and indicates to <span class="ph">QRadar</span> which page within the tab
+contains the data to be passed to the script.</dd>
+
+
+
+<dt class="dlterm"><span class="keyword apiname">appContext</span></dt>
+
+<dd class="dlentry"> The application context refers to the row or rows that are manually selected by the user on the
+tab and page that is defined by the application name and page ID. In this case, it is the table on
+the <span class="ph uicontrol">Offense List</span> page on the <span class="ph uicontrol">Offenses</span> tab. Each row
+contains data on a particular offense and it is this data that is passed to the custom script.</dd>
+
+
+</dl>
+<pre class="codeblock"><code>{
+	"name":"offense log pass ids",
+	"description":"An example of passing ids",
+	"version":"1.0",
+	"uuid":"a4095969-1c88-4e35-aecb-4eea7b061cd3",
+
+	"rest_methods": [<span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+		{
+            "name":"listFunction",
+            "url":"/listFunction",
+            "method":"GET",
+            "argument_names":["appName","pageId","appContext"]<span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+		}
+	],
+
+	"gui_actions": [<span class="keyword calloutlabel">&nbsp;3&nbsp;</span>
+		{
+			"id":"OffenseListToolbarButton",
+			"text":"Offense pass Ids !",
+			"description":"Pass Ids for offenses !",
+			"icon":"static/images/bookmarks_small.png",
+			"rest_method":"listFunction",<span class="keyword calloutlabel">&nbsp;4&nbsp;</span>
+			"javascript":"my_toolbar_button_action(result)",<span class="keyword calloutlabel">&nbsp;5&nbsp;</span>
+			"groups":["OffenseListToolbar"]<span class="keyword calloutlabel">&nbsp;6&nbsp;</span>
+		}
+	],
+
+	"page_scripts": [<span class="keyword calloutlabel">&nbsp;7&nbsp;</span>
+		{
+			"app_name":"SEM",
+			"page_id":"OffenseList",
+			"scripts":["static/js/custom_script.js"]
+		}
+	]
+}
+</code></pre>The
+following list describes the contents in the code snippet from the
+<span class="ph filepath">manifest.json</span> file.<ol>
+<li>Use the <span class="keyword parmname">rest_methods</span> block to define the API name,
+<span class="keyword apiname">app.route</span> URL, and API method that you add to <span class="ph filepath">views.py</span>.</li>
+
+<li> Use the argument names to precisely locate the data that is passed to the script. The app name
+and page ID values are defined in the <span class="ph">QRadar</span> tab and page. In this case,
+the <span class="ph uicontrol">Offenses</span> tab and main <span class="ph uicontrol">Offense List</span> page.<p> The
+<code class="ph codeph">appContext</code> argument is a placeholder that holds the actual offense data that is
+selected when the user clicks a row or rows in the <span class="ph uicontrol">Offense List</span> table. This
+data is passed to JavaScript for processing.</p>
+</li>
+
+<li> Use the <span class="keyword parmname">gui_action</span> block to define the button that passes data to the
+screen when the user clicks it.</li>
+
+<li>Use the <span class="keyword parmname">rest_methods</span> block to define the REST methods that are used in the
+<span class="ph filepath">views.py</span> script to list the data from each selected row.</li>
+
+<li>Use the JavaScript function to create an alert dialog that displays the JSON string that is
+passed by the <span class="keyword apiname">appContext</span> argument from the <span class="keyword apiname">listFunction</span>
+method.</li>
+
+<li>Use the GUI Action group location to define where the button appears. In this case, the button
+appears on the main <span class="keyword wintitle">Offense List</span> page toolbar.</li>
+
+<li> Use the <span class="keyword parmname">page_scripts</span> block for the <span class="keyword apiname">app_name</span> and
+<span class="keyword apiname">page_id</span> arguments that are passed to the REST API method, and for the location of
+the JavaScript file that processes the data.</li>
+
+</ol>
+</section>
+
+<section class="section" role="region" aria-labelledby="d15728e223"><h2 class="sectiontitle" id="d15728e223"><span class="ph filepath">app/views.py</span></h2><p>The app's
+<span class="ph filepath">app/views.py</span> defines the application route and function that retrieves the
+<span class="keyword apiname">appContext</span> data and passes it as JSON to the custom
+script.</p>
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import render_template, request
+from app import app
+from qpylib import qpylib
+import json
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template("index.html", title = "Offense Context App!")
+
+@app.route('/listFunction', methods=['GET'])<span class="keyword calloutlabel">&nbsp;1&nbsp;</span>     
+def listFunction():
+    qpylib.log("listFunction", "info")
+    rows = request.args.get("appContext")<span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+    qpylib.log("selectedRows=" + rows, "info")
+
+    #You can process the data and return any value here,
+    #It is passed into JavaScript.
+    return json.dumps({'context_passed_to_python_route':rows})<span class="keyword calloutlabel">&nbsp;3&nbsp;</span></code></pre>The
+following list describes the contents in the code snippet from the <span class="ph filepath">views.py</span> script.<ol>
+<li> The function URL and REST method that is defined in the <span class="keyword parmname">rest_methods</span> block
+of the app manifest file.</li>
+
+<li>The row variable that gets the content of the selected rows by using the
+<span class="keyword apiname">appContext</span> argument.</li>
+
+<li> The Flask <span class="keyword apiname">json.dumps</span> method formats the data that is contained in the
+<var class="keyword varname">rows</var> variable as JSON. This data is passed to the
+<span class="ph filepath">custom_script.js</span> file that displays it in a simple alert.</li>
+
+</ol>
+</section>
+
+<section class="section" role="region" aria-labelledby="d15728e278"><h2 class="sectiontitle" id="d15728e278"><span class="ph filepath">app/static/js/custom_script.js</span></h2>
+
+<p>The following short JavaScript creates an alert and formats the JSON content into strings for
+each row.</p>
+
+<pre class="codeblock"><code>function my_toolbar_button_action(offense)
+{
+	alert(JSON.stringify(offense));
+}</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d15728e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+</nav></aside></article></main></body></html>

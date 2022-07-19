@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use built-in routes to create HTTP requests download, view, and set log collection levels.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_logs.html">
+<title>Viewing your app logs</title>
+</head>
+<body id="concept_k5r_dsq_st"><main role="main"><article role="article" aria-labelledby="d3025e10">
+<h1 class="topictitle1" id="d3025e10">Viewing your app logs</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use built-in routes to create HTTP requests download, view, and set log collection
+levels.</p>
+
+<p> You can create your own targeted web requests to the app for the following routes:</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_k5r_dsq_st__table_ijv_btq_st" class="defaultstyle"><caption><span class="tablecap">Table 1. Request routes</span></caption><colgroup><col style="width:16.666666666666664%"><col style="width:41.66666666666667%"><col style="width:41.66666666666667%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d3025e38">Route</th>
+
+<th id="d3025e41">Format</th>
+
+<th id="d3025e44">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d3025e38 "><span class="keyword apiname">GET /debug</span></td>
+
+<td headers="d3025e41 ">
+<pre class="codeblock"><code>GET https://&lt;console_ip&gt;/console/plugins/
+{application_id}/app_proxy/debug</code></pre>
+</td>
+
+<td headers="d3025e44 ">Download your <span class="ph filepath">/store/log/app.log</span> file from inside the container for
+inspection.</td>
+
+</tr>
+
+<tr>
+<td headers="d3025e38 "><span class="keyword apiname">GET /debug_view</span></td>
+
+<td headers="d3025e41 ">
+<pre class="codeblock"><code>GET https://&lt;console_ip&gt;/console/plugins/
+{application_id}/app_proxy/debug_view</code></pre>
+</td>
+
+<td headers="d3025e44 ">Display the contents of the <span class="ph filepath">/store/log/app.log</span> file inside your browser
+window.</td>
+
+</tr>
+
+<tr>
+<td headers="d3025e38 "><span class="keyword apiname">POST /log_level</span></td>
+
+<td headers="d3025e41 ">
+<pre class="codeblock"><code>POST https://&lt;console_ip&gt;/console/plugins/
+{application_id}/app_proxy/log_level
+form body: level = 'INFO'
+                   'DEBUG'
+                   'ERROR'
+                   'WARNING'
+                   'CRITICAL'</code></pre>
+</td>
+
+<td headers="d3025e44 ">Dynamically define the level of logging that you want your app to capture. Post a form, with
+an attribute level that is set to one of the log level values to this endpoint. <span class="ph">QRadar®</span> dynamically reset the log
+collection levels in your <span class="ph filepath">/store/log/app.log</span> file.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The <var class="keyword varname">application_id</var> is the integer value that is assigned when you use the
+installation RESTful endpoints for GUI app creation. The <var class="keyword varname">application_id</var> value is
+recorded in the <samp class="ph systemoutput">Application Creation Task state</samp> output that is returned
+when you run the <span class="keyword cmdname">qradar_app_creator deploy</span> command.</p>
+
+<section class="section" role="region" aria-labelledby="d3025e132"><h2 class="sectiontitle" id="d3025e132">Viewing logs within the host directory</h2>
+
+
+<p>All logs are located in the <span class="ph filepath">/store/log</span> directory of the container.</p>
+
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d3025e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_logs.html" title="App logs are stored in the /store/log directory of your application's Docker container.">App logs</a></div>
+</div>
+</nav></aside></article></main></body></html>

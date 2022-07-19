@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can stop, restart, or uninstall your app by using the IBM QRadar GUI Application Framework REST API endpoints.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Stopping, restarting, and uninstalling an app</title>
+</head>
+<body id="concept_u4r_yf5_4t"><main role="main"><article role="article" aria-labelledby="d55e10">
+<h1 class="topictitle1" id="d55e10">Stopping, restarting, and uninstalling an app</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You can stop, restart, or uninstall your app by using the <span class="ph">IBM®
+QRadar®</span> GUI Application Framework
+REST API endpoints.</p>
+
+<section class="section" role="region" aria-labelledby="d55e27"><h2 class="sectiontitle" id="d55e27">Stopping your app</h2>
+
+<p>You can disable your application that is running by sending the following empty POST request:</p>
+
+<pre class="codeblock"><code>POST /api/gui_app_framework/applications/{app_id}?status="STOPPED"</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d55e39"><h2 class="sectiontitle" id="d55e39">Restarting your app</h2>
+
+<p>You can restart your app by sending the following POST request:</p>
+
+<pre class="codeblock"><code>POST /api/gui_app_framework/applications/{app_id}?status="RUNNING"</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d55e51"><h2 class="sectiontitle" id="d55e51">Uninstalling your app</h2>
+
+<p>Use the following DELETE request to uninstall and remove an app:</p>
+
+<pre class="codeblock"><code>DELETE /api/gui_app_framework/applications/{app_id}</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d55e63"><h2 class="sectiontitle" id="d55e63">Checking the status of your app</h2>
+
+<p>After starting or stopping your app, you can check the status of the app by sending the following
+GET request:</p>
+
+<pre class="codeblock"><code>GET /api/gui_app_framework/application_definitions/{app_id}</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d55e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

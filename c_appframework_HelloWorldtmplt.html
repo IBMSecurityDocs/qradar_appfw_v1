@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can build on the Hello World sample app that the IBM QRadar SDK installs in your app workspace to add a tab to QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_HelloWorld.html">
+<title>New tab example</title>
+</head>
+<body id="c_appframework_HelloWorldtmplt"><main role="main"><article role="article" aria-labelledby="d28722e10">
+<h1 class="topictitle1" id="d28722e10">New tab example</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You can build on the Hello World sample app that the <span class="ph">IBM®
+QRadar®</span> SDK installs in your app
+workspace to add a tab to <span class="ph">QRadar</span>.</p>
+
+<p>You can build an app that uses a Jinja2 template to serve HTML content to a new tab as shown in
+the following image.</p>
+
+<div class="fignone" id="c_appframework_HelloWorldtmplt__fig_ymy_vsg_dx">
+<div class="image"><img src="appFramework_HelloWorldtmpl.svg" alt="Hello World tab example"></div>
+</div>
+
+<p>The files and folders that are described in the following table are required for the tab
+example:</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_HelloWorldtmplt__concept_a5z_4wh_nt__table_twp_gcj_lt" class="defaultstyle"><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d28722e52">Files/Folders</th>
+
+<th id="d28722e55">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="c_appframework_HelloWorldtmplt__d67e32 "><span class="ph filepath">app</span></td>
+
+<td headers="c_appframework_HelloWorldtmplt__d67e34 ">The main directory for application files. The app folder contains the following files:
+<p><span class="ph filepath">qpylib</span> remains unchanged from the Hello World sample app
+example.</p>
+<p><span class="ph filepath">__init__.py</span> remains unchanged from the Hello World sample app
+example.</p>
+<p><span class="ph filepath">views.py</span> updated to include code to render the Jinja2 template.
+Here's  snippets of the additional code that is added to <span class="ph filepath">views.py</span> that is used
+to return the
+<code class="ph codeph">render_template</code>:</p>
+<pre class="codeblock"><code>from flask import render_template</code></pre><pre class="codeblock"><code> 
+def index():
+    return render_template("index.html", 
+    title = "QApp1 : Hello World !") </code></pre><p>The
+Flask app route uses a Flask-Jinja2 templated HTML page to build the content for the Hello World
+tab.</p>
+<p><span class="ph filepath">/templates/index.html</span> - The Jinja2 template to render when requests
+are routed to <span class="keyword apiname">app.route</span> annotated
+endpoints.</p>
+<p><span class="ph filepath">/static/css/style.css</span> Renders the content that is served by
+the Jinja2 template, <span class="ph filepath">index.html</span>.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_HelloWorldtmplt__d67e32 "><span class="ph filepath">__init__.py</span></td>
+
+<td headers="c_appframework_HelloWorldtmplt__d67e34 ">This file creates an instance of the Flask micro-framework that is used to serve content to
+<span class="ph">QRadar</span>. This file remains
+unchanged from the original Hello World example.</td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_HelloWorldtmplt__d67e32 "><span class="ph filepath">manifest.json</span></td>
+
+<td headers="c_appframework_HelloWorldtmplt__d67e34 ">Describes to <span class="ph">QRadar</span>
+that your app creates a new tab. Here's a snippet of the code, which is changed sightly from the
+Hello World sample app example.<div class="p">
+<pre class="codeblock"><code>"areas": [
+        {
+            "id":"QHelloWorld",
+            "text":"Hello World",
+            "description":"A Hello World app",
+            "url":"index",
+            "required_capabilities":["ADMIN"]</code></pre>
+</div>
+<p>The <code class="ph codeph">dev_opts</code> is removed and is needed only for testing the app on a
+networked <span class="ph">QRadar</span>
+Console.</p>
+<p>Functionally, this manifest file is identical to the
+<span class="ph filepath">manifest.json</span> that is provided in the basic Hello World sample app
+example.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="c_appframework_HelloWorldtmplt__d67e32 "><span class="ph filepath">run.py</span></td>
+
+<td headers="c_appframework_HelloWorldtmplt__d67e34 ">Remains unchanged from the Hello World sample app example.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<section class="section" role="region" aria-labelledby="d28722e172"><h2 class="sectiontitle" id="d28722e172"><span class="ph filepath">manifest.json</span></h2>
+
+<pre class="codeblock"><code>{
+	"name":"QHelloWorld_1",
+	"description":"Application to display QHelloWorld",
+	"version":"1.0",
+
+	"areas": [
+		{
+			"id":"QHelloWorld_1",
+			"text":"QHelloWorld_1",
+			"description":"An Hello World app with some styling",
+			"url":"index",
+			"required_capabilities":["ADMIN"]
+		}
+	]
+}</code></pre>
+<p>Functionally, this manifest file is identical to the <span class="ph filepath">manifest.json</span> that is
+provided in the basic "Hello World" sample. The fields that describe the app are updated and the
+<span class="keyword parmname">dev_opts</span> block is removed because it is not needed.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d28722e192"><h2 class="sectiontitle" id="d28722e192"><span class="ph filepath">views.py</span></h2>
+
+<p> The <span class="ph filepath">views.py</span> file contains the following code:</p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import render_template
+from app import app
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template("index.html", title = "QApp1 : Hello World !")</code></pre>
+<p>The <span class="ph filepath">views.py</span> file imports the <span class="keyword apiname">render_template</span> method from
+Flask to render the <span class="ph filepath">index.html</span> template. </p>
+
+<p>Like the <span class="ph filepath">views.py</span> file in the "Hello World" sample, the code creates default
+routes <code class="ph codeph">'/'</code> and <code class="ph codeph">'/index'</code>, both of which return a simple string. The
+index route is declared in the <span class="keyword parmname">url</span> field of
+<span class="ph filepath">manifest.json</span>.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d28722e238"><h2 class="sectiontitle" id="d28722e238"><span class="ph filepath">templates/index.html</span></h2>
+
+<p>This Jinja2 template contains the HTML content that is displayed on the new tab. It includes a
+variable that uses the value of the <span class="ph filepath">title</span> parameter that is defined in
+<span class="ph filepath">views.py</span> for the browser window title text. </p>
+
+<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;{{title}} - Main&lt;/title&gt;
+  &lt;link rel="stylesheet" href="static/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="pageheader" class="pagebanner"&gt;
+    IBM QRadar Application : Hello World !...
+&lt;/div&gt;
+
+&lt;div id="contentpane"&gt;
+  Hello! Welcome to the first Qradar app served from the AppFramework
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d28722e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_HelloWorld.html" title="When you add an app in the Application Development Manager window, a simple &#34;Hello World&#34; sample app is also created.">The Hello World sample app</a></div>
+</div>
+</nav></aside></article></main></body></html>

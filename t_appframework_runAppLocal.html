@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Rather than packaging and uploading your app every time you change something, you can test it by running it locally in a browser window.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="t_appframework_createDevEnv.html">
+<title>Running your application locally</title>
+</head>
+<body id="t_appframework_runAppLocal"><main role="main"><article role="article" aria-labelledby="d30715e10">
+<h1 class="topictitle1" id="d30715e10">Running your application locally</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">Rather than packaging and uploading your app every time you change something, you can
+test it by running it locally in a browser window.</p>
+
+<section class="section context" role="region" aria-labelledby="taskd30715e18"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd30715e18">About this task</h2></div>
+<p>The <span class="ph">IBM®
+QRadar®</span> GUI
+Application Framework includes a virtual environment that you can use to run your application
+locally for testing purposes.</p>
+
+<p>If your app uses <span class="ph">QRadar</span> API
+endpoints, you must connect to a <span class="ph">QRadar
+Console</span> instance. You configure the IP
+address of the <span class="ph">QRadar
+Console</span> test
+instance in the <span class="keyword parmname">console_ip</span> field of the <span class="keyword parmname"> dev_opts</span> object
+block in your app's <span class="ph filepath">manifest.json</span> file.</p>
+
+</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd30715e58">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Run your app locally.</span> 
+<ul class="ul choices">
+<li class="li choice">To run on Unix or Linux, type the following command:<p><kbd class="ph userinput">qradar_app_creator run -w
+<var class="keyword varname">&lt;path_to_app_folder&gt;</var>/<var class="keyword varname">&lt;app_folder_name&gt;</var></kbd></p>
+</li>
+
+<li class="li choice">To run on Windows, type the following command:<p><kbd class="ph userinput">qradar_app_creator run -w
+<var class="keyword varname">&lt;path_to_app_folder&gt;</var>\<var class="keyword varname">&lt;app_folder_name&gt;</var></kbd></p>
+</li>
+
+</ul>
+
+</li>
+<li class="step stepexpand">
+<span class="cmd">Open a browser and type <kbd class="ph userinput">http://0.0.0.0:5000</kbd> in the address bar. If your
+browser does not support the <kbd class="ph userinput">http://0.0.0.0</kbd> URL, type
+<kbd class="ph userinput">http://127.0.0.1:5000</kbd>.</span> 
+<div class="itemgroup stepresult">
+<p>Your app is displayed in the browser window, and the application output is sent to the command
+line or to your terminal.</p>
+
+</div>
+</li>
+</ol>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d30715e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="t_appframework_createDevEnv.html" title="Use the QRadar GUI Application Framework SDK (Software Development Kit) to create a basic development environment for your app.">Creating your development environment</a></div>
+</div>
+</nav></aside></article></main></body></html>

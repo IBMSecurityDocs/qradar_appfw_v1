@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use the QRadar Python endec module to encrypt data in apps that you develop and prevent the transmission of secure data and passwords in clear text. The endec module is built into the Application Framework Software Development Kit (SDK) to enable encryption and secure data storage in the apps that you develop.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Encryption and secure data storage in app development</title>
+</head>
+<body id="concept_phk_bwl_pcb"><main role="main"><article role="article" aria-labelledby="d14416e10">
+<h1 class="topictitle1" id="d14416e10">Encryption and secure data storage in app development </h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use the QRadar Python <span class="ph filepath">endec</span> module to encrypt data in apps that you
+develop and prevent the transmission of secure data and passwords in clear text. The
+<span class="ph filepath">endec</span> module is built into the Application Framework Software Development Kit
+(SDK) to enable encryption and secure data storage in the apps that you develop.</p>
+
+<section class="section" role="region" aria-labelledby="d14416e26"><h2 class="sectiontitle" id="d14416e26">How it works</h2>
+
+<p>In the following code snippet, the <span class="ph filepath">endec</span> module is used to encrypt and store
+a password and a key token. Then, the module is used to retrieve and decrypt those encrypted data
+items. </p>
+
+<div class="p">
+<pre class="codeblock"><code>from qpylib.encdec import Encryption
+app_password_handler = Encryption({ 
+    'name': 'appPassword', 
+    'user': 238
+
+}) 
+app_password_handler.encrypt('clearTextPasswordSuppliedByUser') 
+key_token_handler = Encryption({ 
+    'name': 'keyToken',  
+    'user': 238
+
+}) 
+key_token_handler.encrypt('773d3efcb4dd211c213ebf4c45cd81ae') 
+... 
+retrieved_password = app_password_handler.decrypt() 
+key_token = key_token_handler.decrypt() 
+</code></pre>
+</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d14416e44"><h2 class="sectiontitle" id="d14416e44">How to use the code</h2>
+
+<p>Create a dedicated instance of the encryption object for each data item that you want to manage
+with the <span class="ph filepath">encdec</span> module. For example, in the code snippet example, the
+<span class="ph filepath">app_password_handler </span>object manages the password and the
+<span class="ph filepath">key_token_handler</span> object manages the key token for the user who is identified
+as 238. </p>
+
+<p>The following table describes the elements that you use to create an encryption object. </p>
+
+<div class="p">
+<table summary="" class="defaultstyle"><col style="width:50%"><col style="width:50%"><thead><tr>
+<th style="vertical-align:bottom;text-align:left;" id="d14416e68">Encryption object elements</th>
+
+<th style="vertical-align:bottom;text-align:left;" id="d14416e71">Description</th>
+
+</tr>
+</thead><tbody><tr>
+<td style="vertical-align:top;" headers="d14416e68">name</td>
+
+<td style="vertical-align:top;" headers="d14416e71">Unique string that identifies the data item to manage.</td>
+
+</tr>
+<tr>
+<td style="vertical-align:top;" headers="d14416e68">user</td>
+
+<td style="vertical-align:top;" headers="d14416e71">Unique identifier for the user who owns the data item to manage.</td>
+
+</tr>
+</tbody></table>
+
+</div>
+
+<p>For each user, the <span class="ph filepath">encdec</span> module stores the user’s secure data in the
+<span class="ph filepath">/store/&lt;user_ID&gt;_e.db</span> file in the Docker container. For example, secure data
+for user 238 in the example code snippet is stored in the container’s
+<span class="ph filepath">/store/238_e.db</span> file. </p>
+
+<p>When you create the encryption object, the <span class="ph filepath">decrypt()</span> function is invoked to
+retrieve and decrypt a user-data item. You can use the same encryption object instance that was used
+for encryption. If that object is no longer in scope, you can instantiate a new encryption object by
+supplying the same initialization parameters that you used originally.</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d14416e117"><h2 class="sectiontitle" id="d14416e117">Add the PyCrypto module to your app</h2>
+
+<p>The <span class="ph filepath">encdec</span> module depends on the PyCrypto module, which you can download
+from the <a href="https://pypi.python.org/pypi/pycrypto" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Python</a> website (<a href="https://pypi.python.org/pypi/pycrypto" rel="noopener" target="_blank" title="(Opens in a new tab or window)">https://pypi.python.org/pypi/pycrypto</a>). Add the PyCrypto 2.6.1 package and
+its dependencies to your app's <span class="ph filepath">src_deps/pip</span> directory. </p>
+
+<div class="note"><span class="notetitle">Note:</span> The PyCrypto libraries in your app are subject to US export classification laws. If the app
+that you develop is used outside of the US, you must ensure that you have an Export Control
+Classification Number (ECCN) to comply with United States Department of Commerce regulations.</div>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d14416e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

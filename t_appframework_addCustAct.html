@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You use the Rule Wizard to add a custom action script that runs in response to a custom rule event.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_CREResp.html">
+<title>Adding a custom action script to an event rule</title>
+</head>
+<body id="t_appframework_addCustAct"><main role="main"><article role="article" aria-labelledby="d15344e10">
+<h1 class="topictitle1" id="d15344e10">Adding a custom action script to an event rule</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">You use the Rule Wizard to add a custom action script that runs in response to a custom
+rule event.</p>
+
+<section class="section context" role="region" aria-labelledby="taskd15344e18"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd15344e18">About this task</h2></div>
+<p>To create a new rule, you must have the <span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Maintain Custom Rules</span></span> permission.</p>
+
+<p>You can test rules locally or globally. A local test means that rule is tested on the local Event
+processor and not shared with the system. A global test means that the rule is shared and tested by
+any Event processor on the system. Global rules send events to the central Event processor, which
+might decrease performance on the central Event processor.</p>
+
+</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd15344e36">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Click the <span class="ph uicontrol">Offenses</span> tab. </span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">On the navigation menu, click <span class="ph uicontrol">Rules</span>.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">From the <span class="ph uicontrol">Actions</span> list, select <span class="ph uicontrol">New Event
+Rule</span>.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">In the <span class="keyword wintitle">Rule Test Stack Editor</span> page, type a unique name for this rule in
+the <span class="ph uicontrol">enter rule name here</span> field in the <span class="ph uicontrol">Rule</span> pane.
+</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">From the list box, select <span class="ph uicontrol">Local</span> or <span class="ph uicontrol">Global</span>.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Add one or more tests to a rule:</span> 
+<ol type="a" class="ol substeps">
+<li class="li substep">
+<span class="cmd">To filter the options in the <span class="ph uicontrol">Test Group</span> list box, type the text that you
+want to filter for in the Type to filter field.</span>
+</li>
+
+<li class="li substep">
+<span class="cmd">From the <span class="ph uicontrol">Test Group</span> list box, select the type of test you want to add to
+this rule.</span>
+</li>
+
+<li class="li substep">
+<span class="cmd">For each test you want to add to the rule, select the plus (+) sign beside the test.</span>
+</li>
+
+<li class="li substep">
+<span class="cmd">To exclude a test, click <span class="ph uicontrol">and</span> at the beginning of the test in the Rule
+pane. </span> 
+<div class="itemgroup stepresult">The <span class="ph uicontrol">and</span> is displayed as <span class="ph uicontrol">and
+not</span>.</div>
+</li>
+
+<li class="li substep">
+<span class="cmd">Click the underlined configurable parameters to customize the variables of the test.</span>
+</li>
+
+<li class="li substep">
+<span class="cmd">From the dialog box, select values for the variable, and then click <span class="ph uicontrol">
+Submit</span>.</span>
+</li>
+
+</ol>
+
+</li>
+<li class="step stepexpand">
+<span class="cmd">To export the configured rule as a building block to use with other rules:</span> 
+<ol type="a" class="ol substeps">
+<li class="li substep">
+<span class="cmd">Click <span class="ph uicontrol">Export as Building Block</span>.</span>
+</li>
+
+<li class="li substep">
+<span class="cmd">Type a unique name for this building block.</span>
+</li>
+
+<li class="li substep">
+<span class="cmd">Click <span class="ph uicontrol">Save</span>.</span>
+</li>
+
+</ol>
+
+</li>
+<li class="step stepexpand">
+<span class="cmd">On the <span class="ph uicontrol">Groups</span> pane, select the check boxes of the groups to which you
+want to assign this rule. </span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">In the <span class="ph uicontrol">Notes</span> field, type a note that you want to include for this rule.
+Click <span class="ph uicontrol">Next</span>. </span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">On the <span class="keyword wintitle">Rule Responses</span> page, click the <span class="ph uicontrol">Execute Custom
+Action</span> check box and select your script from the <span class="ph uicontrol">Custom Action to
+execute</span> drop-down list.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Click <span class="ph uicontrol">Next</span>.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Review the <span class="keyword wintitle">Rule Summary</span>, and then click
+<span class="ph uicontrol">Finish</span>.</span>
+</li>
+</ol>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d15344e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_CREResp.html" title="You can add your own script that runs as a part of a custom action when a custom rules engine (CRE) rule is triggered.">Custom actions for CRE responses</a></div>
+</div>
+</nav></aside></article></main></body></html>

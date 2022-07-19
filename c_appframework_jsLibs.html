@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Add CSS and JavaScript libraries to your HTML templates to style and enhance your apps user interface.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_Jinja2Tmpls.html">
+<title>Integrate JavaScript libraries into your template</title>
+</head>
+<body id="c_appframework_jsLibs"><main role="main"><article role="article" aria-labelledby="d23238e10">
+  <h1 class="topictitle1" id="d23238e10">Integrate JavaScript libraries into your template</h1>
+
+  
+  <div class="body conbody"><p class="shortdesc">Add CSS and JavaScript libraries to your HTML templates to style and enhance your apps
+user interface.</p>
+
+    <p>You can use the Dojo and JQuery JavaScript libraries that are integrated into <span class="ph">IBM®
+QRadar®</span> to add CSS styling,
+widgets, and other UI features to your app.</p>
+
+    <section class="section" role="region" aria-labelledby="d23238e30"><h2 class="sectiontitle" id="d23238e30">Dojo</h2>
+      
+      <p>To integrate the Dojo JavaScript toolkit into your app's HTML template, add the following
+tags to your template's HEAD element:</p>
+
+      <pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;My app!&lt;/title&gt;
+   &lt;link type="text/css" rel="stylesheet" 
+   href="/console/idt/dojo/resources/dojo.css"&gt;&lt;/link&gt;
+   &lt;link type="text/css" rel="stylesheet" 
+   href="/console/idt/dijit/themes/dijit.css"&gt;&lt;/link&gt;
+   &lt;link type="text/css" rel="stylesheet" 
+   href="/console/idt/dijit/themes/claro/claro.css"&gt;&lt;/link&gt;
+   &lt;link type="text/css" rel="stylesheet" 
+   href="/console/idt/idx/themes/oneui/oneui.css"&gt;&lt;/link&gt;
+  &lt;script type="text/javascript" 
+   src="/console/idt/dojo/dojo.js" 
+   data-dojo-config="async:true, parseOnLoad: true"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+
+&lt;body&gt;&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+      <p><span class="ph">QRadar</span> uses Dojo
+1.9.3. </p>
+
+    </section>
+
+    <section class="section" role="region" aria-labelledby="d23238e48"><h2 class="sectiontitle" id="d23238e48">JQuery</h2>
+      
+      <p>To integrate the JQuery JavaScript library into your app's HTML template, add the following
+tag to your template's HEAD element:</p>
+
+      <pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;My app!&lt;/title&gt;
+  <span class="ph filepath">&lt;script type="text/javascript" 
+         src="/console/core/js/jquery/jquery.min.js"&gt;&lt;/script&gt;</span>
+  &lt;/head&gt;
+
+&lt;body&gt;&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+    </section>
+
+  </div>
+
+<aside role="complementary" aria-labelledby="d23238e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_Jinja2Tmpls.html" title="Jinja2 is a Python library that you can use to construct templates for various output formats from a core template text file. It can be used to create HTML templates for IBM QRadar applications.">Jinja2 templates</a></div>
+</div>
+</nav></aside></article></main></body></html>

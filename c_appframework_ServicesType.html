@@ -1,0 +1,744 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Defines named services, service endpoints, and supervisord configuration parameters.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<link rel="Start" href="c_appfw_namedServices.html">
+<title>Services type</title>
+</head>
+<body id="c_appframework_ServicesType"><main role="main"><article role="article" aria-labelledby="d32921e10">
+<h1 class="topictitle1" id="d32921e10">Services type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Defines named services, service endpoints, and supervisord configuration
+parameters.</p>
+
+<p>The parameters in your <span class="keyword parmname">services</span> block in your app's manifest file can be
+divided into these types:</p>
+
+<dl>
+
+<dt class="dlterm">Service definition parameters</dt>
+
+<dd class="dlentry">The service name, version, and any endpoints that are defined for the service.</dd>
+
+
+
+<dt class="dlterm">Endpoints field parameters</dt>
+
+<dd class="dlentry">A breakdown of the <span class="keyword parmname">endpoints</span> subparameters.</dd>
+
+
+
+<dt class="dlterm">Supervisord configuration parameters</dt>
+
+<dd class="dlentry">A list of parameters that can be passed to supervisord to control the service process.</dd>
+
+
+</dl>
+
+<p>The following code sample lists the <span class="keyword parmname">services</span> block fields:</p>
+
+<pre class="codeblock"><code>{
+...
+	"services": [
+		{
+			"name":"some_service",
+                    "version":"1.0",
+                    "endpoints": [
+				{   "name":"something",
+			           "path":"get_something/{id}",
+                               "http_method": "GET",
+                               "parameters": [
+                                  {
+                                    "location": "PATH", 
+                                    "name": "id"
+                                    "definition": "String"                                    
+                                   }            
+                                ]
+				 }
+			],
+			"command":"/usr/bin/python loop.py",
+			"process_name":"%(program_name)s",
+			"numprocs":1,
+			"directory":"/src_deps/services/",
+			"umask":"022",
+			"priority":999,
+			"autostart":"true",
+			"autorestart":"true",
+			"startsecs":1,
+			"startretries":3,
+			"exitcodes":"0,2",
+			"stopsignal":"TERM",
+			"stopwaitsecs":8,
+			"user":"root",
+			"redirect_stderr":"true",
+			"stdout_logfile":"/store/log/pro.log",
+			"stdout_logfile_maxbytes":"1MB",
+			"stdout_logfile_backups":7,
+			"stdout_capture_maxbytes":"0",
+			"stdout_events_enabled":"false",
+			"stderr_logfile":"/store/log/proerr.log",
+			"stderr_logfile_maxbytes":"1MB",
+			"stderr_logfile_backups":6,
+			"stderr_capture_maxbytes":"0",
+			"stderr_events_enabled":"false",
+			"environment":"PY_HOME=/usr/bin/python",
+			"serverurl":"AUTO"
+		}
+	],
+...
+}</code></pre>
+<p>The following tables provide details about the manifest fields for the
+<span class="keyword parmname">services</span> block. </p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_ServicesType__table_t2v_tqc_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. Service definition endpoints</span></caption><colgroup><col style="width:28.57142857142857%"><col style="width:16.285714285714285%"><col style="width:14.285714285714285%"><col style="width:40.857142857142854%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d32921e92"> Field </th>
+
+<th id="d32921e95"> Required </th>
+
+<th id="d32921e98"> Type </th>
+
+<th id="d32921e101"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d32921e92 "><span class="keyword parmname">name</span></td>
+
+<td headers="d32921e95 "> Yes </td>
+
+<td headers="d32921e98 "> String </td>
+
+<td headers="d32921e101 ">The name of the service instance.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e92 "><span class="keyword parmname">version</span></td>
+
+<td headers="d32921e95 ">Yes</td>
+
+<td headers="d32921e98 ">String</td>
+
+<td headers="d32921e101 ">
+<p>Version of this named service that is supported by this instance.</p>
+
+<p>Only one version per named service definition is allowed.</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e92 "><span class="keyword parmname">endpoints</span></td>
+
+<td headers="d32921e95 ">No</td>
+
+<td headers="d32921e98 ">Array of Endpoints type</td>
+
+<td headers="d32921e101 ">The endpoints that are defined for this service instance.<p>You can define a number of
+parameters for each endpoint. For more information about endpoint parameters, see <a href="#c_appframework_ServicesType__table_p1w_3hq_px">Table 2</a></p>
+</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<section class="section" role="region" aria-labelledby="d32921e173"><h2 class="sectiontitle" id="d32921e173">Endpoints field parameters</h2>
+
+<p>The <span class="keyword parmname">endpoints</span> field parameters are explained in more detail in the following
+table:</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_ServicesType__table_p1w_3hq_px" class="defaultstyle"><caption><span class="tablecap">Table 2. Endpoints field parameters</span></caption><colgroup><col style="width:20%"><col style="width:13.333333333333334%"><col style="width:13.333333333333334%"><col style="width:53.333333333333336%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d32921e201">Parameter</th>
+
+<th id="d32921e204">Required</th>
+
+<th id="d32921e207">Type</th>
+
+<th id="d32921e210">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">name</span></td>
+
+<td headers="d32921e204 ">Yes</td>
+
+<td headers="d32921e207 ">String</td>
+
+<td headers="d32921e210 ">The name of the endpoint.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">http_method</span></td>
+
+<td headers="d32921e204 ">Yes</td>
+
+<td headers="d32921e207 ">String</td>
+
+<td headers="d32921e210 ">The HTTP method to use for the request: GET, POST, PUT, or DELETE.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">path</span></td>
+
+<td headers="d32921e204 ">Yes</td>
+
+<td headers="d32921e207 ">String</td>
+
+<td headers="d32921e210 ">The URL that is used to access endpoint.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">request_mime_type</span></td>
+
+<td headers="d32921e204 ">No</td>
+
+<td headers="d32921e207 ">String</td>
+
+<td headers="d32921e210 ">The mime type of request body. Provide this value when your request has a body (POST, PUT).
+Typical values include these strings: <kbd class="ph userinput">"application/json"</kbd>,
+<kbd class="ph userinput">"application/json+ld"</kbd>,
+<kbd class="ph userinput">"application/x-www-form-urlencoded"</kbd>.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">request_body_type</span></td>
+
+<td headers="d32921e204 ">No</td>
+
+<td headers="d32921e207 ">Object</td>
+
+<td headers="d32921e210 ">Provides a JSON object that defines the structure of your request body. If you use this
+parameter, do not set the location parameter to <kbd class="ph userinput">BODY</kbd>.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">parameters</span></td>
+
+<td headers="d32921e204 ">No</td>
+
+<td headers="d32921e207 ">Array</td>
+
+<td headers="d32921e210 ">
+<dl>
+
+<dt class="dlterm"><span class="keyword parmname">location</span> (required)</dt>
+
+<dd class="dlentry">String. Can be one of these types:<ul>
+<li><kbd class="ph userinput">PATH</kbd></li>
+
+<li><kbd class="ph userinput">QUERY</kbd></li>
+
+<li><kbd class="ph userinput">BODY</kbd></li>
+
+</ul>
+Set the <span class="keyword parmname">location</span> parameter to <kbd class="ph userinput">BODY</kbd> if the
+endpoint's <span class="keyword parmname">request_mime_type</span> field is set to
+<kbd class="ph userinput">application/x-www-form-urlencoded</kbd>.<p>The location parameter is
+required.</p>
+</dd>
+
+
+</dl>
+
+<dl>
+
+<dt class="dlterm"><span class="keyword parmname">name</span> (required)</dt>
+
+<dd class="dlentry">String </dd>
+
+
+</dl>
+
+<dl>
+
+<dt class="dlterm"><span class="keyword parmname">definition</span> (optional)</dt>
+
+<dd class="dlentry">The type of the parameter. </dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">response</span></td>
+
+<td headers="d32921e204 ">No</td>
+
+<td headers="d32921e207 ">Object</td>
+
+<td headers="d32921e210 ">Definition of the expected response. If your endpoint does not return a response body, then
+omit this field.<dl>
+
+<dt class="dlterm"><span class="keyword parmname">mime_type</span> (required)</dt>
+
+<dd class="dlentry">String. The response mime type.</dd>
+
+
+
+<dt class="dlterm"><span class="keyword parmname">body_type</span> (required)</dt>
+
+<dd class="dlentry">Object. Provides a JSON object that defines the structure of your response body.</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e201 "><span class="keyword parmname">error_mime_type</span></td>
+
+<td headers="d32921e204 ">No</td>
+
+<td headers="d32921e207 ">String</td>
+
+<td headers="d32921e210 ">The mime type of error message body. Defaults to <kbd class="ph userinput">text/plain</kbd>.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d32921e464"><h2 class="sectiontitle" id="d32921e464">Supervisord configuration parameter fields</h2>
+
+<p>The <span class="ph">QRadar®</span> Application
+Framework uses supervisord to monitor and control named services. You can specify supervisord
+configuration parameters as fields within the services block in your app's manifest file.</p>
+
+<p>You can use the following supervisord parameters as fields in the <span class="keyword parmname">services</span>
+block. For more information about supervisord configuration parameters, see <a href="http://supervisord.org/configuration.html" rel="noopener" target="_blank" title="(Opens in a new tab or window)">http://supervisord.org/configuration.html</a>
+(http://supervisord.org/configuration.html).</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_ServicesType__table_kpb_rtp_px" class="defaultstyle"><caption><span class="tablecap">Table 3. Supervisord configuration parameters</span></caption><colgroup><col style="width:33.33333333333333%"><col style="width:13.333333333333334%"><col style="width:13.333333333333334%"><col style="width:40%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d32921e501"> Field </th>
+
+<th id="d32921e504"> Required </th>
+
+<th id="d32921e507"> Type </th>
+
+<th id="d32921e510"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">port</span></td>
+
+<td headers="d32921e504 ">No</td>
+
+<td headers="d32921e507 ">Integer</td>
+
+<td headers="d32921e510 ">A TCP host:port value, for example, 127.0.0.1:9001 on which supervisor listens for HTTP and
+XML-RPC requests. <p>If no port is specified the service is treated as a headless background process
+that runs continuously.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">command</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 "> String </td>
+
+<td headers="d32921e510 ">The command that runs when this program is started. The command can be either absolute, for
+example, <span class="ph filepath">/path/to/program</span>  or relative, for example,
+<span class="ph filepath">program</span>. If it is relative, the supervisord’s environment $PATH is searched for
+the executable. </td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">directory</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">&nbsp;</td>
+
+<td headers="d32921e510 ">The path to the directory that supervisord changes to before it executes the child
+process.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">autorestart</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Enum</td>
+
+<td headers="d32921e510 ">
+<p>Specifies whether supervisord automatically restarts a process when it exits in the RUNNING
+state. </p>
+
+<p>Value is one of the following states: TRUE, FALSE, UNEXPECTED.</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">process_name</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">A Python string that is used for the supervisor process name.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">numprocs</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The number of instances of the program the supervisor starts.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">umask</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The octal number that represents the umask of the process.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">autostart</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Enum</td>
+
+<td headers="d32921e510 ">Value is TRUE or FALSE.<p>If TRUE, this program starts automatically when supervisord is
+started.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">startsecs</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Integer</td>
+
+<td headers="d32921e510 ">The number of seconds that the program needs to stay running after startup to consider the
+start successful.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">startretries</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Integer</td>
+
+<td headers="d32921e510 ">The number of serial failure attempts that supervisord allows when it attempts to start the
+program. </td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">exitcodes</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The list of expected exit codes for this program  that are used with
+<span class="keyword parmname">autorestart</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stopsignal</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The signal that is used to kill the program when a stop is requested. <div class="p">Use any of the following:<ul>
+<li>TERM</li>
+
+<li>HUP</li>
+
+<li>INT</li>
+
+<li>QUIT</li>
+
+<li>KILL</li>
+
+<li>USR1</li>
+
+<li>USR2</li>
+
+</ul>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stopwaitsecs</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Integer</td>
+
+<td headers="d32921e510 ">The number of seconds to wait for the operating system to return a <span class="keyword cmdname">SIGCHLD</span>
+to supervisord after the program is sent a <span class="keyword parmname">stopsignal</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">user</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The UNIX user account that runs the program.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">redirect_stderr</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Enum</td>
+
+<td headers="d32921e510 ">Value is either TRUE or FALSE.<p>If TRUE, causes the <dfn class="term">StdErr</dfn> output to be sent
+back to supervisord on its <dfn class="term">StdOut </dfn>file descriptor.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stdout_logfile</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 "><dfn class="term">StdOut</dfn> output is stored in this file. If <span class="keyword parmname">redirect_stderr</span> is
+TRUE, <dfn class="term">StdErr</dfn> output is also stored in this file). </td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stdout_logfile_maxbytes</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The maximum number of bytes that can be consumed by <span class="keyword parmname">stdout_logfile</span>
+before it is rotated and a new log file is started.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stdout_logfile_backups</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Integer</td>
+
+<td headers="d32921e510 ">The number of <span class="keyword parmname">stdout_logfile</span> backups to retain from the<dfn class="term"> StdOut
+</dfn>log file rotation. </td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stdout_capture_maxbytes</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The maximum number of bytes that are written to capture FIFO (first in, first out) when the
+process is in <dfn class="term">StdOut</dfn> capture mode.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stdout_events_enabled</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Enum</td>
+
+<td headers="d32921e510 ">Value is one of TRUE, FALSE.<p>If TRUE, PROCESS_LOG_STDOUT events are emitted when the
+process writes to its <dfn class="term">StdOut</dfn> file descriptor.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">StdErr_logfile</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">Put process <dfn class="term">StdErr</dfn> output in this file unless
+<span class="keyword parmname">redirect_stderr</span> is TRUE.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stderr_logfile_maxbytes</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The maximum number of bytes before log file rotation for
+<span class="keyword parmname">stderr_logfile</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stderr_logfile_backups</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Integer</td>
+
+<td headers="d32921e510 ">The number of <span class="keyword parmname">stderr_logfile</span> backups to retain from the
+<dfn class="term">StdErr</dfn> log file rotation. </td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stderr_capture_maxbytes</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The maximum number of bytes that are written to capture FIFO (first in, first out) when the
+process is in <dfn class="term">StdErr</dfn> capture mode.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">stderr_events_enabled</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">Enum</td>
+
+<td headers="d32921e510 ">Value is either TRUE or FALSE.<p>If TRUE, PROCESS_LOG_STDERR events are generated when the
+process writes to its <dfn class="term">StdErr</dfn> file descriptor.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">environment</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">A list of key/value pairs, in the form <kbd class="ph userinput">KEY="val",KEY2="val2"</kbd>, that are
+placed in the child process’ environment.</td>
+
+</tr>
+
+<tr>
+<td headers="d32921e501 "><span class="keyword parmname">serverurl</span></td>
+
+<td headers="d32921e504 "> No </td>
+
+<td headers="d32921e507 ">String</td>
+
+<td headers="d32921e510 ">The URL that is used to access the supervisord server, for example,
+<kbd class="ph userinput">http://localhost:9001</kbd></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d32921e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a data-hd-otherprops="730" href="c_appfw_namedServices.html" title="Use the named services feature to define background processes for an app that other apps and IBM QRadar can communicate with in an asynchronous manner.">Named services</a></div>
+</div>
+</nav></aside></article></main></body></html>

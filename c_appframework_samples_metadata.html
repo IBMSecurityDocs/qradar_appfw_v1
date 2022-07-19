@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Metadata providers are used to show extra context-sensitive information in IBM QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<title>Context-specific metadata provider example</title>
+</head>
+<body id="c_appframework_samples_metadata"><main role="main"><article role="article" aria-labelledby="d9193e10">
+<h1 class="topictitle1" id="d9193e10">Context-specific metadata provider example</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Metadata providers are used to show extra context-sensitive information in  <span class="ph">IBM®
+QRadar®</span>.</p>
+
+<p>Metadata is displayed when the user's mouse pointer hovers over an item in the user interface.
+For example, you might want to know the user name that is associated with an IP address, which you
+can view by hovering your mouse pointer over the IP address.</p>
+
+<p>The following image shows an example of context-sensitive information that is displayed when you
+hover your mouse pointer over an IP address in the table. </p>
+
+		<div class="fignone" id="c_appframework_samples_metadata__fig_zrh_n1b_pt">
+<div class="image"><img src="appframework_metadataProvider.svg" alt="hovering your mouse pointer"></div>
+</div>
+
+		<p>You can create custom metadata providers for three types of metadata:</p>
+
+		<ul>
+			<li><span class="keyword parmname">ip</span> displayed for an IP address throughout <span class="ph">QRadar</span>.</li>
+
+			<li><span class="keyword parmname">userName</span> displayed for a user name throughout <span class="ph">QRadar</span>.</li>
+
+			<li><span class="keyword parmname">ariel:&lt;FIELD_NAME&gt;</span>, where <span class="keyword parmname">&lt;FIELD_NAME&gt;</span>
+is the name of a field in the <span class="ph">QRadar</span> Event or Flow viewer -
+displayed for a field in the event or flow viewer.</li>
+
+		</ul>
+
+		<p>The following example demonstrates how to write a simple app that provides extra metadata when
+you hover your mouse pointer over IP addresses in <span class="ph">QRadar</span>.</p>
+
+		<section class="section" role="region" aria-labelledby="d9193e82"><h2 class="sectiontitle" id="d9193e82"><span class="ph filepath">manifest.json</span></h2>
+			
+			<p>The <span class="ph filepath">manifest.json</span> file contains the following code:</p>
+
+			<pre class="codeblock"><code>{
+     "name":"IP Metadata Provider Example",   
+     "description":"Sample IP metadata provider functionality.",
+     "version":"1.0",
+
+     rest_methods: [      
+      {
+              name:"getIPMetadata",            
+              url:"/ip_metadata_provider",
+              method:"GET",          
+              argument_names:["context"]
+       }
+     ],  
+ 
+     "metadata_providers" : [
+         {            
+             "rest_method":"getIPMetadata",
+             "metadata_type":"ip"    
+         }
+     ]
+ }</code></pre>
+<p>The following table describes the block fields that are included in the
+<span class="ph filepath">Manifest.json</span> file. </p>
+
+			
+<div class="tablenoborder"><table summary="" class="defaultstyle"><caption><span class="tablecap">Table 1. <span class="ph filepath">Manifest.json</span> file block fields</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d9193e118">Field</th>
+
+<th id="d9193e121">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d9193e118 "><span class="keyword parmname">rest_methods</span></td>
+
+<td headers="d9193e121 ">Describes the rest method that is used to return the additional metadata.</td>
+
+</tr>
+
+<tr>
+<td headers="d9193e118 "><span class="keyword parmname">metadata_providers</span></td>
+
+<td headers="d9193e121 ">Describes the metadata type and the rest method that returns the additional metadata.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+			<p>The manifest file shows that the app provides metadata for <span class="ph">QRadar</span> IP addresses that use the
+REST method <span class="keyword parmname">getIPMetadata</span>. This REST method is exposed by the
+<span class="keyword apiname">/ip_metadata_provider</span> endpoint within the app. This endpoint represents a GET
+request and expects an argument <span class="keyword parmname">context</span>. The context argument is appended to
+the GET request as a query string that contains the context-specific IP address
+(<samp class="ph systemoutput">/ip_metadata_provider?context=127.0.0.1</samp>).</p>
+
+		</section>
+
+		<section class="section" role="region" aria-labelledby="d9193e174"><h2 class="sectiontitle" id="d9193e174"><span class="ph filepath">views.py</span></h2>
+			
+			<p>The <span class="ph filepath">views.py</span> script contains the following code:</p>
+
+			<pre class="codeblock"><code>import json
+from app  import app
+from flask  import render_template
+from flask  import request
+from qpylib  import qpylib
+ 
+@app.route( '/ip_metadata_provider', methods=[ 'GET'])
+def getIPMetadata():         
+     context = request.args.get('context')
+  
+     metadata_dict = {
+          'key' :  'exampleIPMetadataProvider',
+          'label' : ' Extra Metadata:',
+          'value' :  'Metadata value',
+          'html' : render_template( 'metadata_ip.html', ip_address=context)    
+                       }
+
+    return json.dumps(metadata_dict)</code></pre>
+			<p>The <span class="ph filepath">views.py</span> file shows a simple implementation for the
+<span class="keyword apiname">getIPMetadata</span> REST method that was defined previously in the
+<span class="ph filepath">manifest.json</span>. As noted, the context is passed to the endpoint by a query
+string. Use the Flask request module to parse out the value of the context query. The value of the
+context query is parsed by using the script: <code class="ph codeph">context = request.args.get('context')</code>.
+This variable contains the context-specific IP address.</p>
+
+			<p>Metadata providers are required to return JSON with the fields that are shown in the following
+table:</p>
+
+			
+<div class="tablenoborder"><table summary="" class="defaultstyle"><caption><span class="tablecap">Table 2. Metadata providers fields</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d9193e221">Field</th>
+
+<th id="d9193e224">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d9193e221 "><span class="keyword parmname">key</span></td>
+
+<td headers="d9193e224 ">Unique key for the metadata provider</td>
+
+</tr>
+
+<tr>
+<td headers="d9193e221 "><span class="keyword parmname">label</span></td>
+
+<td headers="d9193e224 ">Description of the metadata, which is displayed in a pop-up layer in <span class="ph">QRadar</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d9193e221 "><span class="keyword parmname">value</span></td>
+
+<td headers="d9193e224 ">Plain text context-sensitive data to be provided</td>
+
+</tr>
+
+<tr>
+<td headers="d9193e221 "><span class="keyword parmname">html</span></td>
+
+<td headers="d9193e224 ">HTML context-sensitive data to be provided. </td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+			<p>In this example, a Python dictionary object is created to contain these fields. For the
+<span class="keyword parmname">html</span> field, a template file, <span class="ph filepath">metadata_ip.html </span>, is created
+in the <span class="ph filepath">/app/templates</span> directory. The context that is retrieved from the query
+string as the variable <var class="keyword varname">ip_address</var> is passed to it. </p>
+
+		</section>
+
+		<section class="section" role="region" aria-labelledby="d9193e296"><h2 class="sectiontitle" id="d9193e296"><span class="ph filepath">metadata_ip.html</span></h2>
+			
+			<p>In this example, you render the context-specific IP address. The
+<span class="ph filepath">metadata_ip.html</span> file contains a Jinja template string that is replaced with
+the value that is passed in from the <span class="keyword apiname">render_template </span> call in
+<span class="ph filepath">views.py</span>.</p>
+
+			<pre class="codeblock"><code>{{  ip_address  }}</code></pre>
+		</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d9193e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+</nav></aside></article></main></body></html>

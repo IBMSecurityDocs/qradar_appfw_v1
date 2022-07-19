@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use custom column injection points to add custom columns in QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Custom column injection points</title>
+</head>
+<body id="reference_cqh_gbw_pw"><main role="main"><article role="article" aria-labelledby="d16608e10">
+<h1 class="topictitle1" id="d16608e10">Custom column injection points</h1>
+
+
+<div class="body refbody"><p class="shortdesc">Use custom column injection points to add custom columns in <span class="ph">QRadar®</span>.</p>
+
+<div class="section">
+<p>The following table lists the custom column injection points that you can use in your app. The
+page IDs are used in the <span class="keyword parmname">page_id</span> field in the <code class="ph codeph">custom_columns</code>
+block in the app's manifest file.</p>
+
+
+
+<div class="tablenoborder"><table summary="" id="reference_cqh_gbw_pw__table_as4_hbw_pw" class="defaultstyle"><caption><span class="tablecap">Table 1. Custom column injection point examples</span></caption><colgroup><col style="width:40%"><col style="width:60%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d16608e51">Page ID</th>
+
+<th id="d16608e54">Table Location</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d16608e51 ">AssetDetailsVulnList</td>
+
+<td headers="d16608e54 ">
+<p><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">IP Address</span></span> column to open <span class="keyword wintitle">Asset Details</span> page and
+<span class="ph uicontrol">Vulnerabilities</span> table</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">AssetList</td>
+
+<td headers="d16608e54 "><span class="ph uicontrol">Asset</span> tab list</td>
+
+</tr>
+
+
+<tr>
+<td headers="d16608e51 ">AttackerList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Source IP</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">ByAssetListForm</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">by Asset</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">ByNetworkList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">by Network</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">ByOpenServiceList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">by Open Service</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">ByVulnerabilityInstanceList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage vulnerabilities</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">ByVulnerabilityList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">by Vulnerability</span></span></td>
+
+</tr>
+
+
+<tr>
+<td headers="d16608e51 ">ExceptionRulesList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Vulnerability Exception</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">FlowsourceList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Flow Sources</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">MyAssignedVulnerabilitiesList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">My Assigned Vulnerabilities</span></span></td>
+
+</tr>
+
+
+<tr>
+<td headers="d16608e51 ">NetworkList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Network</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">NetworkOffenseList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Network</span></span> Double-click an offense.</td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">OffenseList</td>
+
+<td headers="d16608e54 "><span class="ph uicontrol">Offenses</span> tab main page</td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">ReferenceSetElems</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Reference Set Management</span></span>. Double-click row to open content window &gt; <span class="ph uicontrol">Content</span>
+tab.</td>
+
+</tr>
+
+
+<tr>
+<td headers="d16608e51 ">ReferenceSetRules</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Reference Set Management</span></span>. Double-click row to open content window &gt; <span class="ph uicontrol">References</span>
+tab.</td>
+
+</tr>
+
+
+<tr>
+<td headers="d16608e51 ">ReferenceSets</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Reference Set Management </span></span></td>
+
+</tr>
+
+
+<tr>
+<td headers="d16608e51 ">SensorDeviceList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Log Sources</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">TargetList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Destination IP</span></span></td>
+
+</tr>
+
+
+<tr>
+<td headers="d16608e51 ">VaScannerSchedulesList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Schedule VA Scanners</span></span></td>
+
+</tr>
+
+<tr>
+<td headers="d16608e51 ">VaScannersList</td>
+
+<td headers="d16608e54 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">VA Scanners</span></span></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d16608e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

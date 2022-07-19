@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can add columns that contain custom content to tables in QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<title>Custom column example</title>
+</head>
+<body id="c_appfw_samples_CustomCols"><main role="main"><article role="article" aria-labelledby="d11609e10">
+<h1 class="topictitle1" id="d11609e10">Custom column example</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You can add columns that contain custom content to tables in  <span class="ph">QRadar®</span>.</p>
+
+<p>The following example describes how to add a column to the <span class="ph uicontrol">Offenses</span> tab
+and to inject content into it. The content is in JSON LD format and is formatted by a custom
+JavaScript. </p>
+
+<p>The following image shows an example of a custom column that is added to the
+<span class="ph uicontrol">Offenses</span> tab.</p>
+
+<figure class="fignone" id="c_appfw_samples_CustomCols__fig_njz_xgt_xw"><figcaption>Figure 1. Custom column on the Offenses tab.</figcaption>
+
+<div class="image"><img src="custcols.png" alt="Custom column on the Offenses tab."></div>
+</figure>
+
+<p>The following <span class="ph filepath">manifest.json</span> file example shows details of a
+<span class="keyword parmname">custom_columns</span> block.</p>
+
+<section class="section" role="region" aria-labelledby="d11609e56"><h2 class="sectiontitle" id="d11609e56"><span class="ph filepath">manifest.json</span></h2><p>Use the
+<span class="keyword parmname">custom_columns</span> block in the app's <span class="ph filepath">manifest.json</span> file to
+define the injection point, column header, and rest endpoint that are used to retrieve content in
+JSON format for the new column.</p>
+<p>In this example, the JSON content that is injected is
+formatted by using a custom JavaScript. The location of the script, and the tab and page on which it
+is run are defined in a <span class="keyword parmname">page_scripts</span>
+block.</p>
+<pre class="codeblock"><code>{
+ 
+    "name": "Custom column offenses list table",
+    "description": "Render custom column offense using custom javascript", 
+    "uuid": "7191b673-3225-4d5d-97ba-a41d72cc65f0", 
+    "version": "1.0"
+
+    "custom_columns": [
+        {
+	      "label": "Custom col custom javascript",<span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+            "rest_endpoint": "custom_column_method", <span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+            "page_id": "OffenseList"<span class="keyword calloutlabel">&nbsp;3&nbsp;</span>
+        }
+      ],  
+
+    "page_scripts": [
+        {
+            "app_name": "SEM", 
+            "page_id": "OffenseList", 
+            "scripts": [
+                "static/qjslib/custom_offense.js"
+                       ]
+        }
+    ]
+}</code></pre>The
+following list describes the contents in the code snippet from the <code class="ph codeph">custom_columns</code> block.<ol>
+<li> The <span class="keyword parmname">label</span> field contains the column header content.</li>
+
+<li>The <code class="ph codeph">custom_column_method</code> REST endpoint is defined in the
+<span class="ph filepath">app/views.py</span> script. This <code class="ph codeph">custom_column_method</code> REST endpoint
+is used to retrieve the information that is injected into the custom column.</li>
+
+<li>The <span class="keyword parmname">page_id</span> field defines the page in which the new table column is added.
+In this case, it is the <span class="keyword wintitle">All Offenses</span> page.</li>
+
+</ol>
+</section>
+
+<section class="section" role="region" aria-labelledby="d11609e119"><h2 class="sectiontitle" id="d11609e119"><span class="ph filepath">app/views.py</span></h2><p></p>
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from flask import Response
+from app import app
+from qpylib.qpylib import log
+from qpylib.offense_qpylib import get_offense_json_ld <span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+import json
+
+
+@app.route('/custom_column_method/&lt;offense_id&gt;', methods=['GET']) <span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+def get_offense(offense_id):
+ try:
+   log("get offense")
+   offense_json =  get_offense_json_ld(offense_id)
+   return Response(response=offense_json, status=200, mimetype='application/json')
+ except Exception as e:
+   log('Error ' + str(e))
+   raise</code></pre>The
+following list describes the contents in the code snippet from the <span class="ph filepath">views.py</span> script.<ol>
+<li> The <span class="keyword apiname">get_offense_json_ld</span> function that is imported from the
+<span class="ph filepath">app/qpylib/offense_qpylib.py</span> library retrieves the details for the offense ID
+in JSON LD format.</li>
+
+<li>The <span class="keyword apiname">get_offense</span> function includes an <span class="keyword apiname">@app.route</span> annotation
+that defines the endpoint's route. The <span class="keyword apiname">@app.route</span> includes the manifest's
+<span class="keyword parmname">rest_endpoint</span> field value <code class="ph codeph">/custom_column_method</code>, and the
+context information. In this case, the context information is the offense ID.</li>
+
+</ol>
+</section>
+
+<section class="section" role="region" aria-labelledby="d11609e167"><h2 class="sectiontitle" id="d11609e167"><span class="ph filepath">static/qjslib/custom_offense.js</span></h2>
+
+<p>The <span class="ph filepath">static/qjslib/custom_offense.js</span> script renders the JSON content for the
+Offense ID and its source IP address. </p>
+
+<pre class="codeblock"><code>function renderJsonContent(jsonTagId, targetDivTagId)
+{
+    var jsonTagContent = $("#" + jsonTagId).html();
+    var json = JSON.parse(jsonTagContent);
+    $("#" + targetDivTagId).html(renderOffense(json));
+}
+
+function renderOffense(json)
+{
+    return 'id is' + json.data.id + ',' +
+        'Source IP is' + json.data.offense_source;
+}</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d11609e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+</nav></aside></article></main></body></html>

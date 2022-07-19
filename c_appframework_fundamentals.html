@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>GUI application framework fundamentals</title>
+</head>
+<body id="concept_byq_sc1_rt"><main role="main"><article role="article" aria-labelledby="d13344e10">
+<h1 class="topictitle1" id="d13344e10">GUI application framework fundamentals</h1>
+
+
+<div class="body conbody"><p class="shortdesc"><span class="ph">QRadar®</span> GUI
+application framework apps are stand-alone web applications that run on the Flask micro-framework,
+and are served from the Flask web server. </p>
+
+<section class="section" role="region" aria-labelledby="d13344e23"><h2 class="sectiontitle" id="d13344e23">Installation overview</h2>
+
+<p>Every app runs in its own unique Flask server. Each Flask server, in turn, runs within a secure Linux® container. Docker is the implementation stack for the secure containment of the Flask app codebase.</p>
+
+<p>Each app is installed by using the RESTful API endpoints. The installation endpoint handles these
+tasks:</p>
+
+<ul>
+<li>Validates the manifest of the app.</li>
+
+<li>Automatically creates a Docker image (asynchronous) with the app code that is bundled within
+it.</li>
+
+<li>Registers the app (asynchronous) with <span class="ph">QRadar</span> to enable web traffic proxy
+and the HTTP request/response lifecycle from <span class="ph">QRadar</span> to the app.</li>
+
+<li>Automatically runs a Docker container from the Docker image (asynchronous), which is bound to a
+data-only secondary container that is used for persistent storage.</li>
+
+</ul>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d13344e61"><h2 class="sectiontitle" id="d13344e61"><span class="ph">QRadar</span> RESTful API
+endpoints</h2>
+
+<p>The key interface between lifecycle management of an app, during both its creation and running
+phases, is the <span class="ph">QRadar</span> GUI App
+Framework REST API endpoints.</p>
+
+<p>The following table describes the QRadar RESTful API endpoints.</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_byq_sc1_rt__table_cbw_5h1_rt" class="defaultstyle"><caption><span class="tablecap">Table 1. GUI Application Framework REST API endpoints</span></caption><colgroup><col style="width:33.33333333333333%"><col style="width:33.33333333333333%"><col style="width:33.33333333333333%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d13344e97">Endpoint</th>
+
+<th id="d13344e100">Parameters</th>
+
+<th id="d13344e103">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">GET /gui_app_framework/application_creation_task</span></td>
+
+<td headers="d13344e100 ">Application ID</td>
+
+<td headers="d13344e103 ">Retrieves a list of status details for all asynchronous requests to create apps.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">GET /gui_app_framework/application_creation_task/{application_id}</span></td>
+
+<td headers="d13344e100 ">Application ID</td>
+
+<td headers="d13344e103 ">Retrieves a list of status details of an asynchronous request to create apps.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">POST /gui_app_framework/application_creation_task</span></td>
+
+<td headers="d13344e100 ">Application (.zip) bundle file</td>
+
+<td headers="d13344e103 ">Creates an app within the application framework, and registers it with <span class="ph">QRadar</span>. The app is created
+asynchronously. A reference to the <span class="keyword parmname">application_id</span> is returned and must be used
+in subsequent API calls to determine the status of the app installation.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">POST /gui_app_framework/application_creation_task/{application_id}</span></td>
+
+<td headers="d13344e100 ">Application ID, cancel status</td>
+
+<td headers="d13344e103 ">Updates a new app installation within the application framework The
+<span class="keyword parmname">application_id</span> and a <span class="keyword parmname">status</span> parameters are
+required.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">GET /gui_app_framework/applications</span></td>
+
+<td headers="d13344e100 ">&nbsp;</td>
+
+<td headers="d13344e103 ">Retrieves a list of apps that are installed on the <span class="ph">QRadar</span> console, and their manifest
+JSON structures and status.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">GET /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d13344e100 ">Application ID</td>
+
+<td headers="d13344e103 ">Retrieves a specific app that is installed on the console and its manifest JSON structure and
+status.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">POST /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d13344e100 ">Application ID, start/stop status</td>
+
+<td headers="d13344e103 ">Updates an app. Starts or stops an app by setting status to RUNNING or STOPPED
+respectively.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">PUT /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d13344e100 ">Application ID</td>
+
+<td headers="d13344e103 ">Upgrade an application.</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e97 "><span class="keyword apiname">DELETE /gui_app_framework/applications/{application_id}</span></td>
+
+<td headers="d13344e100 ">Application ID</td>
+
+<td headers="d13344e103 ">Deletes an application.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d13344e97 "><span class="keyword apiname">GET /gui_app_framework/named_services</span></td>
+
+<td headers="d13344e100 ">&nbsp;</td>
+
+<td headers="d13344e103 ">Retrieves a list of all named services registered with the Application Framework.</td>
+
+</tr>
+
+<tr data-hd-otherprops="730">
+<td headers="d13344e97 "><span class="keyword apiname">GET /gui_app_framework/named_services/{uuid}</span></td>
+
+<td headers="d13344e100 ">uuid</td>
+
+<td headers="d13344e103 ">Retrieves a named service registered with the Application Framework by using the supplied
+uuid.</td>
+
+</tr>
+
+
+</tbody>
+</table>
+</div>
+
+</section>
+
+
+<section class="section" role="region" aria-labelledby="d13344e274"><h2 class="sectiontitle" id="d13344e274">Python</h2>The main web language that is used to author an app is Python, and the
+Flask framework is integrated and available for use by the app.<p>For more information, go to the
+<a href="https://www.python.org/doc/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Python</a> website
+(https://www.python.org/doc/).</p>
+</section>
+
+<section class="section" role="region" aria-labelledby="d13344e286"><h2 class="sectiontitle" id="d13344e286">Flask</h2>
+
+<p>Flask is a micro web application framework that is written in Python.</p>
+
+<p>Flask is the web server from which the app-coded endpoints are served. You use Python functions
+to deliver use cases. You can use route annotations for each Python method in the Flask application.
+After the Flask web server starts, HTTP/HTTPS-bound requests are serviced by Flask for that route,
+and the Python functions are run.</p>
+
+<p>Each Flask server that is run from within the Docker container uses port <var class="keyword varname">5000</var>.
+Outwardly from the container, Docker maps that internal port 5000 to the next free port from the
+32768-60999 ephemeral range. During the registration phase, this outward mapped port is stored by
+<span class="ph">QRadar</span> so that web requests
+for an app, through <span class="ph">QRadar</span> are
+proxied to the correct container.</p>
+
+<p>The following code is a sample Python route:</p>
+
+<pre class="codeblock"><code>@app.route('/')
+def hello_world():
+    return 'Hello World!'</code></pre>
+<p>In a standalone Flask web server, a web request through a browser to
+<code class="ph codeph">http://localhost:5000</code> returns: <code class="ph codeph">Hello World!</code></p>
+
+<p>The following table outlines the specific version of Flask, and its dependencies:</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_byq_sc1_rt__table_izn_gnq_5t" dir="ltr" class="defaultstyle"><colgroup><col style="width:25%"><col style="width:25%"><col style="width:50%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d13344e341">Packages</th>
+
+<th id="d13344e344">Version</th>
+
+<th id="d13344e347">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d13344e341 ">Flask</td>
+
+<td headers="d13344e344 ">0.10.1</td>
+
+<td headers="d13344e347 ">Microframework, or micro web application framework</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e341 ">itsdangerous</td>
+
+<td headers="d13344e344 ">0.24</td>
+
+<td headers="d13344e347 ">Utility package for signing and encrypting data</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e341 ">jinja2</td>
+
+<td headers="d13344e344 ">2.7.3</td>
+
+<td headers="d13344e347 ">Template engine for python</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e341 ">markupsafe</td>
+
+<td headers="d13344e344 ">0.23</td>
+
+<td headers="d13344e347 ">Unicode escape library used alongside Jinja2</td>
+
+</tr>
+
+<tr>
+<td headers="d13344e341 ">Werkzeug</td>
+
+<td headers="d13344e344 ">0.96</td>
+
+<td headers="d13344e347 ">WSGI (Web Server Gateway Interface) utility library for Python</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>For more information, see the <a href="http://flask.pocoo.org/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Flask</a> website (http://flask.pocoo.org/).</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d13344e427"><h2 class="sectiontitle" id="d13344e427">Jinja2</h2>
+
+<p>Jinja2 is a Python library that enables you to create templates for various output formats from a
+core template text file. HTML is the format that is used for <span class="ph">QRadar</span> apps. Jinja2 has a rich
+API, and large array of syntactic directives (statements, expressions, variables, tags) that you use
+to dynamically inject content into the template file.</p>
+
+<p>Flask's in-built <code class="ph codeph">render_template()</code> method is the easiest way to inject data from
+a Python method, served by the route, into a Jinja2 HTML template, as shown in the following
+example.</p>
+
+<pre class="codeblock"><code>@app.route('/')
+def hello_world():
+    return render_template('hello.html', title='QRadar')</code></pre>
+<p>The template <span class="ph filepath">hello.html</span> contains the following code:</p>
+
+<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;title&gt;Hello from Flask&lt;/title&gt;
+  &lt;h1&gt;Hello {{ title }}!&lt;/h1&gt;</code></pre>
+<p>The following HTML output is produced:</p>
+
+<pre class="codeblock"><code>&lt;!doctype html&gt;
+&lt;title&gt;Hello from Flask&lt;/title&gt;
+  &lt;h1&gt;Hello QRadar!&lt;/h1&gt;</code></pre>
+<p>For more information, see the <a href="http://jinja.pocoo.org/docs/dev/" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Jinja2</a> website (http://jinja.pocoo.org/docs/dev/).</p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d13344e473"><h2 class="sectiontitle" id="d13344e473">HTTP request response lifecycle</h2>
+
+<p>When an app is successfully installed, requests to the app are proxied only by using an
+established connection to <span class="ph">QRadar</span>. The app cannot be directly accessed by using direct URL requests or any other method.</p>
+
+<p>Apps can establish a secure authenticated and authorized session to <span class="ph">QRadar</span>. Any authorization tokens
+that are created to verify that the integrity of session can be reused. The app obtains all the
+capabilities, security, and authenticity facets of <span class="ph">QRadar</span>. The app can use the user
+session state to get access to all of <span class="ph">QRadar</span> RESTful API endpoints to
+pull or push data to or from the <span class="ph">QRadar</span> system. </p>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d13344e505"><h2 class="sectiontitle" id="d13344e505">Containerized apps and the network</h2>
+
+<p>With the GUI Application Framework, traffic flows from container to container, from container to
+host on its public IP address (not localhost), and from containers to the outside world. </p>
+
+<p>When each app is passed as an archive (.zip file) of source code to the QRadar endpoints, QRadar builds the initial image specific to your app codebase. Each image runs as an individual container. As the container is run or started, QRadar maps the internal flask server port (5000) to an external ephemeral port. This external ephemeral port is registered to QRadar so that proxied requests to your app code are routed to the correct container.</p>
+
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d13344e529"><h2 class="sectiontitle" id="d13344e529"><code class="ph codeph">/debug</code> endpoints</h2>
+
+<p>All apps must include a <code class="ph codeph">/debug</code> endpoint or route that runs locally on port 5000.
+If you use the default flask framework, this endpoint is automatically included in your root
+<span class="ph filepath">_init_.py</span> file. This endpoint is used to ensure live apps are active and
+reachable.</p>
+
+<p>If you disable the default flask to allow the app to use its own web server, you must include a
+<code class="ph codeph">/debug</code> endpoint on port 5000. If you do not include the endpoint, your app will
+restart once per minute, as a result of <span class="ph">QRadar</span> being unable to receive a
+response from the app.</p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d13344e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

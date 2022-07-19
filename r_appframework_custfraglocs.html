@@ -1,0 +1,612 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use custom fragment injection points to display custom information in QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Custom fragments injection points</title>
+</head>
+<body id="reference_n3y_wxv_pw"><main role="main"><article role="article" aria-labelledby="d23340e10">
+<h1 class="topictitle1" id="d23340e10">Custom fragments injection points</h1>
+
+
+<div class="body refbody"><p class="shortdesc">Use custom fragment injection points to display custom information in  <span class="ph">QRadar®</span>.</p>
+
+<div class="section">
+<p>You add the injection point information to the <span class="keyword parmname">app_name</span>,
+<span class="keyword parmname">page_id</span>, and <span class="keyword parmname">location</span> fields in the
+<code class="ph codeph">fragments</code> block in the manifest file. The following table lists the injection point
+locations that you use in the <code class="ph codeph">fragments</code> block for each tab and page.</p>
+
+<p>For some <span class="ph">QRadar</span> pages, HTML
+fragments can be injected at the top (header) or bottom (footer) of the page. If injection points
+are not specified in the injection point name, the content is injected at the top of the page
+(header). On the <span class="ph uicontrol">Admin</span> tab, you can inject content at each section
+header.</p>
+
+<p>The following table shows examples of  custom fragments.</p>
+
+
+<div class="tablenoborder"><table summary="" id="reference_n3y_wxv_pw__table_zdq_nyv_pw" class="defaultstyle"><caption><span class="tablecap">Table 1. Custom fragments injection point examples</span></caption><colgroup><col style="width:30.58103975535168%"><col style="width:69.41896024464832%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d23340e70">Tab and page</th>
+
+<th id="d23340e73">Sample manifest entry</th>
+
+</tr>
+
+</thead>
+<tbody>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">My Offenses</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "MyOffenseList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">My Offenses</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "MyOffenseList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">All Offenses</span><abbr title="and then"> &gt; </abbr></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "OffenseList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">All Offenses</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "OffenseList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Category</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "CategoryTypeSummaryList",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Source IP</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "AttackerList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Source IP</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "AttackerList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Destination IP</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "TargetList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Destination IP</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "TargetList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Network</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "NetworkList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Network</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "NetworkList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Rules</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "QRadar",
+        "page_id": "RulesWizardExistingRules",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Offenses</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Offense Summary</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "SEM",
+        "page_id": "OffenseSummary",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Asset Profiles</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "Assets",
+        "page_id": "AssetList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Asset Profiles</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "Assets",
+        "page_id": "AssetList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Server Discovery</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "Assets",
+        "page_id": "ServerDiscovery",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">VA Scan</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "Assets",
+        "page_id": "VaScannerSchedulesList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">VA Scan</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "Assets",
+        "page_id": "VaScannerSchedulesList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Asset Profiles</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Id</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Asset Details dialog</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "Assets",
+        "page_id": "AssetDetailsVulnList",
+        "location": "header"
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Asset Profiles</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Id</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Asset Details dialog</span></span> footer</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "Assets",
+        "page_id": "AssetDetailsVulnList",
+        "location": "footer"
+        "rest_endpoint": "/somerestendpoint"
+    },</code></pre>
+</td>
+
+</tr>
+
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">System Configuration</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "QRadar",
+        "page_id": "systemConfiguration",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Data Sources</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "QRadar",
+        "page_id": "dataSources",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Remote Networks &amp; Services Configuration</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "QRadar",
+        "page_id": "viewConfiguration",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Try it out</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "QRadar",
+        "page_id": "trialLicense",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d23340e70 "><span class="ph menucascade"><span class="ph uicontrol">Admin</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Plug-ins</span></span> header</td>
+
+<td headers="d23340e73 ">
+<pre class="codeblock"><code>
+"fragments": [
+    {
+        "app_name": "QRadar",
+        "page_id": "plugins",
+        "rest_endpoint": "/somerestendpoint"
+    }</code></pre>
+</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The following table describes custom fragments injection points that are not included in the
+Custom fragments injection points examples table.</p>
+
+<div class="p">
+<div class="tablenoborder"><table summary="" id="reference_n3y_wxv_pw__table_hpr_ftd_bz" class="defaultstyle"><caption><span class="tablecap">Table 2. Custom fragments injection points</span></caption><colgroup><col style="width:31.948881789137378%"><col style="width:68.05111821086261%"></colgroup><thead style="text-align:left;"><tr><th id="d23340e615">Tab and page</th>
+<th id="d23340e617">Injection point</th>
+</tr>
+</thead>
+<tbody><tr><td headers="d23340e615 "><span class="ph uicontrol">Admin</span></td>
+<td headers="d23340e617 "><span class="ph filepath">QRadar.allTabs</span></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph uicontrol">Asset Details dialog</span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Assets.AssetDetailsVulnList.header</code></pre><pre class="codeblock"><code>
+Assets.AssetDetailsVulnList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Assets</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Server Discovery</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Assets.ServerDiscovery</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph uicontrol">Dashboard</span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QRadar.Dashboard</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph uicontrol">Log Activity</span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>EventViewer.EventList.header</code></pre><pre class="codeblock"><code>EventViewer.EventList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph uicontrol">Network Activity</span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>
+Surveillance.FlowList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Reports </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">All</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Reports.ReportTemplateListAll.header</code></pre><pre class="codeblock"><code>
+Reports.ReportTemplateListAll.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Reports </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Daily</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Reports.ReportTemplateListDaily.header
+</code></pre><pre class="codeblock"><code>Reports.ReportTemplateListDaily.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Reports</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Hourly</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Reports.ReportTemplateListHourly.header</code></pre><pre class="codeblock"><code>Reports.ReportTemplateListHourly.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Reports</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manual </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Reports.ReportTemplateListManual.header</code></pre><pre class="codeblock"><code>Reports.ReportTemplateListManual.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Reports</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Monthly</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Reports.ReportTemplateListMonthly.header</code></pre><pre class="codeblock"><code>Reports.ReportTemplateListMonthly.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Reports</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Weekly</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>Reports.ReportTemplateListWeekly.header</code></pre><pre class="codeblock"><code>Reports.ReportTemplateListWeekly.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Configuration Monitor</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.ConfigDeviceList</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Connections </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QRadar.ArcList.header</code></pre><pre class="codeblock"><code>QRadar.ArcList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Policy Management </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> By Asset</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.ByAssetList</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Policy</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Policy </span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.ByPolicyList</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Policy Management </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Policy Check</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.ByPolicyCheckList</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Policy Monitor </span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.MaintainQuestions</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Simulation</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Simulations</span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.SimulationList.header</code></pre><pre class="codeblock"><code>SRM.SimulationList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Simulation</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Topology Models</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.ModelList.header</code></pre><pre class="codeblock"><code>SRM.ModelList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Risks </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Topology</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>SRM.NetworkTopology</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Administrative</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Operational Window</span></span>
+</td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.OperationalWindowList.header</code></pre><pre class="codeblock"><code>QVM.OperationalWindowList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Administrative </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Scan Exclusions</span></span>
+</td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ExclusionList.header</code></pre><pre class="codeblock"><code>QVM.ExclusionList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Administrative</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Scan Policies </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ScanPolicies.header</code></pre><pre class="codeblock"><code>QVM.ScanPolicies.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Administrative </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Scan Profiles </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ScanProfileList.header</code></pre><pre class="codeblock"><code>QVM.ScanProfileList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Administrative </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Scanners </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ScannersAdminList.header
+</code></pre><pre class="codeblock"><code>QVM.ScannersAdminList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Administrative</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Scheduled Scans </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ScheduledScans</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.ByVulnerabilityInstanceList.header</code></pre><pre class="codeblock"><code>assetprofile.ByVulnerabilityInstanceList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Asset</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.ByAssetListForm.header</code></pre><pre class="codeblock"><code>assetprofile.ByAssetListForm.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Network </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.ByNetworkList.header</code></pre><pre class="codeblock"><code>assetprofile.ByNetworkList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Manage</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Open Service </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.ByOpenServiceList.header</code></pre><pre class="codeblock"><code>assetprofile.ByOpenServiceList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Manage </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">By Vulnerability </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.ByVulnerabilityList.header</code></pre><pre class="codeblock"><code>assetprofile.ByVulnerabilityList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">My Assigned</span></span>
+</td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile
+.MyAssignedVulnerabilitiesList.header</code></pre><pre class="codeblock"><code>assetprofile
+.MyAssignedVulnerabilitiesList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Research </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Advisories </span></span> </td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ResearchAdvisoriesList.header</code></pre><pre class="codeblock"><code>QVM.ResearchAdvisoriesList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities</span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Research </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">News </span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ResearchNewsList.header</code></pre><pre class="codeblock"><code>QVM .ResearchNewsList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Research </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Vulnerabilities</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.ResearchVulnerabilityList.header</code></pre><pre class="codeblock"><code>assetprofile.ResearchVulnerabilityList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol">Scan Results</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>QVM.ScanResultsList.header</code></pre><pre class="codeblock"><code>QVM.ScanResultsList.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Vulnerability Assignment</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.AssetOwner.header</code></pre><pre class="codeblock"><code>assetprofile.AssetOwner.footer</code></pre></td>
+</tr>
+<tr><td headers="d23340e615 "><span class="ph menucascade"><span class="ph uicontrol">Vulnerabilities </span><abbr title="and then"> &gt; </abbr><span class="ph uicontrol"> Vulnerability Exception</span></span></td>
+<td headers="d23340e617 "><pre class="codeblock"><code>assetprofile.ExceptionRulesList.header</code></pre><pre class="codeblock"><code>assetprofile.ExceptionRulesList.footer</code></pre></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d23340e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

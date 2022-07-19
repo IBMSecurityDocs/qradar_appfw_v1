@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<title>Developing with the QRadar app framework</title>
+</head>
+<body id="concept_snv_ndx_n4b"><main role="main"><article role="article" aria-labelledby="d29149e10">
+<h1 class="topictitle1" id="d29149e10">Developing with the <span class="ph">QRadar</span> app framework</h1>
+
+
+
+<div class="body conbody"><p class="shortdesc"><span class="ph">QRadar</span> GUI
+application framework apps are stand-alone web applications that run on the Flask micro-framework,
+and are served from the Flask web server.</p>
+
+<div class="note"><span class="notetitle">Note:</span> Use this documentation for maintaining apps built using CentOS, Python 2, and the QRadar App
+Framework version 1. For newer apps built using <a href="https://www.ibm.com/links?url=https%3A%2F%2Fwww.redhat.com%2Fen%2Fblog%2Fintroducing-red-hat-universal-base-image" rel="noopener" target="_blank" title="(Opens in a new tab or window)">Red Hat Universal Base Image</a> (UBI) 8 and Python 3, see the
+<a href="https://www.ibm.com/support/knowledgecenter/SS42VS_SHR/com.ibm.appfw_md.doc/docs/documentation/qradar_app_sdk_overview.html" rel="noopener" target="_blank" title="(Opens in a new tab or window)">App Framework version 2 documentation</a>. <span class="ph">IBM® X-Force® Exchange</span> no longer accepts new apps
+using App Framework version 1.</div>
+
+<p> </p>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d29149e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink" data-hd-otherprops="732"><strong><a href="c_app_fw_whats_new.html">What's new for the application framework in QRadar V.7.4.0</a></strong><br>
+<span class="ph">IBM QRadar</span> V.7.4.0 introduces new features and enhancements.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_Extintro.html">QRadar apps</a></strong><br>
+Use <span class="ph">IBM QRadar</span> apps to extend and enhance your current <span class="ph">QRadar</span> deployment with new data and ready-to-use use cases. </li>
+<li class="ulchildlink"><strong><a href="c_appframework_overview.html">QRadar app development overview</a></strong><br>
+Use the <span class="ph">IBM QRadar</span> GUI Application Framework to develop new application modules that integrate with <span class="ph">QRadar</span> and provide new capabilities.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_fundamentals.html">GUI application framework fundamentals</a></strong><br>
+<span class="ph">QRadar</span> GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server. </li>
+<li class="ulchildlink"><strong><a href="c_appframework_structure.html">App file structure</a></strong><br>
+An <span class="ph">IBM QRadar</span> app that you create is distributed within a compressed file.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_appTypes.html">Manifest object types</a></strong><br>
+You can define several objects types in the <span class="ph">IBM QRadar</span> Application Framework manifest.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_HelloWorld.html">The Hello World sample app</a></strong><br>
+When you add an app in the <span class="keyword wintitle">Application Development Manager</span> window, a simple "Hello World" sample app is also created. </li>
+<li class="ulchildlink"><strong><a href="c_appframework_SDKintro.html">Software development kit overview</a></strong><br>
+The <span class="ph">IBM QRadar</span> application framework comes with its own software development kit (SDK).</li>
+<li class="ulchildlink"><strong><a href="t_appframework_SDKinstall.html">Installing the SDK</a></strong><br>
+The <span class="ph">IBM QRadar</span> Application Framework comes with its own software development kit (SDK).</li>
+<li class="ulchildlink"><strong><a href="c_appframework_py_2.7_not_2.6.html">Use Python 2.7 in your app</a></strong><br>
+Use environmental variables to make your app use Python 2.7 instead of Python 2.6.</li>
+<li class="ulchildlink"><strong><a href="t_appframework_createDevEnv.html">Creating your development environment</a></strong><br>
+Use the <span class="ph">QRadar</span> GUI Application Framework SDK (Software Development Kit) to create a basic development environment for your app. </li>
+<li class="ulchildlink" data-hd-otherprops="731"><strong><a href="c_appframework_oauth.html">OAuth app authorization with QRadar</a></strong><br>
+Apps use the OAuth authorization protocol to authorize the app to access <span class="ph">QRadar</span> resources.</li>
+<li class="ulchildlink" data-hd-otherprops="732"><strong><a href="c_app_fw_encdec.html">Encryption and secure data storage in app development</a></strong><br>
+Use the QRadar Python <span class="ph filepath">endec</span> module to encrypt data in apps that you develop and prevent the transmission of secure data and passwords in clear text. The <span class="ph filepath">endec</span> module is built into the Application Framework Software Development Kit (SDK) to enable encryption and secure data storage in the apps that you develop.</li>
+<li class="ulchildlink"><strong><a href="c_app_fw_multi_tenant.html">Multitenancy support for apps</a></strong><br>
+<span class="ph">QRadar</span> V7.4.0 and later includes support for multi-tenanted apps. A number of out of the box apps, such as Pulse, Assistant, and Log source manager, can now be used in a multitenant environment.</li>
+<li class="ulchildlink"><strong><a href="t_appframework_createExt.html">Creating an extension from your app</a></strong><br>
+After you deploy and test your app, you must export it as an extension to deploy it in a production environment.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_samples_intro.html">Sample apps</a></strong><br>
+Build apps in Python that integrate with, and add extra functions to, <span class="ph">QRadar</span>. </li>
+<li class="ulchildlink" data-hd-otherprops="730"><strong><a href="c_appfw_namedServices.html">Named services</a></strong><br>
+Use the named services feature to define background processes for an app that other apps and <span class="ph">IBM QRadar</span> can communicate with in an asynchronous manner.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_SupportFunctions.html">Support functions</a></strong><br>
+The <span class="ph">IBM QRadar</span> GUI Application Framework comes with several built-in routes, custom Jinja2 Flask functions, and other helper utilities that support app development.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_python_helper_lib.html">QRadar Python helper library functions</a></strong><br>
+The <span class="ph">QRadar</span> Python helper library (<span class="keyword apiname">qpylib</span>) contains several useful functions that you can use to add logging, make REST API calls, and convert JSON objects to Python dictionaries.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_Jinja2Tmpls.html">Jinja2 templates</a></strong><br>
+Jinja2 is a Python library that you can use to construct templates for various output formats from a core template text file. It can be used to create HTML templates for <span class="ph">IBM QRadar</span> applications.</li>
+<li class="ulchildlink"><strong><a href="r_appfw_JSLib.html">App Framework JavaScript library</a></strong><br>
+The App Framework JavaScript library provides helper functions for common <span class="ph">QRadar</span> calls that you can integrate into your own scripts.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_pyComms.html">Communicating with QRadar hosts from Python</a></strong><br>
+You can communicate with <span class="ph">IBM QRadar</span> Hosts from Python by using the REST endpoints that <span class="ph">QRadar</span> exposes.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_RESTAPI.html">GUI Application Framework REST API endpoints</a></strong><br>
+GUI Application Framework endpoints are available in the latest version of the <span class="ph">IBM QRadar</span> API that you can use to develop apps.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_logs.html">App logs</a></strong><br>
+App logs are stored in the <span class="ph filepath">/store/log</span> directory of your application's Docker container.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_disableApp.html">Stopping, restarting, and uninstalling an app</a></strong><br>
+You can stop, restart, or uninstall your app by using the <span class="ph">IBM QRadar</span> GUI Application Framework REST API endpoints.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_app_upgrades.html">App upgrades</a></strong><br>
+Upgrade your app by using the <span class="ph">IBM QRadar</span> <span class="ph uicontrol">Extensions Management</span>.</li>
+<li class="ulchildlink"><strong><a href="r_appframework_CapGrpID.html">Available user role capabilities</a></strong><br>
+Capabilities are sets of permissions that are tied to user roles that are defined in the <span class="ph">IBM QRadar</span> <span class="ph uicontrol">Admin</span> tab.</li>
+<li class="ulchildlink"><strong><a href="r_appframework_pageIDs.html">App names, GUI action groups, and page IDs</a></strong><br>
+App names, GUI action groups, and page IDs are identifiers that <span class="ph">IBM QRadar</span> uses for <span class="ph">QRadar</span> products, GUI actions, and UI pages. </li>
+<li class="ulchildlink"><strong><a href="c_appframework_GuiL10n.html">Application globalization</a></strong><br>
+Globalization refers to implementing multi-language support for your app that is built into the application without the need for further engineering efforts.</li>
+<li class="ulchildlink"><strong><a href="r_appframework_custfraglocs.html">Custom fragments injection points</a></strong><br>
+Use custom fragment injection points to display custom information in  <span class="ph">QRadar</span>.</li>
+<li class="ulchildlink"><strong><a href="r_appframework_custcolslocs.html">Custom column injection points</a></strong><br>
+Use custom column injection points to add custom columns in <span class="ph">QRadar</span>.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_CREResp.html">Custom actions for CRE responses</a></strong><br>
+You can add your own script that runs as a part of a custom action when a custom rules engine (CRE) rule is triggered.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_AQLsamples.html">Custom AQL functions</a></strong><br>
+You can create <span class="ph">IBM QRadar</span> apps that use custom Ariel Query Language (AQL) functions.</li>
+<li class="ulchildlink"><strong><a href="c_appframework_devResources.html">Resources</a></strong><br>
+Use various resources to help you to build apps with the <span class="ph">IBM QRadar</span> GUI Application Framework</li>
+</ul>
+</nav></aside></article></main></body></html>

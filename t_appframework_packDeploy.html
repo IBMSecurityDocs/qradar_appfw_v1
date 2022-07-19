@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use the QRadar GUI Application Framework to package your app as an archive (.zip file) and deploy it to your IBM QRadar test environment.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="t_appframework_createDevEnv.html">
+<title>Packaging and deploying your app</title>
+</head>
+<body id="t_appframework_packDeploy"><main role="main"><article role="article" aria-labelledby="d14635e10">
+<h1 class="topictitle1" id="d14635e10">Packaging and deploying your app</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">Use the <span class="ph">QRadar®</span> GUI
+Application Framework to package your app as an archive (.zip file) and deploy it to your <span class="ph">IBM®
+QRadar</span> test
+environment.</p>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14635e29">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Open a shell prompt and use the <span class="keyword cmdname">cd</span> command to go to the
+<span class="ph filepath">bin</span> sub folder of your SDK installation folder.</span>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Package your app by using the following command syntax: </span> 
+<div class="itemgroup info">
+<p><kbd class="ph userinput">qradar_app_creator package -w
+<var class="keyword varname">&lt;path_to_app_folder&gt;</var>/<var class="keyword varname">&lt;app_name_folder&gt;</var> -p
+<var class="keyword varname">&lt;app_name.zip&gt;</var></kbd>
+</p>
+
+</div>
+<ul class="ul choices">
+<li class="li choice">To package an app on UNIX or Linux computers, type the following
+command:<p><kbd class="ph userinput">qradar_app_creator package -w
+<var class="keyword varname">&lt;path_to_app_folder&gt;</var>/<var class="keyword varname">&lt;app_name_folder&gt;</var> -p
+<var class="keyword varname">&lt;app_name.zip&gt;</var></kbd></p>
+</li>
+
+<li class="li choice">To package an app on a Windows computer, type the following
+command:<p><kbd class="ph userinput">qradar_app_creator package -w
+<var class="keyword varname">&lt;path_to_app_folder&gt;</var>\<var class="keyword varname">&lt;app_name_folder&gt;</var> -p
+<var class="keyword varname">&lt;app_name.zip&gt;</var></kbd></p>
+</li>
+
+</ul>
+
+</li>
+<li class="step stepexpand">
+<span class="cmd">Upload your app (extension) to your <span class="ph">QRadar
+Console</span> by using the following
+command, and then press <span class="ph uicontrol">Enter</span>.</span> 
+<div class="itemgroup info">
+<p><kbd class="ph userinput">qradar_app_creator deploy -q &lt;QRadar_console_IP&gt; -u admin -p
+&lt;app_name.zip&gt;</kbd>. </p>
+
+</div>
+<div class="itemgroup stepxmp">
+<p>Here is an example of the command:</p>
+
+<p><kbd class="ph userinput">qradar_app_creator deploy -q 10.11.12.13 -u admin -p com.me.myapp.zip</kbd>
+</p>
+
+<p></p>
+
+</div>
+<div class="itemgroup info">
+<div class="note"><span class="notetitle">Note:</span> Make sure that you record the application ID for your app from <span class="keyword parmname">Application Creation
+Task state</span> output that is returned when you issue the <span class="keyword cmdname">qradar_app_creator
+deploy</span> command. You need it when you export you app as a <span class="ph">QRadar</span> extension.<p>In the
+following example, the application ID is
+<samp class="ph systemoutput">1023</samp>.</p>
+<pre class="codeblock"><code><samp class="ph systemoutput">Application Creation Task state: {u'status': u'COMPLETED',
+ u'application_id': u1023', u'error_messages': u'[]'}&nbsp;</samp></code></pre></div>
+
+</div>
+<div class="itemgroup stepresult">
+<p>If you're viewing your  <span class="ph">QRadar
+Console</span>
+user interface in a browser, refresh your browser to see your app running.</p>
+
+</div>
+</li>
+</ol>
+
+<section class="section postreq" role="region" aria-labelledby="taskd14635e167"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14635e167">What to do next</h2></div>
+<p>After you successfully test your app, you can use the <span class="ph">QRadar</span> Content Management Tool to
+export the app as an extension. You then use the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Extensions Management</span> tool on the <span class="ph uicontrol">Admin</span> settings page
+to install your extension on your <span class="ph">QRadar
+Console</span>.</p>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d14635e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="t_appframework_createDevEnv.html" title="Use the QRadar GUI Application Framework SDK (Software Development Kit) to create a basic development environment for your app.">Creating your development environment</a></div>
+</div>
+</nav></aside></article></main></body></html>

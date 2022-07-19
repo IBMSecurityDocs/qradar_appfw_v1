@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="This example shows how to run a Node.js server as a named service with a single endpoint. The app takes data that is served from the service's endpoint and displays it on a new tab in the QRadar UI.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<link rel="Start" href="c_appfw_namedServices.html">
+<title>Named service sample app</title>
+</head>
+<body id="c_appfw_tutorial_namedService"><main role="main"><article role="article" aria-labelledby="d29650e10">
+<h1 class="topictitle1" id="d29650e10">Named service sample app</h1>
+
+
+<div class="body conbody"><p class="shortdesc">This example shows how to run a Node.js server as a named service with a single endpoint.
+The app takes data that is served from the service's endpoint and displays it on a new tab in the
+<span class="ph">QRadar®</span> UI.</p>
+
+<div class="fignone" id="c_appfw_tutorial_namedService__fig_fh1_s5z_qx">
+<div class="image"><img src="namedService4.svg" alt="Named service Node.js example"></div>
+</div>
+
+<p>Because this example uses Node.js rather than Flask as the web application framework, the Node.js
+runtime environment is installed as a source dependency in the app's
+<span class="ph filepath">/src_deps/init</span> folder. For more information about using source dependencies,
+see <a href="t_appfw_installNodeJS.html#t_appfw_installNodeJS" title="You can install Node.js as a web application framework to replace the Flask framework that is included with the QRadar GUI Application Framework SDK.">Installing Node.js as a source dependency</a>.</p>
+
+<section class="section" role="region" aria-labelledby="d29650e46"><h2 class="sectiontitle" id="d29650e46"><span class="ph filepath">manifest.json</span></h2>
+
+<p>The sample app's manifest file tells <span class="ph">QRadar</span> to run the web server
+script. It defines the port that the web server monitors from, and a service with an endpoint that
+retrieves the data resource.</p>
+
+<p>For more information about the services object type, see <a href="c_appframework_ServicesType.html#c_appframework_ServicesType" title="Defines named services, service endpoints, and supervisord configuration parameters.">Services type</a></p>
+
+<pre class="codeblock"><code>{
+	"name":"Named service example",
+	"description":"Named service example",
+	"version":"1.0",
+	"load_flask": "false", <span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+	"uuid":"ed9f7033-159b-4697-8c2a-0744010dcf49",
+
+	"services": <span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+             [ 
+			{
+			"command": "node /node_app/app/server.js",<span class="keyword calloutlabel">&nbsp;3&nbsp;</span>
+			"directory": "/node_app",<span class="keyword calloutlabel">&nbsp;4&nbsp;</span>
+			"endpoints":  <span class="keyword calloutlabel">&nbsp;5&nbsp;</span>
+                      [ 
+				{
+					"name": "listusers", 
+					"path":"/list_users",
+					"http_method": "GET"
+				}				
+			   ],
+			 "name": "nodejsservice", <span class="keyword calloutlabel">&nbsp;6&nbsp;</span>
+			 "path":"/list_users", <span class="keyword calloutlabel">&nbsp;7&nbsp;</span>
+			 "port": 5000, <span class="keyword calloutlabel">&nbsp;8&nbsp;</span>
+			 "version": "1"
+			}
+	         ],
+
+	 "areas": 
+             [ <span class="keyword calloutlabel">&nbsp;9&nbsp;</span>
+		    {
+			"id":"multins",
+			"text":"multins",
+			"description":"named service example",
+			"url":"list_users",
+			"named_service":"nodejsservice", 
+			"required_capabilities":["ADMIN"]
+		      }
+	        ]
+}
+</code></pre>
+<ol>
+<li>Flask is not loaded because the app uses Node.js to serve content.</li>
+
+<li>The <span class="keyword parmname">services</span> block defines the service name, version, and any endpoints it
+uses. In addition, supervisord configuration parameters can also be added here. For a full list of
+available parameters, see <a href="c_appframework_ServicesType.html#c_appframework_ServicesType__table_kpb_rtp_px">Table 3</a>.</li>
+
+<li>This command is used by the Node.js runtime environment to run the web server script. </li>
+
+<li>The path to the directory that supervisord changes to before it executes the child process.</li>
+
+<li>The endpoint to be implemented by the service. The GET listusers endpoint retrieves a list of
+users that is stored in a JSON source file, <span class="ph filepath">users.json</span>.<p>For more information
+about the endpoints field configuration parameters, see <a href="c_appframework_ServicesType.html#c_appframework_ServicesType__table_p1w_3hq_px">Table 2</a>.</p>
+</li>
+
+<li>The name of the service that must be referenced in the <span class="keyword parmname">name_service</span> fields
+of objects that want to use the service.</li>
+
+<li>The URL that is used to access the endpoint.</li>
+
+<li>The port number that the web server listens on. Because Flask is not being used here, the port
+must be set.</li>
+
+<li> The <span class="keyword parmname">area</span> block adds a tab to the <span class="ph">QRadar</span> UI that displays the list
+of users and their associated data that is retrieved by the service's <span class="keyword apiname">listusers</span>
+endpoint.</li>
+
+</ol>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d29650e160"><h2 class="sectiontitle" id="d29650e160"><span class="ph filepath">/node_app/server/server.js</span></h2>
+
+<p>As Flask is not being used in this example, no <span class="ph filepath">views.py</span> is required for the
+app. The following section contains the web server code that serves the JSON content. </p>
+
+<pre class="codeblock"><code>var express = require('express');
+var app = express();
+var fs = require("fs");
+
+app.use(express.static('public')); <span class="keyword calloutlabel">&nbsp;1&nbsp;</span>
+
+app.get('/list_users', function (req, res) { <span class="keyword calloutlabel">&nbsp;2&nbsp;</span>
+   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+       console.log( data );
+       res.send( data );
+   });
+})
+
+var server = app.listen(5000, function () { <span class="keyword calloutlabel">&nbsp;3&nbsp;</span>
+
+  var host = server.address().address
+  var port = server.address().port
+
+  console.log("Example app listening at http://%s:%s", host, port)
+
+})
+</code></pre>
+<ol>
+<li>This function notifies the Node.js server to serve the content from the
+<span class="ph filepath">node_app/public</span> folder.</li>
+
+<li>This function retrieves the content from the <span class="ph filepath">/node_app/server/users.json</span>
+file.</li>
+
+<li> The <span class="keyword apiname">app.listen</span> function sets the port that the server listens on. The port
+must be the same as you configured in the app's manifest.</li>
+
+</ol>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d29650e206"><h2 class="sectiontitle" id="d29650e206"><span class="ph filepath">/node_app/server/users.json</span></h2>
+
+<p>In this example, the <span class="ph filepath">/node_app/server/users.json</span> file is used as the data
+source.</p>
+
+<pre class="codeblock"><code>{
+   "user1" : {
+      "name" : "mahesh",
+      "password" : "password1",
+      "profession" : "teacher",
+      "id": 1
+   },
+   "user2" : {
+      "name" : "suresh",
+      "password" : "password2",
+      "profession" : "librarian",
+      "id": 2
+   },
+   "user3" : {
+      "name" : "ramesh",
+      "password" : "password3",
+      "profession" : "clerk",
+      "id": 3
+   }
+}
+</code></pre>
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d29650e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a data-hd-otherprops="730" href="c_appfw_namedServices.html" title="Use the named services feature to define background processes for an app that other apps and IBM QRadar can communicate with in an asynchronous manner.">Named services</a></div>
+</div>
+</nav></aside></article></main></body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Adds custom columns to tables in IBM QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>Custom columns type</title>
+</head>
+<body id="c_appframework_CustomColumnType"><main role="main"><article role="article" aria-labelledby="d20653e10">
+<h1 class="topictitle1" id="d20653e10">Custom columns type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Adds custom columns to tables in <span class="ph">IBM®
+QRadar®</span>.</p>
+
+<p>You can add columns in various locations in <span class="ph">QRadar</span>. Different apps can add a
+column to the same table. However, each app can add one column only for each table. </p>
+
+<p>The following table describes the <code class="ph codeph">custom_columns</code> block fields in the
+<code class="ph codeph">manifest.json</code> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_CustomColumnType__table_t2v_tqc_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. <code class="ph codeph">Custom_columns</code> block fields</span></caption><colgroup><col style="width:28.57142857142857%"><col style="width:16.285714285714285%"><col style="width:14.285714285714285%"><col style="width:40.857142857142854%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d20653e62"> Field </th>
+
+<th id="d20653e65"> Required </th>
+
+<th id="d20653e68"> Type </th>
+
+<th id="d20653e71"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d20653e62 "><span class="keyword parmname">label</span></td>
+
+<td headers="d20653e65 "> Yes </td>
+
+<td headers="d20653e68 "> String </td>
+
+<td headers="d20653e71 ">The name of the column. This string can also be a resource bundle key for globalization
+purposes.</td>
+
+</tr>
+
+<tr>
+<td headers="d20653e62 "><span class="keyword parmname">rest_endpoint</span></td>
+
+<td headers="d20653e65 ">Yes</td>
+
+<td headers="d20653e68 "> String </td>
+
+<td headers="d20653e71 ">Identifies the REST API endpoint that <span class="ph">QRadar</span> invokes to retrieve the
+custom content for the column. An app's custom fragment REST endpoint must return a JSON response
+body.</td>
+
+</tr>
+
+<tr>
+<td headers="d20653e62 "><span class="keyword parmname">page_id</span></td>
+
+<td headers="d20653e65 "> Yes </td>
+
+<td headers="d20653e68 "> String </td>
+
+<td headers="d20653e71 ">The ID of the page that contains the table where the column is to be added.</td>
+
+</tr>
+
+
+</tbody>
+</table>
+</div>
+
+<p>The following code sample shows how to configure the <code class="ph codeph">custom_columns</code> block in the
+manifest file.</p>
+
+<pre class="codeblock"><code>{
+...
+    "custom_columns": [
+        {
+            "label": "labelfrommanifest",
+            "rest_endpoint": "test_method", 
+            "page_id": "AssetList"
+        }
+    ],
+...
+}</code></pre>
+</div>
+
+<aside role="complementary" aria-labelledby="d20653e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+
+<div class="linklist relinfo relconcepts" lang="en-us"><h2 class="linkheading">Related concepts</h2>
+<ul><li><a href="c_appfw_samples_CustomCols.html#c_appfw_samples_CustomCols" title="You can add columns that contain custom content to tables in QRadar.">Custom column example</a></li>
+</ul></div>
+</nav></aside>
+</article></main></body></html>

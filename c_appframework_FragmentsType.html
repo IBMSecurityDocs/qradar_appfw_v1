@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use to inject custom content fragments into IBM QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>Fragments type</title>
+</head>
+<body id="c_appframework_FragmentsType"><main role="main"><article role="article" aria-labelledby="d677e10">
+<h1 class="topictitle1" id="d677e10">Fragments type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Use to inject custom content fragments into <span class="ph">IBM®
+QRadar®</span>.</p>
+
+<p>The <code class="ph codeph">fragments</code> block contains fields that define the tab, page, and page area
+where you want to inject custom content. It also defines the REST endpoint that <span class="ph">QRadar</span> uses to generate custom
+content. Different apps can inject content into the same page location. However, each app can insert
+only one set of HTML content for each location. </p>
+
+<p>The following table describes the <code class="ph codeph">fragments</code> block fields in the
+<code class="ph codeph">manifest.json</code> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_FragmentsType__table_t2v_tqc_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. <code class="ph codeph">Fragments</code> block fields</span></caption><colgroup><col style="width:28.57142857142857%"><col style="width:14.285714285714285%"><col style="width:14.285714285714285%"><col style="width:42.857142857142854%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d677e65"> Field </th>
+
+<th id="d677e68"> Required </th>
+
+<th id="d677e71"> Type </th>
+
+<th id="d677e74"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d677e65 "><span class="keyword parmname">app_name</span></td>
+
+<td headers="d677e68 ">Yes </td>
+
+<td headers="d677e71 "> String </td>
+
+<td headers="d677e74 ">The <span class="ph">QRadar</span> app into
+which the content is to be injected.</td>
+
+</tr>
+
+<tr>
+<td headers="d677e65 "><span class="keyword parmname">page_id</span></td>
+
+<td headers="d677e68 ">Yes </td>
+
+<td headers="d677e71 "> String </td>
+
+<td headers="d677e74 ">The identifier of the page in <span class="ph">QRadar</span> UI into which the content
+is injected.</td>
+
+</tr>
+
+<tr>
+<td headers="d677e65 "><span class="keyword parmname">location</span></td>
+
+<td headers="d677e68 "> No</td>
+
+<td headers="d677e71 "> String </td>
+
+<td headers="d677e74 ">The location on the <span class="ph">QRadar</span> page where the custom
+content is injected.<p>To inject content at the top of a page, if permitted, the value for this
+parameter is <kbd class="ph userinput">header</kbd>. To inject content at the bottom of a page, if permitted,
+the value for this parameter is <kbd class="ph userinput">footer</kbd>. If the page has only one injection
+point, don't include this field.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d677e65 "><span class="keyword parmname">rest_endpoint</span></td>
+
+<td headers="d677e68 "> Yes </td>
+
+<td headers="d677e71 "> String </td>
+
+<td headers="d677e74 ">Identifies the REST API endpoint that <span class="ph">QRadar</span> invokes to retrieve the
+custom content. Can be any REST endpoint, not necessarily one that is provided by this app. An app's
+custom fragment REST endpoint must return a JSON response body.</td>
+
+</tr>
+
+
+</tbody>
+</table>
+</div>
+
+<p>The following example specifies content that is retrieved from the
+<code class="ph codeph">/myoffensesheadercontent</code> endpoint to be injected into the header area of the
+<span class="keyword wintitle">Offense List</span> page.</p>
+
+<pre class="codeblock"><code>{
+...
+
+      "fragments": [
+                {
+                  "app_name": "SEM",
+                  "page_id": "MyOffenseList",
+                  "location": "header",
+                  "rest_endpoint": "/myoffensesheadercontent"
+       
+                 }
+                     ],
+...
+}</code></pre>
+<p>For more information about adding custom content fragments to the QRadar user interface, see
+<a href="c_appfw_samples_CustFrags.html#c_appfw_samples_CustFrags" title="The custom fragments feature allows an app to inject its own content into QRadar tabs and pages. The application determines what the content is and how it is rendered. The injection points are fixed, predetermined locations within the QRadar page set.">Custom fragments example</a>.</p>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d677e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+</nav></aside></article></main></body></html>

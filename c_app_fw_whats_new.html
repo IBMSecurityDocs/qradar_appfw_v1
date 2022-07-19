@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="IBM QRadar V.7.4.0 introduces new features and enhancements.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>What's new for the application framework in QRadar V.7.4.0</title>
+</head>
+<body id="concept_xt1_tpg_2bb"><main role="main"><article role="article" aria-labelledby="d5816e10">
+<h1 class="topictitle1" id="d5816e10">What's new for the application framework in <span class="ph">QRadar</span> V.7.4.0</h1>
+
+
+<div class="body conbody"><p class="shortdesc"><span class="ph">IBM®
+QRadar®</span> V.7.4.0
+introduces new features and enhancements.</p>
+
+<section class="section" role="region" aria-labelledby="d5816e30" id="concept_xt1_tpg_2bb__wn_optimized_backup_recovery"><h2 class="sectiontitle" id="d5816e30">Run apps in a multi-tenant environment</h2>
+
+<p><span class="ph">QRadar</span> V.7.4.0 includes
+support for multi-tenanted apps. A number of out of the box apps, such as Pulse, Assistant, and Log
+source manager, can now be used in a multi-tenant environment.</p>
+
+<div class="p">App developers will now be able to mark that their app has been tested and works in a
+multi-tenanted environment. There are two forms of multi-tenancy support in apps:<ol>
+<li>The app is tested and works with multi-tenancy, but it is not multi-tenancy aware. When a user
+installs the app, they are presented with the option to create a default instance. Users can select
+this option if they only want a single instance of the app, or the app does not need to support
+multi-tenancy. If a user does not select the <span class="ph uicontrol">Default Instance</span> option, they
+must create a separate instance for each customer and associate each instance with a security
+profile to keep all client data separate.</li>
+
+<li>The app is tested and is multi-tenancy aware. In this case, only one instance of the app is
+necessary. This type of app is also beneficial if the app is designed to be used only by
+administrators. </li>
+
+</ol>
+</div>
+
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d5816e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

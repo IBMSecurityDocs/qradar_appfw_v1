@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2021">
+
+
+
+<meta name="description" content="You can use third-party dependencies, such as RPMs or Python libraries, when you are developing an application in the IBM QRadar App Editor.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_app_editor_overview.html">
+<title>Adding app source dependencies with the QRadar App Editor</title>
+</head>
+<body id="task_sqt_lp5_k3b"><main role="main"><article role="article" aria-labelledby="d14317e10">
+<h1 class="topictitle1" id="d14317e10">Adding app source dependencies to use in the <span class="ph">QRadar</span> App Editor</h1>
+
+
+
+
+
+
+
+<div class="body taskbody"><p class="shortdesc">You can use third-party dependencies, such as RPMs or Python libraries, when you are
+developing an application in the <span class="ph">IBM®
+QRadar®</span> App Editor. </p>
+
+<section class="section context" role="region" aria-labelledby="taskd14317e38"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14317e38">About this task</h2></div>
+<p>Add third-party dependencies to your application by adding them to the <code class="ph codeph">src_deps</code>
+subdirectory of the app folder. For more information, see <a href="c_appframework_dependencies.html" title="If your app requires dependencies, such as RPMs or Python libraries, you can add them in the src_deps sub directory of the app folder.">Source dependencies</a>.</p>
+
+</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14317e60">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Add the source dependencies to the <code class="ph codeph">src_deps</code> subdirectory of the app folder on
+your local computer.</span> <div class="itemgroup info">
+<div class="note tip"><span class="tiptitle">Tip:</span> The <code class="ph codeph">src_deps</code> directory is an optional directory that developers
+can add to the app root folder to add dependencies to an app. For more information, see <a href="c_appframework_structure.html" title="An IBM QRadar app that you create is distributed within a compressed file.">App file structure</a>.</div>
+
+</div></li>
+<li class="step stepexpand"><span class="cmd">Upload your application by using the procedure described in <a href="t_app_editor_using.html" title="Edit and create files and folders in the app editor tab, which is created on the QRadar Console.">Editing apps in the <span class="ph">IBM
+QRadar</span> App Editor</a>. </span> <div class="itemgroup info">
+<div class="note tip"><span class="tiptitle">Tip:</span> While the editor does not support live editing of source dependencies, any existing
+dependencies are installed and available for use in the editor. The <code class="ph codeph">src_deps</code>
+directory is not shown in the App Editor, but its contents are included in your application when you
+export or redeploy it.</div>
+
+</div></li>
+</ol>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d14317e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_app_editor_overview.html" title="Develop and edit apps directly in IBM QRadar by using the QRadar App Editor.">QRadar App Editor</a></div>
+</div>
+
+<div class="linklist relinfo relconcepts" lang="en-us"><h2 class="linkheading">Related concepts</h2>
+<ul><li><a href="c_appframework_dependencies.html" title="If your app requires dependencies, such as RPMs or Python libraries, you can add them in the src_deps sub directory of the app folder.">Source dependencies</a></li>
+<li><a href="c_appframework_structure.html" title="An IBM QRadar app that you create is distributed within a compressed file.">App file structure</a></li>
+</ul></div>
+
+<div class="linklist relinfo reltasks" lang="en-us"><h2 class="linkheading">Related tasks</h2>
+<ul><li><a href="t_app_editor_using.html" title="Edit and create files and folders in the app editor tab, which is created on the QRadar Console.">Editing apps in the editor</a></li>
+</ul></div>
+</nav></aside>
+</article></main></body></html>

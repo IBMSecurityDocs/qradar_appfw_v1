@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Use the QRadar GUI Application Framework SDK (Software Development Kit) to create a basic development environment for your app.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appfw_container.html">
+<title>Creating your development environment</title>
+</head>
+<body id="t_appframework_createDevEnv"><main role="main"><article role="article" aria-labelledby="d14951e10">
+<h1 class="topictitle1" id="d14951e10">Creating your development environment</h1>
+
+
+<div class="body taskbody"><p class="shortdesc">Use the <span class="ph">QRadar®</span> GUI
+Application Framework SDK (Software Development Kit) to create a basic development environment for
+your app. </p>
+
+<section class="section context" role="region" aria-labelledby="taskd14951e22"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14951e22">About this task</h2></div>The SDK provides a sample template app that you use as a template to create your own app.
+Use Python 2.7.9 to develop your QRadar apps.</section>
+
+<div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14951e25">Procedure</h2></div><ol class="steps"><li class="step stepexpand">
+<span class="cmd">Create a folder on your computer for the <span class="ph">QRadar</span> sample app. Name the
+directory according to the following format.</span> 
+<div class="itemgroup stepxmp"><pre class="codeblock"><code>&lt;Author Namespace&gt;.&lt;App_Name&gt;.&lt;App_Version&gt;</code></pre>For
+example, the following directory name is an example of a good naming
+convention:<pre class="codeblock"><code>com.me.myApp.1.0.0 </code></pre></div>
+</li>
+<li class="step stepexpand">
+<span class="cmd">Depending on your operating system, type the following command: <kbd class="ph userinput">qradar_app_creator
+create -w <var class="keyword varname">&lt;path_to_app_folder&gt;</var>/com.me.myApp.1.0.0</kbd></span> 
+<ul class="ul choices">
+<li class="li choice">On UNIX and Linux operating systems, type the following
+command:<div class="p"><kbd class="ph userinput">qradar_app_creator create -w
+<var class="keyword varname">&lt;path_to_app_folder&gt;</var>/com.me.myApp.1.0.0</kbd><div class="note important"><span class="importanttitle">Important:</span> On
+Linux operating systems, keep the absolute path to your workspace short. File paths might be
+truncated because of the BINPRM_BUF_SIZE kernel constant (79 or 127 characters, depending on kernel
+version), leading to failure of this command.</div>
+</div>
+</li>
+
+<li class="li choice">On Windows operating systems, type the following command:<div class="p"><kbd class="ph userinput">qradar_app_creator
+create -w <var class="keyword varname">&lt;path_to_app_folder&gt;</var>\com.me.myApp.1.0.0</kbd><div class="note important"><span class="importanttitle">Important:</span> Folder and file names in paths must not contain spaces.</div>
+</div>
+</li>
+
+</ul>
+
+</li>
+</ol>
+
+<section class="section result" role="region" aria-labelledby="taskd14951e81"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14951e81">Results</h2></div>When you run the development environment script, the following folders and files that are
+described in the table are added to your app development folder.
+<div class="tablenoborder"><table summary="" id="t_appframework_createDevEnv__table_twp_gcj_lt" class="defaultstyle"><caption><span class="tablecap">Table 1. <span class="ph">QRadar</span> App files and
+folders in the development folder</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d14951e101">Files/Folders</th>
+
+<th id="d14951e104">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d14951e101 "><span class="ph filepath">app</span></td>
+
+<td headers="d14951e104 ">The root directory for application files. This directory contains the following files:<p>The
+<span class="ph filepath">qpylib</span> folder contains the Python library files that your app uses to run  <span class="ph">QRadar</span> tasks. For example; you can
+use the <span class="ph filepath">qpylib</span> library to connect to API endpoints, and get the storage
+path.</p>
+<p>The <span class="ph filepath">__init__.py</span> sample initialization file for your app. Creates a
+Flask instance, imports views from <span class="ph filepath">views.py</span> and functions from the
+<span class="ph filepath">qpylib</span> library.</p>
+<p>The <span class="ph filepath">views.py</span> file is the main entry
+point into the web app. This file and the <span class="ph filepath">manifest.json</span> file are the only files
+that are required for every app. This file contains sample code for the "Hello World"
+application.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="d14951e101 "><span class="ph filepath">store</span></td>
+
+<td headers="d14951e104 ">The directory where the app data is stored. It is not packaged into your app.</td>
+
+</tr>
+
+<tr>
+<td headers="d14951e101 "><span class="ph filepath">qradar_appfw_venv</span></td>
+
+<td headers="d14951e104 ">Contains the Python virtual environment where the dependencies are installed.</td>
+
+</tr>
+
+<tr>
+<td headers="d14951e101 "><span class="ph filepath">__init__.py</span></td>
+
+<td headers="d14951e104 ">Creates an instance of the Flask micro-framework that is used to serve content to <span class="ph">QRadar</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="d14951e101 "><span class="ph filepath">manifest.json</span></td>
+
+<td headers="d14951e104 ">Describes what the sample "Hello World" app does.</td>
+
+</tr>
+
+<tr>
+<td headers="d14951e101 "><span class="ph filepath">run.py</span></td>
+
+<td headers="d14951e104 ">Contains instructions to run the code that is in the <span class="ph filepath">app</span>
+subdirectory.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="section postreq" role="region" aria-labelledby="taskd14951e213"><div class="tasklabel"><h2 class="sectiontitle tasklabel" id="taskd14951e213">What to do next</h2></div>You are now ready to begin coding your app. Familiarize yourself with the requirements for
+the app and manifest file structures. </section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d14951e10"><nav role="navigation">
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="t_appframework_Eclipse.html">Developing apps in Eclipse</a></strong><br>
+After you set up your development environment, you import it into Eclipse to use that Eclipse integrated development environment (IDE) features to develop your app. </li>
+<li class="ulchildlink"><strong><a href="t_appframework_pyverOSX.html">Installing Python 2.7.9 on OSX</a></strong><br>
+You must install Python 2.7.9 to run <span class="ph">IBM® QRadar</span> Application Framework SDK on the OSX operating system.</li>
+<li class="ulchildlink"><strong><a href="t_appframework_packDeploy.html">Packaging and deploying your app</a></strong><br>
+Use the <span class="ph">QRadar</span> GUI Application Framework to package your app as an archive (.zip file) and deploy it to your <span class="ph">IBM QRadar</span> test environment.</li>
+<li class="ulchildlink"><strong><a href="t_appframework_runAppLocal.html">Running your application locally</a></strong><br>
+Rather than packaging and uploading your app every time you change something, you can test it by running it locally in a browser window.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+</div>
+</nav></aside></article></main></body></html>

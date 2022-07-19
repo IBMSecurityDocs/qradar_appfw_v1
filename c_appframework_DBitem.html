@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="You can use IBM QRadar GUI Application Framework to add a dashboard item to your QRadar dashboard.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_samples_intro.html">
+<title>Dashboard item example</title>
+</head>
+<body id="concept_ahn_3vz_4t"><main role="main"><article role="article" aria-labelledby="d10272e10">
+<h1 class="topictitle1" id="d10272e10">Dashboard item example</h1>
+
+
+<div class="body conbody"><p class="shortdesc">You can use <span class="ph">IBM®
+QRadar®</span> GUI Application Framework to add a dashboard item to your <span class="ph">QRadar</span> dashboard.</p>
+
+<p>You might use dashboards to display data that you want to view or use often, for example, you
+might want to monitor disk usage on your <span class="ph">QRadar</span> appliances.</p>
+
+<p>The sample dashboard item app adds a basic dashboard item to the <span class="ph">QRadar</span>
+<span class="ph uicontrol"> Dashboard</span> tab.</p>
+
+<p>The following image is a dashboard example that is created by an app in <span class="ph">QRadar</span>. </p>
+
+<div class="fignone" id="concept_ahn_3vz_4t__fig_wxz_qxz_4t">
+<div class="image"><img src="appframework_DBitem.svg" alt="Dashboard "></div>
+</div>
+
+<p>On the <span class="ph uicontrol">Dashboard</span> tab, the sample dashboard item is accessed by using the
+<span class="ph uicontrol">Add Item</span> menu.</p>
+
+<p>The following image shows the sample dashboard in the <span class="ph uicontrol">Add Item</span> menu.</p>
+
+<div class="fignone" id="concept_ahn_3vz_4t__fig_fn1_3yz_4t">
+<div class="image"><img src="appframework_DBmenu.svg" alt="Dashboard menu"></div>
+</div>
+
+<p>The dashboard sample app contains the files that are described in the following table:</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_ahn_3vz_4t__concept_a5z_4wh_nt__table_twp_gcj_lt" class="defaultstyle"><caption><span class="tablecap">Table 1. Dashboard sample app files</span></caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d10272e97">Files/Folders</th>
+
+<th id="d10272e100">Description</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="concept_ahn_3vz_4t__d67e32 "><span class="ph filepath">app</span></td>
+
+<td headers="concept_ahn_3vz_4t__d67e34 ">The root directory for application files. The <span class="ph filepath">app</span> folder contains the
+following files:<p><span class="ph filepath">qpylib</span> contains the Python library files that your
+application uses to connect to the <span class="ph">QRadar</span> API
+endpoints.</p>
+<p><span class="ph filepath">__init__.py</span> - a sample initialization that creates a Flask
+instance, imports views from <span class="ph filepath">views.py</span> script and functions from the
+<span class="ph filepath">qpylib</span> library.</p>
+<p><span class="ph filepath">views.py</span> the main entry point into
+the web application. This file and the <span class="ph filepath">manifest.json</span> file are the only files
+that are required in every app. Contains sample code for the Dashboard example app.</p>
+<p>The
+<span class="ph filepath">/static/sampleDashboardItemResponse.json</span> file contains the JSON object that
+contains the dashboard ID, title, and HTML string.</p>
+</td>
+
+</tr>
+
+<tr>
+<td headers="concept_ahn_3vz_4t__d67e32 "><span class="ph filepath">qradar_appfw_venv</span></td>
+
+<td headers="concept_ahn_3vz_4t__d67e34 ">Contains the Python virtual environment where the dependencies are installed.</td>
+
+</tr>
+
+<tr>
+<td headers="concept_ahn_3vz_4t__d67e32 "><span class="ph filepath">__init__.py</span></td>
+
+<td headers="concept_ahn_3vz_4t__d67e34 ">Creates an instance of the Flask micro-framework that is used to serve content to <span class="ph">QRadar</span>.</td>
+
+</tr>
+
+<tr>
+<td headers="concept_ahn_3vz_4t__d67e32 "><span class="ph filepath">manifest.json</span></td>
+
+<td headers="concept_ahn_3vz_4t__d67e34 ">Describes details about the sample Dashboard Example, which <span class="ph">QRadar</span> uses.</td>
+
+</tr>
+
+<tr>
+<td headers="concept_ahn_3vz_4t__d67e32 "><span class="ph filepath">run.py</span></td>
+
+<td headers="concept_ahn_3vz_4t__d67e34 ">Contains instructions to run the code that is in the <span class="ph filepath">/app</span> sub
+directory.</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<section class="section" role="region" aria-labelledby="d10272e206"><h2 class="sectiontitle" id="d10272e206"><span class="ph filepath">manifest.json</span></h2>
+
+<p>The <span class="ph filepath">manifest.json</span> file contains the following code:</p>
+
+<pre class="codeblock"><code>{
+  "name":"DashBoard Example",
+  "description":"Application to display a new dashboard item",
+  "version":"1.0",
+  "uuid":"558d7935-f00b-42da-a278-c82abdb12d21",
+
+ "dashboard_items":[
+   {
+    "text":"QDashBoardExample Item",
+    "description":"Sample dashboard item that is a copy of most recent offenses",
+    "rest_method":"sampleDashboardItem",
+    "required_capabilities":["ADMIN"]
+   }
+ ], 
+ "rest_methods": [
+  {
+   "name":"sampleDashboardItem",
+   "url":"/static/sampleDashboardItemResponse.json",
+   "method":"GET",
+   "argument_names":[]
+   "required_capabilities":["ADMIN"]
+   }
+ ]
+}</code></pre>
+<p>The first four objects, <code class="ph codeph">name</code>, <code class="ph codeph">description</code>,
+<code class="ph codeph"><span class="keyword parmname">version</span></code>, and <code class="ph codeph"><span class="keyword parmname">uuid</span></code>,
+provide basic application information.</p>
+
+<p>The <code class="ph codeph">dashboard_items</code> object describes a new item on the <span class="ph">QRadar</span>
+<span class="ph uicontrol">Dashboard</span> tab. These items are available to users, who can manually add the
+items to their dashboard.</p>
+
+<p>The <code class="ph codeph">dashboard_items</code> block contains the fields that are described in the
+following table:</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_ahn_3vz_4t__table_crv_db1_pt" class="defaultstyle"><caption><span class="tablecap">Table 2. Dashboard items block</span></caption><colgroup><col style="width:26.666666666666668%"><col style="width:44.44444444444444%"><col style="width:28.888888888888893%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d10272e273" class="thleft">Name</th>
+
+<th id="d10272e276">Description</th>
+
+<th id="d10272e279">Value</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d10272e273 " class="tdleft"><code class="ph codeph">text</code></td>
+
+<td headers="d10272e276 ">The name of the dashboard item that is displayed.</td>
+
+<td headers="d10272e279 ">QDashBoardExample Item</td>
+
+</tr>
+
+<tr>
+<td headers="d10272e273 " class="tdleft"><code class="ph codeph">description</code></td>
+
+<td headers="d10272e276 ">A description of the dashboard item that is displayed when your mouse hovers over the
+dashboard item.</td>
+
+<td headers="d10272e279 ">Sample dashboard item that is a copy of most recent offenses</td>
+
+</tr>
+
+<tr>
+<td headers="d10272e273 " class="tdleft"><code class="ph codeph">rest_method</code></td>
+
+<td headers="d10272e276 ">The name of the REST method to load this item. This method must be declared in the
+<code class="ph codeph">rest_methods</code> section of the manifest.</td>
+
+<td headers="d10272e279 ">sampleDashboardItem</td>
+
+</tr>
+
+<tr>
+<td headers="d10272e273 " class="tdleft"><code class="ph codeph">required_capabilities</code></td>
+
+<td headers="d10272e276 ">Instructs <span class="ph">QRadar</span> to
+display the Dashboard Example dashboard item only to users who have administrator
+privileges.</td>
+
+<td headers="d10272e279 "><code class="ph codeph">["ADMIN"]</code></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The <code class="ph codeph">rest_methods</code> block contains the fields that are described in the following
+table:</p>
+
+
+<div class="tablenoborder"><table summary="" id="concept_ahn_3vz_4t__table_zkd_z11_pt" class="defaultstyle"><caption><span class="tablecap">Table 3. REST methods block</span></caption><colgroup><col style="width:26.666666666666668%"><col style="width:33.33333333333333%"><col style="width:40%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d10272e372" class="thleft">Name</th>
+
+<th id="d10272e375" class="thleft">Description</th>
+
+<th id="d10272e378" class="thleft">Value</th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d10272e372 " class="tdleft"><code class="ph codeph">name</code></td>
+
+<td headers="d10272e375 " class="tdleft">A unique name for this REST method within the app.</td>
+
+<td headers="d10272e378 " class="tdleft">sampleDashboardItem</td>
+
+</tr>
+
+<tr>
+<td headers="d10272e372 " class="tdleft"><code class="ph codeph">url</code></td>
+
+<td headers="d10272e375 " class="tdleft">The URL to access the REST method, relative to the application root. Only URLs within their
+own application are supported.</td>
+
+<td headers="d10272e378 " class="tdleft"><span class="ph filepath">/static/sampleDashboardItemResponse.json</span></td>
+
+</tr>
+
+<tr>
+<td headers="d10272e372 " class="tdleft"><code class="ph codeph">method</code></td>
+
+<td headers="d10272e375 " class="tdleft">Concise text to display that describes the area. Can optionally point at a resource bundle
+key, if the application is globalized.</td>
+
+<td headers="d10272e378 " class="tdleft">GET</td>
+
+</tr>
+
+<tr>
+<td headers="d10272e372 " class="tdleft"><code class="ph codeph">argument_names</code></td>
+
+<td headers="d10272e375 " class="tdleft">The names of arguments that this method supports. Arguments are passed to the method URL
+encoded, as either query string parameters or in the PUT/POST body.</td>
+
+<td headers="d10272e378 " class="tdleft">[]</td>
+
+</tr>
+
+<tr>
+<td headers="d10272e372 " class="tdleft"><code class="ph codeph">required_capabilities</code></td>
+
+<td headers="d10272e375 " class="tdleft">This field instructs <span class="ph">QRadar</span> to display the Dashboard
+Example dashboard item only to users with Administrator privileges.</td>
+
+<td headers="d10272e378 " class="tdleft"><code class="ph codeph">["ADMIN"]</code></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</section>
+
+<section class="section" role="region" aria-labelledby="d10272e462"><h2 class="sectiontitle" id="d10272e462"><span class="ph filepath">views.py</span></h2>
+
+<p>For this sample app, creates the default routes <code class="ph codeph">'/'</code> and
+<code class="ph codeph">'/index'</code>, both of which return a simple string. The index route is declared in the
+<span class="keyword parmname">url</span> field of <span class="ph filepath">manifest.json</span>.</p>
+
+<pre class="codeblock"><code>__author__ = 'IBM'
+
+from app import app
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return ""</code></pre>
+</section>
+
+<section class="section" role="region" aria-labelledby="d10272e488"><h2 class="sectiontitle" id="d10272e488"><span class="ph filepath">/app/static/sampleDashboardItemResponse.json</span></h2>
+
+<p>The <span class="ph filepath">/app/static/sampleDashboardItemResponse.json</span> file contains the following
+code:</p>
+
+<pre class="codeblock"><code>{"id":"sampleDashboardItem","title":"Sample Dashboard Item",
+          "HTML":"&lt;div&gt;This item could contain &lt;b&gt;&lt;u&gt;any HTML&lt;/u&gt;&lt;/b&gt;!&lt;/div&gt;"}</code></pre>
+<p>The JSON object that is returned needs the following data:</p>
+
+<ul>
+<li>An ID for the dashboard item you are creating</li>
+
+<li>A title for the dashboard item</li>
+
+<li>HTML to render the dashboard item</li>
+
+</ul>
+
+</section>
+
+</div>
+
+<aside role="complementary" aria-labelledby="d10272e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
+</div>
+</nav></aside></article></main></body></html>

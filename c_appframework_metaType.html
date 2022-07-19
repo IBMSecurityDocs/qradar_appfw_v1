@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+
+
+
+<meta name="description" content="Describes metadata providers that are used to show context-sensitive information in IBM QRadar.">
+
+<meta name="geo.country" content="ZZ">
+<script>
+    digitalData = {
+      page: {
+        pageInfo: {
+  language: "en-us",
+
+  version: "v18",
+  ibm: {
+  country: "ZZ",
+  type: "CT701"
+  
+         }
+       }
+     }
+   };
+  </script><!-- Licensed Materials - Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="ibmdita.css">
+<link rel="Start" href="c_appframework_appTypes.html">
+<title>Metadata providers type</title>
+</head>
+<body id="c_appframework_metaType"><main role="main"><article role="article" aria-labelledby="d2476e10">
+<h1 class="topictitle1" id="d2476e10">Metadata providers type</h1>
+
+
+<div class="body conbody"><p class="shortdesc">Describes metadata providers that are used to show context-sensitive information in <span class="ph">IBM®
+QRadar®</span>.</p>
+
+<p> Metadata is shown when the user's mouse pointer hovers over an item in <span class="ph">QRadar</span>. The contents of the
+metadata comes from the response of the REST method. The following code example shows the expected
+format of the response:</p>
+
+<pre class="codeblock"><code>{
+    key:"Unique key for this metadata item",
+    label:"Description of what this metadata is",
+    value:"Plain-text context-sensitive data to be provided",
+    html:"HTML context-sensitive data to be provided"
+}</code></pre>
+<p>The following table describes the <code class="ph codeph">metadata_providers</code> block fields in the
+<code class="ph codeph">manifest.json</code> file.</p>
+
+
+<div class="tablenoborder"><table summary="" id="c_appframework_metaType__table_wcw_25c_2s" class="defaultstyle"><caption><span class="tablecap">Table 1. <code class="ph codeph">Metadata_providers</code> block fields</span></caption><colgroup><col style="width:25%"><col style="width:12.5%"><col style="width:25%"><col style="width:37.5%"></colgroup><thead style="text-align:left;">
+<tr>
+<th id="d2476e65">Field </th>
+
+<th id="d2476e68"> Required </th>
+
+<th id="d2476e71"> Type </th>
+
+<th id="d2476e74"> Description </th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td headers="d2476e65 ">
+<span class="keyword parmname">rest_method</span>
+</td>
+
+<td headers="d2476e68 "> Yes </td>
+
+<td headers="d2476e71 "> String </td>
+
+<td headers="d2476e74 "> Name of the REST method that is used to fetch the metadata. Must be declared in the
+<code class="ph codeph">rest_methods</code> block of the manifest. Requires a <code class="ph codeph">context</code> argument
+that specifies the item to fetch metadata for. </td>
+
+</tr>
+
+<tr>
+<td headers="d2476e65 ">
+<span class="keyword parmname">metadata_type </span></td>
+
+<td headers="d2476e68 "> Yes </td>
+
+<td headers="d2476e71 "> String </td>
+
+<td headers="d2476e74 "> Type of metadata that can be fetched for. The following list provides the valid values for
+this field: <ul>
+<li><span class="ph uicontrol">ip</span>
+</li>
+
+<li><span class="ph uicontrol">userName</span> -</li>
+
+<li><span class="ph uicontrol">ariel:</span>&lt;<var class="keyword varname">FIELD_NAME</var>&gt;, where
+&lt;<var class="keyword varname">FIELD_NAME</var>&gt; is the name of a field in the <span class="ph">QRadar</span> Event or Flow viewer</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<p>The following code is a sample <code class="ph codeph">metadata_providers</code> block from the
+<span class="ph filepath">manifest.json</span> file:</p>
+
+<pre class="codeblock"><code>...
+
+"metadata_providers": [
+		{
+			"rest_method":"sampleIPInformation",
+			"metadata_type":"ip"
+		},
+		{
+			"rest_method":"sampleUserInformation",
+			"metadata_type":"userName"
+		},
+		{
+			"rest_method":"sampleURLInformation",
+			"metadata_type":"ariel:URL"
+		}
+	],
+
+...</code></pre>
+</div>
+
+<aside role="complementary" aria-labelledby="d2476e10"><nav role="navigation">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_appTypes.html" title="You can define several objects types in the IBM QRadar Application Framework manifest.">Manifest object types</a></div>
+</div>
+</nav></aside></article></main></body></html>
