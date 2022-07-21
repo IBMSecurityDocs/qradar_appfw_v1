@@ -1,5 +1,9 @@
 # Application Framework Development Guide
 
+*Note:* Use this documentation for maintaining apps built using CentOS, Python 2, and the QRadar App
+Framework version 1. For newer apps built using [Red Hat Universal Base Image](https://www.ibm.com/links?url=https%3A%2F%2Fwww.redhat.com%2Fen%2Fblog%2Fintroducing-red-hat-universal-base-image) (UBI) 8 and Python 3, see the
+[App Framework version 2 documentation](https://ibmsecuritydocs.github.io/qradar_appfw_v2/). IBM® X-Force® Exchange no longer accepts new apps using App Framework version 1.
+
 -   [QRadar app framework version 1](c_appfw_container.html)
     -   [What's new for the application framework in QRadar V.7.4.0](c_app_fw_whats_new.html)
     -   [QRadar apps](c_appframework_Extintro.html)
@@ -87,4 +91,5 @@
         -   [Custom AQL function utilities](c_appframework_AQLutilities.html)
     -   [Resources](c_appframework_devResources.html)
 
+[QRadar App Editor documentation](https://ibmsecuritydocs.github.io/qradar_app_editor/)
 
