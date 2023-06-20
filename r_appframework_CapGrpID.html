@@ -2,7 +2,7 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 
-<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2023">
 
 
 
@@ -32,8 +32,8 @@
 <link rel="Start" href="c_appfw_container.html">
 <title>Available user role capabilities</title>
 </head>
-<body id="r_appframework_CapGrpID"><main role="main"><article role="article" aria-labelledby="d953e10">
-<h1 class="topictitle1" id="d953e10">Available user role capabilities</h1>
+<body id="r_appframework_CapGrpID"><main role="main"><article role="article" aria-labelledby="r_appframework_CapGrpID__title__1">
+<h1 class="topictitle1" id="r_appframework_CapGrpID__title__1">Available user role capabilities</h1><div style="padding: .5em" class="edit-source-topic"><span class="edit-source-topic" style="font-size: 12px; vertical-align: middle"><a target="_blank" title="/r_appframework_CapGrpID.dita" href="https://oxygen.cnvdal.apps.cirrus.ibm.com/oxygenxml-web-author/app/oxygen.html?url=gitgh%3A%2F%2Fhttps%253A%252F%252Fgithub.ibm.com%252FQRadarIDD%252FApp_framework_v1%2Fmaster%2Fr_appframework_CapGrpID.dita">Edit online</a></span></div>
 
 
 <div class="body refbody"><p class="shortdesc">Capabilities are sets of permissions that are tied to user roles that are defined in the
@@ -42,270 +42,290 @@ QRadar®</span>
 <span class="ph uicontrol">Admin</span> tab.</p>
 
 <div class="section">
-<p>The following table lists the capabilities that are supported by the <span class="ph">QRadar</span> GUI Application Framework.
-Use the values in the <span class="ph uicontrol">Capability</span> column to define the user privileges for
-your app in the <code class="ph codeph">required_capabilities</code> field of the object type block in your
-application’s <span class="ph filepath">manifest.json</span> file.</p>
+<p>The following table lists the capabilities that are supported by the <span class="ph">QRadar</span> GUI Application
+Framework. Use the values in the <span class="ph uicontrol">Capability</span> column to define the user
+privileges for your app in the <code class="ph codeph">required_capabilities</code> field of the object type block
+in your application’s <span class="ph filepath">manifest.json</span> file.</p>
 
 <p>The following table describes supported user role capabilities.</p>
 
 
 <div class="tablenoborder"><table summary="" id="r_appframework_CapGrpID__table_ayp_m5v_kt" class="defaultstyle"><caption><span class="tablecap">Table 1. Supported user role capabilities</span></caption><colgroup><col style="width:54.54545454545454%"><col style="width:45.45454545454545%"></colgroup><thead style="text-align:left;">
 <tr>
-<th id="d953e64"> Capability </th>
+<th id="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1"> Capability </th>
 
-<th id="d953e67"> Description</th>
+<th id="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2"> Description</th>
 
 </tr>
 
 </thead>
 <tbody>
 <tr>
-<td headers="d953e64 "> ADMIN </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> ADMIN </td>
 
-<td headers="d953e67 "> System administrator. Grants permission to access all areas of the user interface. Users who
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> System administrator. Grants permission to access all areas of the user interface. Users who
 have this access cannot edit other administrator accounts.</td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> VIEWADMIN </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> VIEWADMIN </td>
 
-<td headers="d953e67 "> Remote networks and services configuration. Grants permission to configure remote networks
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Remote networks and services configuration. Grants permission to configure remote networks
 and services on the Admin tab. </td>
 
 </tr>
 
 
 <tr>
-<td headers="d953e64 "> SEM </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SEM </td>
 
-<td headers="d953e67 "> Offense management </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> SEM.VIEWRULES </td>
-
-<td headers="d953e67 "> View custom rules </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Offense management </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> SEM.RULECREATION </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SEM.VIEWRULES </td>
 
-<td headers="d953e67 "> Maintain custom rules </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> SEM.ASSIGNOFFENSE </td>
-
-<td headers="d953e67 "> Assign offenses to users </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> View custom rules </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> SEM.MANAGECLOSINGREASONS </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SEM.RULECREATION </td>
 
-<td headers="d953e67 "> Close offenses, manage offense closing reasons </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> EventViewer </td>
-
-<td headers="d953e67 "> Event viewer </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Maintain custom rules </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> EventViewer.VIEWRULES </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SEM.ASSIGNOFFENSE </td>
 
-<td headers="d953e67 "> View custom rules </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> EventViewer.RULECREATION </td>
-
-<td headers="d953e67 "> Maintain custom rules </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Assign offenses to users </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> EventViewer.CUSTOMARIELPROPERTY </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SEM.MANAGECLOSINGREASONS </td>
 
-<td headers="d953e67 "> User-defined event properties </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> EventViewer.MANAGETIMESERIES </td>
-
-<td headers="d953e67 "> Manage time series </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Close offenses, manage offense closing reasons </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> ASSETS </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> EventViewer </td>
 
-<td headers="d953e67 "> Asset management </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> ASSETS.VADATA </td>
-
-<td headers="d953e67 "> View VA data </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Event viewer </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> ASSETS.VASCAN </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> EventViewer.VIEWRULES </td>
 
-<td headers="d953e67 "> Perform VA scans </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> ASSETS.SERVERDISCOVERY </td>
-
-<td headers="d953e67 "> Server discovery </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> View custom rules </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> ASSETS.REMOVEVULNS </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> EventViewer.RULECREATION </td>
 
-<td headers="d953e67 "> Remove vulnerabilities </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> SURVEILLANCE </td>
-
-<td headers="d953e67 "> Network Surveillance </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Maintain custom rules </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> SURVEILLANCE.VIEWRULES </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> EventViewer.CUSTOMARIELPROPERTY </td>
 
-<td headers="d953e67 "> View custom rules </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> SURVEILLANCE.DATAMINECONTENT </td>
-
-<td headers="d953e67 "> View flow content </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> User-defined event properties </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> SURVEILLANCE.CUSTOMFLOWPROPERTY </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> EventViewer.MANAGETIMESERIES </td>
 
-<td headers="d953e67 "> User-defined flow properties </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> SURVEILLANCE.MANAGETIMESERIES </td>
-
-<td headers="d953e67 "> Manage time series </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Manage time series </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> SURVEILLANCE.RULECREATION </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> ASSETS </td>
 
-<td headers="d953e67 "> Maintain custom rules </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> REPORTING </td>
-
-<td headers="d953e67 "> Reporting </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Asset management </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> REPORTING.MAINTAINTEMPLATES </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> ASSETS.VADATA </td>
 
-<td headers="d953e67 "> Maintain templates </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> REPORTING.DISTRIBUTE </td>
-
-<td headers="d953e67 "> Distribute reports via email </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> View VA data </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> FORENSICS </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> ASSETS.VASCAN </td>
 
-<td headers="d953e67 "> Incident Forensics </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> FORENSICS.CASECREATION </td>
-
-<td headers="d953e67 "> Create cases in Incident Forensics </td>
-
-</tr>
-
-
-<tr>
-<td headers="d953e64 ">QRM</td>
-
-<td headers="d953e67 "> QRM permission </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Perform VA scans </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 ">QVM </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> ASSETS.SERVERDISCOVERY </td>
 
-<td headers="d953e67 "> QVM permissions </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> QVM.ASSIGNASSETOWNER </td>
-
-<td headers="d953e67 "> Assign asset owner </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Server discovery </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> QVM.VULNERABILITY </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> ASSETS.REMOVEVULNS </td>
 
-<td headers="d953e67 "> Assign vulnerability permissions </td>
-
-</tr>
-
-<tr>
-<td headers="d953e64 "> QVM.EXCEPTION </td>
-
-<td headers="d953e67 "> Exception vulnerability permissions </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Remove vulnerabilities </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> QVM.SCANPOLICY </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SURVEILLANCE </td>
 
-<td headers="d953e67 "> Scan policy permissions </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Network Surveillance </td>
 
 </tr>
 
 <tr>
-<td headers="d953e64 "> QVM.SCANPROFILE </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SURVEILLANCE.VIEWRULES </td>
 
-<td headers="d953e67 "> Scan profile permissions </td>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> View custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SURVEILLANCE.DATAMINECONTENT </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> View flow content </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SURVEILLANCE.CUSTOMFLOWPROPERTY </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> User-defined flow properties </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SURVEILLANCE.MANAGETIMESERIES </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Manage time series </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> SURVEILLANCE.RULECREATION </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Maintain custom rules </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> REPORTING </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Reporting </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> REPORTING.MAINTAINTEMPLATES </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Maintain templates </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> REPORTING.DISTRIBUTE </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Distribute reports via email </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> FORENSICS </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Incident Forensics </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> FORENSICS.CASECREATION </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Create cases in Incident Forensics </td>
+
+</tr>
+
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 ">QRM</td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> QRM permission </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 ">QVM </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> QVM permissions </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> QVM.ASSIGNASSETOWNER </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Assign asset owner </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> QVM.VULNERABILITY </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Assign vulnerability permissions </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 "> QVM.EXCEPTION </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Exception vulnerability permissions </td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 ">
+QVM.SCANPOLICY </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Scan policy permissions <div class="p">
+<div class="note important"><span class="importanttitle">Important:</span> <span class="ph"><span class="ph" id="r_appframework_CapGrpID__d13e181">The <span class="ph">IBM
+QRadar Vulnerability Manager</span> scanner
+is end of life (EOL) in 7.5.0 Update Package 6, and is no longer supported in any version of <span class="ph">IBM
+QRadar</span>. For more information,
+see <a href="https://www.ibm.com/support/pages/node/6853425" rel="noopener" target="_blank" title="(Opens in a new tab or window)">QRadar Vulnerability Manager: End of service product notification</a>
+(https://www.ibm.com/support/pages/node/6853425).</span></span></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__1 ">
+QVM.SCANPROFILE </td>
+
+<td headers="r_appframework_CapGrpID__table_ayp_m5v_kt__entry__2 "> Scan profile permissions <div class="p">
+<div class="note important"><span class="importanttitle">Important:</span> <span class="ph"><span class="ph" id="r_appframework_CapGrpID__d13e181-d18e422">The <span class="ph">IBM
+QRadar Vulnerability Manager</span> scanner
+is end of life (EOL) in 7.5.0 Update Package 6, and is no longer supported in any version of <span class="ph">IBM
+QRadar</span>. For more information,
+see <a href="https://www.ibm.com/support/pages/node/6853425" rel="noopener" target="_blank" title="(Opens in a new tab or window)">QRadar Vulnerability Manager: End of service product notification</a>
+(https://www.ibm.com/support/pages/node/6853425).</span></span></div>
+
+</div>
+</td>
 
 </tr>
 
@@ -320,8 +340,8 @@ QRadar Administration Guide</cite>.</p>
 
 </div>
 
-<aside role="complementary" aria-labelledby="d953e10"><nav role="navigation">
+<aside role="complementary" aria-labelledby="r_appframework_CapGrpID__title__1"><nav role="navigation">
 <div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="QRadar GUI application framework apps are stand-alone web applications that run on the Flask micro-framework, and are served from the Flask web server.">Developing with the QRadar app framework</a></div>
+<div class="parentlink"><strong>Parent topic:</strong> <a href="c_appfw_container.html" title="The QRadar app framework v1 documentation is now on GitHub.">Developing with the QRadar app framework</a></div>
 </div>
 </nav></aside></article></main></body></html>
