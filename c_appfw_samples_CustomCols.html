@@ -2,7 +2,7 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 
-<meta name="dcterms.rights" content="© Copyright IBM Corporation 2022">
+<meta name="dcterms.rights" content="© Copyright IBM Corporation 2023">
 
 
 
@@ -32,8 +32,8 @@
 <link rel="Start" href="c_appframework_samples_intro.html">
 <title>Custom column example</title>
 </head>
-<body id="c_appfw_samples_CustomCols"><main role="main"><article role="article" aria-labelledby="d11609e10">
-<h1 class="topictitle1" id="d11609e10">Custom column example</h1>
+<body id="c_appfw_samples_CustomCols"><main role="main"><article role="article" aria-labelledby="c_appfw_samples_CustomCols__title__1">
+<h1 class="topictitle1" id="c_appfw_samples_CustomCols__title__1">Custom column example</h1><div style="padding: .5em" class="edit-source-topic"><span class="edit-source-topic" style="font-size: 12px; vertical-align: middle"><a target="_blank" title="/c_appfw_samples_CustomCols.dita" href="https://oxygen.cnvdal.apps.cirrus.ibm.com/oxygenxml-web-author/app/oxygen.html?url=gitgh%3A%2F%2Fhttps%253A%252F%252Fgithub.ibm.com%252FQRadarIDD%252FApp_framework_v1%2Fmaster%2Fc_appfw_samples_CustomCols.dita">Edit online</a></span></div>
 
 
 <div class="body conbody"><p class="shortdesc">You can add columns that contain custom content to tables in  <span class="ph">QRadar®</span>.</p>
@@ -53,7 +53,7 @@ JavaScript. </p>
 <p>The following <span class="ph filepath">manifest.json</span> file example shows details of a
 <span class="keyword parmname">custom_columns</span> block.</p>
 
-<section class="section" role="region" aria-labelledby="d11609e56"><h2 class="sectiontitle" id="d11609e56"><span class="ph filepath">manifest.json</span></h2><p>Use the
+<section class="section" role="region" aria-labelledby="c_appfw_samples_CustomCols__title__3"><h2 class="sectiontitle" id="c_appfw_samples_CustomCols__title__3"><span class="ph filepath">manifest.json</span></h2><p>Use the
 <span class="keyword parmname">custom_columns</span> block in the app's <span class="ph filepath">manifest.json</span> file to
 define the injection point, column header, and rest endpoint that are used to retrieve content in
 JSON format for the new column.</p>
@@ -99,7 +99,7 @@ In this case, it is the <span class="keyword wintitle">All Offenses</span> page.
 </ol>
 </section>
 
-<section class="section" role="region" aria-labelledby="d11609e119"><h2 class="sectiontitle" id="d11609e119"><span class="ph filepath">app/views.py</span></h2><p></p>
+<section class="section" role="region" aria-labelledby="c_appfw_samples_CustomCols__title__4"><h2 class="sectiontitle" id="c_appfw_samples_CustomCols__title__4"><span class="ph filepath">app/views.py</span></h2><p></p>
 <pre class="codeblock"><code>__author__ = 'IBM'
 
 from flask import Response
@@ -131,7 +131,7 @@ context information. In this case, the context information is the offense ID.</l
 </ol>
 </section>
 
-<section class="section" role="region" aria-labelledby="d11609e167"><h2 class="sectiontitle" id="d11609e167"><span class="ph filepath">static/qjslib/custom_offense.js</span></h2>
+<section class="section" role="region" aria-labelledby="c_appfw_samples_CustomCols__title__5"><h2 class="sectiontitle" id="c_appfw_samples_CustomCols__title__5"><span class="ph filepath">static/qjslib/custom_offense.js</span></h2>
 
 <p>The <span class="ph filepath">static/qjslib/custom_offense.js</span> script renders the JSON content for the
 Offense ID and its source IP address. </p>
@@ -152,7 +152,7 @@ function renderOffense(json)
 
 </div>
 
-<aside role="complementary" aria-labelledby="d11609e10"><nav role="navigation">
+<aside role="complementary" aria-labelledby="c_appfw_samples_CustomCols__title__1"><nav role="navigation">
 <div class="familylinks">
 <div class="parentlink"><strong>Parent topic:</strong> <a href="c_appframework_samples_intro.html" title="Build apps in Python that integrate with, and add extra functions to, QRadar.">Sample apps</a></div>
 </div>
